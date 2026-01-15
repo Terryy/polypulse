@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- CONFIGURATION ---
 MIN_USD_THRESHOLD = 5000  # Only save trades larger than $5,000
-OUTPUT_FILE = "public/data/whales.json"
+OUTPUT_FILE = "data/whales.json"
 
 # Polymarket APIs
 CLOB_URL = "https://data-api.polymarket.com/trades"
