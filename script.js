@@ -57,9 +57,9 @@ function renderCards(whales) {
         // --- HIERARCHY & HIGHLIGHT LOGIC ---
         let levelColor = 'slate'; 
         let textHighlightClass = ''; 
-        let iconSizeClass = 'text-2xl'; // Default icon size
+        let iconSizeClass = 'text-2xl'; // Default size
         
-        // Normalize Level Name (Map old names to new display if needed)
+        // Normalize Level Name
         let displayLevel = whale.level || 'MINNOW';
         if (displayLevel === 'LEVIATHAN' || displayLevel === 'MEGALODON') displayLevel = 'BLUE WHALE';
 
@@ -73,14 +73,14 @@ function renderCards(whales) {
         }
         // 3. WHALE (Standard)
         else if (displayLevel === 'WHALE') {
-            levelColor = 'rose'; 
-            textHighlightClass = 'effect-whale text-rose-500'; // Standard Flash
+            levelColor = 'red'; // Changed to RED for sharpness
+            textHighlightClass = 'effect-whale text-red-500'; 
         }
         // 4. BLUE WHALE (Boss Tier)
         else if (displayLevel === 'BLUE WHALE') {
-            levelColor = 'violet'; 
-            textHighlightClass = 'effect-megalodon text-violet-400'; // Fast Intense Flash
-            iconSizeClass = 'text-4xl'; // <--- MAKE ICON BIGGER
+            levelColor = 'fuchsia'; // Changed to FUCHSIA/PURPLE for sharpness
+            textHighlightClass = 'effect-megalodon text-fuchsia-500'; 
+            iconSizeClass = 'text-4xl'; // Big Icon
         }
 
         const timeString = formatSmartDate(whale.time);
