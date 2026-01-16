@@ -13,7 +13,7 @@ function getWhaleTier(amountUSD) {
     if (amountUSD >= TIERS.WHALE.threshold)      return TIERS.WHALE;
     if (amountUSD >= TIERS.SHARK.threshold)      return TIERS.SHARK;
     if (amountUSD >= TIERS.DOLPHIN.threshold)    return TIERS.DOLPHIN;
-    return null; // Return null if too small
+    return null; 
 }
 
 async function fetchWhales() {
@@ -40,12 +40,17 @@ async function fetchWhales() {
         significantTrades.forEach(trade => {
             const amountVal = parseFloat(trade.amountUSD);
             const amountStr = amountVal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-            const timeStr = new Date(trade.timestamp * 1000).toLocaleString(); // Full Date & Time
+            const timeStr = new Date(trade.timestamp * 1000).toLocaleString(); 
             
+            // USER LINK LOGIC
+            const userId = trade.user ? trade.user.id : "0x0000000000000000000000000000000000000000";
+            const shortUser = `${userId.substring(0, 4)}...${userId.substring(userId.length - 4)}`;
+            const profileUrl = `https://polymarket.com/profile/${userId}`;
+
             const tier = getWhaleTier(Math.abs(amountVal));
             if (!tier) return; 
 
-            // Logic: 0 = YES, 1 = NO
+            // Side Logic
             let sideText = "UNKNOWN";
             let badgeClass = "bg-gray-100 text-gray-600";
 
@@ -60,10 +65,14 @@ async function fetchWhales() {
             const card = document.createElement('div');
             card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow animate-fade-in";
             
-            // Layout: Time at the top
             card.innerHTML = `
-                <div class="text-[10px] text-gray-400 font-mono mb-2 uppercase tracking-wide border-b border-gray-50 pb-1">
-                    ${timeStr}
+                <div class="flex justify-between items-center mb-2 border-b border-gray-50 pb-1">
+                    <div class="text-[10px] text-gray-400 font-mono uppercase tracking-wide">
+                        ${timeStr}
+                    </div>
+                    <a href="${profileUrl}" target="_blank" class="text-[10px] text-blue-400 hover:text-blue-600 font-mono flex items-center transition-colors">
+                        👤 ${shortUser} ↗
+                    </a>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
