@@ -1,142 +1,84 @@
-/* --- SHARED UTILITY FUNCTIONS --- */
+const WHALE_DATA_URL = 'data/whales.json';
 
-function toggleText() {
-    const moreText = document.getElementById("more-text");
-    const btn = document.getElementById("toggle-btn");
-    if (moreText.classList.contains("hidden")) {
-        moreText.classList.remove("hidden");
-        btn.innerText = "Show less";
-    } else {
-        moreText.classList.add("hidden");
-        btn.innerText = "Show more";
-    }
+// --- CONFIGURATION: TIER DEFINITIONS ---
+const TIERS = {
+    BLUE_WHALE: { threshold: 50000, emoji: '🐋', name: 'BLUE WHALE', class: 'text-blue-600 bg-blue-100' },
+    WHALE:      { threshold: 10000, emoji: '🐳', name: 'WHALE',      class: 'text-sky-500 bg-sky-50' },
+    SHARK:      { threshold: 5000,  emoji: '🦈', name: 'SHARK',      class: 'text-teal-500 bg-teal-50' },
+    DOLPHIN:    { threshold: 1000,  emoji: '🐬', name: 'DOLPHIN',    class: 'text-cyan-500 bg-cyan-50' },
+    MINNOW:     { threshold: 0,     emoji: '🐟', name: 'MINNOW',     class: 'text-gray-400 bg-gray-50' }
+};
+
+function getWhaleTier(amountUSD) {
+    if (amountUSD >= TIERS.BLUE_WHALE.threshold) return TIERS.BLUE_WHALE;
+    if (amountUSD >= TIERS.WHALE.threshold)      return TIERS.WHALE;
+    if (amountUSD >= TIERS.SHARK.threshold)      return TIERS.SHARK;
+    if (amountUSD >= TIERS.DOLPHIN.threshold)    return TIERS.DOLPHIN;
+    return TIERS.MINNOW;
 }
 
-function formatSmartDate(timestamp) {
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-}
-
-function showEmptyState() {
-    document.getElementById('dashboard-grid').innerHTML = `
-        <div class="col-span-full text-center py-12 bg-slate-900/30 border border-slate-800/50 rounded-xl border-dashed">
-            <p class="text-slate-400 font-bold">Ocean is Quiet</p>
-            <p class="text-xs text-slate-600 mt-1">No trades found above the current threshold.</p>
-        </div>`;
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}
-
-async function loadData(url) {
+async function fetchWhales() {
+    const container = document.getElementById('whale-container');
+    const status = document.getElementById('status-indicator');
+    
     try {
-        const response = await fetch(`${url}?t=${new Date().getTime()}`);
-        if (!response.ok) throw new Error("Data missing");
-        const data = await response.json();
+        const response = await fetch(WHALE_DATA_URL);
+        if (!response.ok) throw new Error("Data file not found");
         
-        if (data.length === 0) showEmptyState();
-        else renderCards(data);
+        const trades = await response.json();
         
-        document.getElementById('last-updated').innerText = `Updated: ${new Date().toLocaleTimeString()}`;
+        // Clear "Scanning..." message
+        container.innerHTML = '';
+        status.innerHTML = '<span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span> System Online';
+
+        if (trades.length === 0) {
+            container.innerHTML = '<div class="text-center text-gray-500 py-10">No whales detected in the last cycle. Ocean is quiet. 🌊</div>';
+            return;
+        }
+
+        trades.forEach(trade => {
+            const amount = parseFloat(trade.amountUSD).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+            const tier = getWhaleTier(parseFloat(trade.amountUSD));
+            
+            // Determine Sentiment (Bullish/Bearish)
+            const isBuy = trade.amount > 0; // Simplified logic, assumes positive amount is buy
+            // You can refine "side" logic if your API provides it explicitly
+            
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex items-center justify-between animate-fade-in";
+            
+            card.innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <div class="text-4xl" title="${tier.name}">${tier.emoji}</div>
+                    <div>
+                        <div class="text-sm font-bold text-gray-900">${trade.market.question}</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            <span class="${tier.class} px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider border border-current opacity-80">${tier.name}</span>
+                            <span class="mx-1">•</span>
+                            ${new Date(trade.timestamp * 1000).toLocaleTimeString()}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-lg font-black text-gray-800">${amount}</div>
+                    <div class="text-xs font-medium ${isBuy ? 'text-green-500' : 'text-red-500'} uppercase tracking-wide">
+                        ${isBuy ? 'Accumulating' : 'Dumping'}
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
     } catch (error) {
         console.error(error);
-        showEmptyState();
+        status.innerHTML = '<span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span> Offline';
+        container.innerHTML = `<div class="text-center text-red-400 py-10">
+            Unable to read whale data. <br>
+            <span class="text-sm text-gray-400">Make sure backend/main.py has run successfully.</span>
+        </div>`;
     }
 }
 
-// --- CORE RENDERING LOGIC ---
-function renderCards(whales) {
-    const container = document.getElementById('dashboard-grid');
-    container.innerHTML = ''; 
-    whales.sort((a, b) => b.time - a.time);
-
-    whales.forEach(whale => {
-        const isYes = whale.outcome === 0;
-        const isBuy = whale.side === 'BUY';
-        const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
-        const color = isBullish ? 'emerald' : 'rose';
-
-        // --- HIERARCHY & HIGHLIGHT LOGIC ---
-        let levelColor = 'slate'; 
-        let textHighlightClass = ''; 
-        let iconSizeClass = 'text-2xl'; // Default size
-        
-        // Normalize Level Name
-        let displayLevel = whale.level || 'MINNOW';
-        if (displayLevel === 'LEVIATHAN' || displayLevel === 'MEGALODON') displayLevel = 'BLUE WHALE';
-
-        // 1. DOLPHIN
-        if (displayLevel === 'DOLPHIN') {
-            levelColor = 'blue'; 
-        }
-        // 2. SHARK
-        else if (displayLevel === 'SHARK') {
-            levelColor = 'cyan';
-        }
-        // 3. WHALE (Standard)
-        else if (displayLevel === 'WHALE') {
-            levelColor = 'red'; // Changed to RED for sharpness
-            textHighlightClass = 'effect-whale text-red-500'; 
-        }
-        // 4. BLUE WHALE (Boss Tier)
-        else if (displayLevel === 'BLUE WHALE') {
-            levelColor = 'fuchsia'; // Changed to FUCHSIA/PURPLE for sharpness
-            textHighlightClass = 'effect-megalodon text-fuchsia-500'; 
-            iconSizeClass = 'text-4xl'; // Big Icon
-        }
-
-        const timeString = formatSmartDate(whale.time);
-
-        container.innerHTML += `
-            <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start mb-4 gap-2">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 ${iconSizeClass}">
-                                ${whale.icon}
-                            </div>
-                            <div class="min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-[10px] tracking-wider uppercase px-2 py-0.5 rounded bg-${levelColor}-500/10 border border-${levelColor}-500/20 ${textHighlightClass ? textHighlightClass : `text-${levelColor}-400 font-bold`}">
-                                        ${displayLevel}
-                                    </span>
-                                    <span class="text-xs text-slate-500 font-mono">${timeString}</span>
-                                </div>
-                                <h3 class="font-bold text-slate-100 text-sm leading-tight truncate" title="${whale.question}">
-                                    ${whale.question}
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 mb-4">
-                        <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
-                            <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Size (USD)</p>
-                            <p class="text-lg font-mono font-bold text-white">$${whale.size_usd.toLocaleString()}</p>
-                        </div>
-                        <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-8 h-8 bg-${color}-500/20 blur-xl rounded-full -mr-4 -mt-4"></div>
-                            <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Position</p>
-                            <div class="flex items-center gap-1">
-                                <span class="text-sm font-bold text-${color}-400">
-                                    ${isBullish ? 'BULLISH' : 'BEARISH'}
-                                </span>
-                                <span class="text-xs text-slate-600">(${(whale.price * 100).toFixed(0)}¢)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-2 pt-3 border-t border-slate-800/50">
-                    <i data-lucide="wallet" class="w-3 h-3 text-slate-500"></i>
-                    <span class="text-xs font-mono text-slate-400 truncate w-full" title="${whale.maker_address}">
-                        ${whale.maker_address}
-                    </span>
-                    <a href="https://polymarket.com/profile/${whale.maker_address}" target="_blank" class="text-[10px] text-indigo-400 hover:text-indigo-300 hover:underline shrink-0">
-                        Trace
-                    </a>
-                </div>
-            </div>
-        `;
-    });
-    
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}
+// Auto-refresh every 30 seconds
+fetchWhales();
+setInterval(fetchWhales, 30000);
