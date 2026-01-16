@@ -4,99 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PolyPulse | Whale Watcher</title>
-    
-    <link rel="stylesheet" href="style.css">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-                    colors: { bull: '#10b981', bear: '#f43f5e' }
-                }
-            }
-        }
-    </script>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
 </head>
-<body class="text-slate-200 p-4 md:p-8">
+<body class="bg-slate-50 min-h-screen font-sans">
 
-    <div class="max-w-6xl mx-auto w-full flex-grow">
-        <header class="mb-10 border-b border-slate-800 pb-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                <div>
-                    <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2">
-                        PolyPulse
-                    </h1>
-                    <p class="text-slate-400 text-sm font-medium mb-3">Real-time Whale Detection System</p>
-                    <div class="flex items-center gap-2">
-                         <span class="flex items-center gap-2 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[10px] font-bold text-emerald-400 tracking-wider uppercase">
-                            <span class="relative flex h-1.5 w-1.5">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                            </span>
-                            System Online
-                        </span>
-                        <span class="text-slate-500 text-xs font-mono" id="last-updated">Connecting...</span>
-                    </div>
-                </div>
-                <a href="https://github.com/Terryy/polypulse" target="_blank" class="p-2 hover:bg-slate-800 rounded-lg transition-colors border border-transparent hover:border-slate-700">
-                    <i data-lucide="github" class="w-6 h-6 text-slate-400"></i>
-                </a>
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🐋</span>
+                <h1 class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</h1>
             </div>
-
-            <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 max-w-3xl">
-                <div class="flex gap-3">
-                    <div class="shrink-0 mt-1">
-                        <i data-lucide="radar" class="w-5 h-5 text-indigo-400"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-bold text-slate-200 mb-1">Market Surveillance Active</h2>
-                        <p class="text-sm text-slate-400 leading-relaxed">
-                            We monitor the Polymarket ecosystem 24/7.
-                            <span id="more-text" class="hidden">
-                                By tracking Minnow, Dolphin, Shark, Whale, and <strong class="text-violet-400">Blue Whale</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
-                            </span>
-                            <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
-                                Show more
-                            </button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <div class="col-span-full text-center py-20">
-                <div class="inline-block animate-spin text-indigo-500 mb-4">
-                    <i data-lucide="loader-2" class="w-8 h-8"></i>
-                </div>
-                <p class="text-slate-500">Scanning the blockchain...</p>
+            <div id="status-indicator" class="flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                <span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
+                Initializing...
             </div>
         </div>
-    </div>
+    </header>
 
-    <footer class="border-t border-slate-800/50 mt-auto pt-8 pb-4">
-        <div class="max-w-6xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <h3 class="font-bold text-slate-200 text-lg mb-1">PolyPulse</h3>
-                <p class="text-slate-500 text-xs">Open Source Whale Intelligence.</p>
-                <p class="text-slate-600 text-[10px] mt-2">© 2026 PolyPulse Project</p>
-            </div>
-            <div class="max-w-md text-center md:text-right">
-                <p class="text-[10px] text-slate-500 leading-relaxed">
-                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only. DYOR.
-                </p>
+    <main class="max-w-3xl mx-auto px-4 py-8">
+        
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Market Surveillance Active</h2>
+            <div class="grid grid-cols-2 gap-4 text-xs sm:grid-cols-5 text-center">
+                <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
+                    <div class="text-xl">🐋</div>
+                    <div class="font-bold text-blue-800 mt-1">Blue Whale</div>
+                    <div class="text-blue-400">>$50k</div>
+                </div>
+                <div class="p-2 bg-sky-50 rounded-lg border border-sky-100">
+                    <div class="text-xl">🐳</div>
+                    <div class="font-bold text-sky-800 mt-1">Whale</div>
+                    <div class="text-sky-400">$10k-$50k</div>
+                </div>
+                <div class="p-2 bg-teal-50 rounded-lg border border-teal-100">
+                    <div class="text-xl">🦈</div>
+                    <div class="font-bold text-teal-800 mt-1">Shark</div>
+                    <div class="text-teal-400">$5k-$10k</div>
+                </div>
+                <div class="p-2 bg-cyan-50 rounded-lg border border-cyan-100">
+                    <div class="text-xl">🐬</div>
+                    <div class="font-bold text-cyan-800 mt-1">Dolphin</div>
+                    <div class="text-cyan-400">$1k-$5k</div>
+                </div>
+                <div class="p-2 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="text-xl">🐟</div>
+                    <div class="font-bold text-gray-800 mt-1">Minnow</div>
+                    <div class="text-gray-400"><$1k</div>
+                </div>
             </div>
         </div>
+
+        <div id="whale-container" class="space-y-4">
+            <div class="animate-pulse space-y-4">
+                <div class="h-24 bg-gray-200 rounded-xl"></div>
+                <div class="h-24 bg-gray-200 rounded-xl"></div>
+                <div class="h-24 bg-gray-200 rounded-xl"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center text-gray-400 text-xs py-8">
+        <p>© 2026 PolyPulse Project. Open Source.</p>
+        <p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        loadData('data/whales.json');
-    </script>
 </body>
 </html>
