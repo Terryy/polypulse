@@ -4,7 +4,7 @@
 
 PolyPulse is an automated market surveillance tool that monitors the Polymarket ecosystem 24/7. It detects sudden capital inflows ("Whales") and visualizes them in a live dashboard, helping traders spot smart money movements and potential insider activity before the wider market reacts.
 
-**[🔴 Live Dashboard Link](https://terryy.github.io/polypulse/)** *(Replace with your actual link)*
+**[🔴 Live Dashboard Link](https://terryy.github.io/polypulse/)** 
 
 ---
 
