@@ -22,6 +22,20 @@
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         body { background-color: #020617; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* --- NEW ANIMATIONS --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        /* Apply to WHALE */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        /* Apply to LEVIATHAN */
+        .animate-breathe { animation: breathe 4s ease-in-out infinite; }
     </style>
 </head>
 <body class="text-slate-200 p-4 md:p-8 border-t-4 border-indigo-500">
@@ -29,7 +43,7 @@
     <div class="max-w-6xl mx-auto w-full flex-grow">
         
         <div class="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-2 rounded-lg mb-8 text-center text-sm font-bold">
-            🧪 DEMO MODE: Displaying simulated data to visualize all Whale Tiers.
+            🧪 DEMO MODE: Displaying simulated data. Notice the animated icons for high tiers.
         </div>
 
         <header class="mb-10 border-b border-slate-800 pb-8">
@@ -85,70 +99,52 @@
         // --- 🧪 HARDCODED DEMO DATA ---
         const MOCK_DATA = [
             {
-                "time": Date.now() / 1000 - 120, // 2 mins ago
+                "time": Date.now() / 1000 - 120,
                 "question": "Will Trump be inaugurated on Jan 20?",
-                "outcome": 0, // YES
-                "side": "BUY",
-                "size_usd": 152000.50,
-                "price": 0.92,
+                "outcome": 0, "side": "BUY",
+                "size_usd": 152000.50, "price": 0.92,
                 "maker_address": "0x7a2...8b1",
-                "level": "LEVIATHAN",
-                "icon": "🦖"
+                "level": "LEVIATHAN", "icon": "🦖"
             },
             {
-                "time": Date.now() / 1000 - 600, // 10 mins ago
+                "time": Date.now() / 1000 - 600,
                 "question": "Fed Interest Rate Cut in March 2026?",
-                "outcome": 1, // NO
-                "side": "SELL", // Selling NO = Bullish on YES
-                "size_usd": 45000.00,
-                "price": 0.35,
+                "outcome": 1, "side": "SELL",
+                "size_usd": 45000.00, "price": 0.35,
                 "maker_address": "0x3c4...d99",
-                "level": "WHALE",
-                "icon": "🐋"
+                "level": "WHALE", "icon": "🐋"
             },
             {
-                "time": Date.now() / 1000 - 3600, // 1 hour ago
+                "time": Date.now() / 1000 - 3600,
                 "question": "Bitcoin > $100k by end of 2026?",
-                "outcome": 1, // NO
-                "side": "BUY", // Buying NO = Bearish
-                "size_usd": 8500.00,
-                "price": 0.42,
+                "outcome": 1, "side": "BUY",
+                "size_usd": 8500.00, "price": 0.42,
                 "maker_address": "0x1a1...f02",
-                "level": "SHARK",
-                "icon": "🦈"
+                "level": "SHARK", "icon": "🦈"
             },
             {
-                "time": Date.now() / 1000 - 7200, // 2 hours ago
+                "time": Date.now() / 1000 - 7200,
                 "question": "Will GPT-5 release before Q3?",
-                "outcome": 0, // YES
-                "side": "BUY",
-                "size_usd": 12500.00,
-                "price": 0.15, // Longshot bet
+                "outcome": 0, "side": "BUY",
+                "size_usd": 12500.00, "price": 0.15,
                 "maker_address": "0x99b...a12",
-                "level": "WHALE",
-                "icon": "🐋"
+                "level": "WHALE", "icon": "🐋"
             },
             {
-                "time": Date.now() / 1000 - 86400, // 1 day ago
+                "time": Date.now() / 1000 - 86400,
                 "question": "Super Bowl Winner: Chiefs?",
-                "outcome": 0, // YES
-                "side": "BUY",
-                "size_usd": 150.00,
-                "price": 0.60,
+                "outcome": 0, "side": "BUY",
+                "size_usd": 150.00, "price": 0.60,
                 "maker_address": "0x22c...11a",
-                "level": "MINNOW",
-                "icon": "🐟"
+                "level": "MINNOW", "icon": "🐟"
             },
             {
                 "time": Date.now() / 1000 - 1500, 
                 "question": "Will China invade Taiwan in 2026?",
-                "outcome": 0, // YES
-                "side": "SELL", // Selling YES = Bearish
-                "size_usd": 62000.00,
-                "price": 0.08,
+                "outcome": 0, "side": "SELL",
+                "size_usd": 62000.00, "price": 0.08,
                 "maker_address": "0x55f...e33",
-                "level": "LEVIATHAN",
-                "icon": "🦖"
+                "level": "LEVIATHAN", "icon": "🦖"
             }
         ];
 
@@ -168,15 +164,24 @@
             whales.forEach(whale => {
                 const isYes = whale.outcome === 0;
                 const isBuy = whale.side === 'BUY';
-                // Logic: Buy Yes / Sell No = Bullish. Buy No / Sell Yes = Bearish.
                 const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
                 const color = isBullish ? 'emerald' : 'rose';
 
-                // Level Logic
+                // Level Logic & Colors
                 let levelColor = 'slate'; 
-                if (whale.level === 'SHARK') levelColor = 'cyan';
-                if (whale.level === 'WHALE') levelColor = 'purple';
-                if (whale.level === 'LEVIATHAN') levelColor = 'amber';
+                let animationClass = ''; // Default no animation
+
+                if (whale.level === 'SHARK') {
+                     levelColor = 'cyan';
+                }
+                if (whale.level === 'WHALE') {
+                    levelColor = 'purple';
+                    animationClass = 'animate-float'; // Add floating animation
+                }
+                if (whale.level === 'LEVIATHAN') {
+                    levelColor = 'amber';
+                    animationClass = 'animate-breathe z-10'; // Add breathing animation and bring to front
+                }
 
                 const timeString = formatSmartDate(whale.time);
 
@@ -186,7 +191,7 @@
                         <div>
                             <div class="flex justify-between items-start mb-4 gap-2">
                                 <div class="flex items-center gap-3 overflow-hidden">
-                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
+                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700 ${animationClass}">
                                         ${whale.icon}
                                     </div>
                                     <div class="min-w-0">
