@@ -1,6 +1,5 @@
 /* --- SHARED UTILITY FUNCTIONS --- */
 
-// Toggle the short description text
 function toggleText() {
     const moreText = document.getElementById("more-text");
     const btn = document.getElementById("toggle-btn");
@@ -13,13 +12,11 @@ function toggleText() {
     }
 }
 
-// Smart Date Formatter
 function formatSmartDate(timestamp) {
     const date = new Date(timestamp * 1000);
     return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 }
 
-// Show Empty State (Ocean is Quiet)
 function showEmptyState() {
     document.getElementById('dashboard-grid').innerHTML = `
         <div class="col-span-full text-center py-12 bg-slate-900/30 border border-slate-800/50 rounded-xl border-dashed">
@@ -29,7 +26,6 @@ function showEmptyState() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// Fetch Data from JSON (Used by index.html)
 async function loadData(url) {
     try {
         const response = await fetch(`${url}?t=${new Date().getTime()}`);
@@ -60,12 +56,13 @@ function renderCards(whales) {
 
         // --- HIERARCHY & HIGHLIGHT LOGIC ---
         let levelColor = 'slate'; 
-        let iconAnimation = ''; 
         let textHighlightClass = ''; 
         let displayIcon = whale.icon;
 
-        // Force T-Rex for Leviathan if not already set in data
-        if (whale.level === 'LEVIATHAN' && !displayIcon) displayIcon = '🦖';
+        // Force T-Rex for MEGALODON if not set
+        if (whale.level === 'MEGALODON' || whale.level === 'LEVIATHAN') {
+            displayIcon = '🦖';
+        }
 
         if (whale.level === 'DOLPHIN') {
             levelColor = 'blue'; 
@@ -75,29 +72,29 @@ function renderCards(whales) {
         }
         else if (whale.level === 'WHALE') {
             levelColor = 'rose'; 
-            iconAnimation = 'animate-float';
-            textHighlightClass = 'effect-whale text-rose-500'; // Flash Effect
+            textHighlightClass = 'effect-whale text-rose-500'; // Standard Flash
         }
-        else if (whale.level === 'LEVIATHAN') {
+        // Updated to MEGALODON (Bigger than Whale)
+        else if (whale.level === 'MEGALODON' || whale.level === 'LEVIATHAN') {
             levelColor = 'violet'; 
-            iconAnimation = 'animate-breathe z-10';
-            textHighlightClass = 'effect-leviathan text-violet-400'; // Legendary Neon Pulse
+            textHighlightClass = 'effect-megalodon text-violet-400'; // Fast Flash
         }
 
         const timeString = formatSmartDate(whale.time);
 
+        // NOTE: removed ${iconAnimation} class from the icon div below
         container.innerHTML += `
             <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between">
                 <div>
                     <div class="flex justify-between items-start mb-4 gap-2">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700 ${iconAnimation}">
+                            <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
                                 ${displayIcon}
                             </div>
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
                                     <span class="text-[10px] tracking-wider uppercase px-2 py-0.5 rounded bg-${levelColor}-500/10 border border-${levelColor}-500/20 ${textHighlightClass ? textHighlightClass : `text-${levelColor}-400 font-bold`}">
-                                        ${whale.level || 'MINNOW'}
+                                        ${whale.level === 'LEVIATHAN' ? 'MEGALODON' : (whale.level || 'MINNOW')}
                                     </span>
                                     <span class="text-xs text-slate-500 font-mono">${timeString}</span>
                                 </div>
@@ -139,6 +136,5 @@ function renderCards(whales) {
         `;
     });
     
-    // Refresh Icons
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
