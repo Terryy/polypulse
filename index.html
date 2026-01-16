@@ -22,6 +22,20 @@
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         body { background-color: #020617; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* --- NEW ANIMATIONS --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        /* Apply to WHALE */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        /* Apply to LEVIATHAN */
+        .animate-breathe { animation: breathe 4s ease-in-out infinite; }
     </style>
 </head>
 <body class="text-slate-200 p-4 md:p-8">
@@ -169,11 +183,21 @@
                 const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
                 const color = isBullish ? 'emerald' : 'rose';
 
-                // Level Logic including MINNOW
+                // Level Logic & Colors
                 let levelColor = 'slate'; 
-                if (whale.level === 'SHARK') levelColor = 'cyan';
-                if (whale.level === 'WHALE') levelColor = 'purple';
-                if (whale.level === 'LEVIATHAN') levelColor = 'amber';
+                let animationClass = ''; // Default no animation
+
+                if (whale.level === 'SHARK') {
+                     levelColor = 'cyan';
+                }
+                if (whale.level === 'WHALE') {
+                    levelColor = 'purple';
+                    animationClass = 'animate-float'; // Add floating animation
+                }
+                if (whale.level === 'LEVIATHAN') {
+                    levelColor = 'amber';
+                    animationClass = 'animate-breathe z-10'; // Add breathing animation
+                }
 
                 const timeString = formatSmartDate(whale.time);
 
@@ -183,7 +207,7 @@
                         <div>
                             <div class="flex justify-between items-start mb-4 gap-2">
                                 <div class="flex items-center gap-3 overflow-hidden">
-                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
+                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700 ${animationClass}">
                                         ${whale.icon}
                                     </div>
                                     <div class="min-w-0">
