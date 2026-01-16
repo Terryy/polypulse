@@ -57,7 +57,7 @@
                         <p class="text-sm text-slate-400 leading-relaxed">
                             We monitor the Polymarket ecosystem 24/7.
                             <span id="more-text" class="hidden">
-                                By tracking Minnow, Dolphin, Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
+                                By tracking Minnow, Dolphin, Shark, Whale, and <strong class="text-violet-400">Megalodon</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
                             </span>
                             <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
                                 Show more
@@ -69,7 +69,13 @@
         </header>
 
         <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="col-span-full text-center py-20">
+                <div class="inline-block animate-spin text-indigo-500 mb-4">
+                    <i data-lucide="loader-2" class="w-8 h-8"></i>
+                </div>
+                <p class="text-slate-500">Loading Demo Data...</p>
             </div>
+        </div>
     </div>
 
     <footer class="border-t border-slate-800/50 mt-auto pt-8 pb-4">
@@ -92,68 +98,9 @@
     </footer>
 
     <script src="script.js"></script>
-
     <script>
-        const mockData = [
-            {
-                "level": "LEVIATHAN",
-                "icon": "🦖", 
-                "question": "Will Bitcoin hit $100k by 2026?",
-                "size_usd": 1500000,
-                "price": 0.65,
-                "outcome": 0,
-                "side": "BUY",
-                "maker_address": "0x123...BOSS",
-                "time": Math.floor(Date.now() / 1000)
-            },
-            {
-                "level": "WHALE",
-                "icon": "🐋",
-                "question": "Fed Interest Rate Cut in March?",
-                "size_usd": 450000,
-                "price": 0.30,
-                "outcome": 1,
-                "side": "SELL",
-                "maker_address": "0x789...WHAL",
-                "time": Math.floor(Date.now() / 1000) - 120
-            },
-            {
-                "level": "SHARK",
-                "icon": "🦈",
-                "question": "Ethereum ETF Approval Date?",
-                "size_usd": 85000,
-                "price": 0.85,
-                "outcome": 0,
-                "side": "BUY",
-                "maker_address": "0x456...SHRK",
-                "time": Math.floor(Date.now() / 1000) - 300
-            },
-            {
-                "level": "DOLPHIN",
-                "icon": "🐬",
-                "question": "Solana to flip BNB market cap?",
-                "size_usd": 25000,
-                "price": 0.45,
-                "outcome": 0,
-                "side": "BUY",
-                "maker_address": "0xabc...DOLP",
-                "time": Math.floor(Date.now() / 1000) - 600
-            },
-            {
-                "level": "MINNOW",
-                "icon": "🐟",
-                "question": "Taylor Swift announces tour?",
-                "size_usd": 500,
-                "price": 0.10,
-                "outcome": 1,
-                "side": "SELL",
-                "maker_address": "0xdef...MINO",
-                "time": Math.floor(Date.now() / 1000) - 900
-            }
-        ];
-        
-        // Pass data to shared rendering function
-        renderCards(mockData);
+        // Load the DEMO json file
+        loadData('data/whales_demo.json');
     </script>
 </body>
 </html>
