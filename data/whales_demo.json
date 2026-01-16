@@ -1,0 +1,57 @@
+[
+  {
+    "level": "MEGALODON",
+    "icon": "🦖",
+    "question": "Will Bitcoin hit $100k by 2026?",
+    "size_usd": 1500000,
+    "price": 0.65,
+    "outcome": 0,
+    "side": "BUY",
+    "maker_address": "0x123...MEGA",
+    "time": 1735689600
+  },
+  {
+    "level": "WHALE",
+    "icon": "🐋",
+    "question": "Fed Interest Rate Cut in March?",
+    "size_usd": 450000,
+    "price": 0.30,
+    "outcome": 1,
+    "side": "SELL",
+    "maker_address": "0x789...WHAL",
+    "time": 1735689480
+  },
+  {
+    "level": "SHARK",
+    "icon": "🦈",
+    "question": "Ethereum ETF Approval Date?",
+    "size_usd": 85000,
+    "price": 0.85,
+    "outcome": 0,
+    "side": "BUY",
+    "maker_address": "0x456...SHRK",
+    "time": 1735689300
+  },
+  {
+    "level": "DOLPHIN",
+    "icon": "🐬",
+    "question": "Solana to flip BNB market cap?",
+    "size_usd": 25000,
+    "price": 0.45,
+    "outcome": 0,
+    "side": "BUY",
+    "maker_address": "0xabc...DOLP",
+    "time": 1735689000
+  },
+  {
+    "level": "MINNOW",
+    "icon": "🐟",
+    "question": "Taylor Swift announces tour?",
+    "size_usd": 500,
+    "price": 0.10,
+    "outcome": 1,
+    "side": "SELL",
+    "maker_address": "0xdef...MINO",
+    "time": 1735688700
+  }
+]
