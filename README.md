@@ -27,4 +27,53 @@ PolyPulse categorizes trades into four tiers to filter noise from signal:
 | 🦖 | **LEVIATHAN** | **> $50,000** | Market Makers or High-Conviction Insiders. Often moves the price immediately. |
 | 🐋 | **WHALE** | **$10,000 - $50k** | Serious capital. Notable conviction that warrants attention. |
 | 🦈 | **SHARK** | **$1,000 - $10k** | Aggressive traders. Common but significant in lower-liquidity markets. |
-| 🐟 | **MINNOW** | **< $1,0
+| 🐟 | **MINNOW** | **< $1,000** | Retail activity. Used for "debug mode" or tracking retail sentiment. |
+
+---
+
+## 🛠️ Tech Stack
+
+This project uses a "Flat Data" architecture to remain 100% free and open-source.
+
+* **Frontend:** Vanilla HTML5 + Tailwind CSS (via CDN). No build step required.
+* **Backend:** Python 3.9 (Requests, JSON handling).
+* **Data Source:** [Goldsky Subgraph](https://goldsky.com/) (Polymarket Official Data).
+* **Automation:** GitHub Actions (Cron job runs every 5 minutes).
+* **Database:** A simple JSON file (`data/whales.json`) that acts as a flat database.
+
+---
+
+## 🚀 Local Setup (For Developers)
+
+If you want to run this on your own machine:
+
+1.  **Clone the repo**
+    ```bash
+    git clone [https://github.com/yourusername/polypulse.git](https://github.com/yourusername/polypulse.git)
+    cd polypulse
+    ```
+
+2.  **Install Python Dependencies**
+    ```bash
+    pip install -r backend/requirements.txt
+    ```
+
+3.  **Run the Scanner Manually**
+    ```bash
+    python backend/main.py
+    ```
+    *This will generate a `data/whales.json` file locally.*
+
+4.  **Open the Dashboard**
+    Simply double-click `index.html` to open it in your browser.
+
+---
+
+## ⚠️ Disclaimer
+
+**This tool is for informational purposes only.**
+The data provided by PolyPulse does not constitute financial advice. Cryptocurrency and prediction markets involve high risk. "Whale" movements can be misleading, manipulative, or simply wrong. Always do your own research (DYOR).
+
+---
+
+© 2026 PolyPulse Project. Open Source.
