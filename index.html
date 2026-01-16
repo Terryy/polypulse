@@ -136,7 +136,9 @@
                 const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
                 const color = isBullish ? 'emerald' : 'rose';
 
-                let levelColor = 'cyan'; 
+                // Level Logic (Badge Colors)
+                let levelColor = 'slate'; // Default gray for MINNOW
+                if (whale.level === 'SHARK') levelColor = 'cyan';
                 if (whale.level === 'WHALE') levelColor = 'purple';
                 if (whale.level === 'LEVIATHAN') levelColor = 'amber';
 
