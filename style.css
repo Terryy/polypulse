@@ -12,25 +12,29 @@ body {
 
 /* --- TEXT HIGHLIGHT ANIMATIONS --- */
 
-/* 1. WHALE: Standard Alert Flash (1s) */
+/* Flash Keyframes */
 @keyframes urgent-flash {
     0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0.4; }
+    50%, 100% { opacity: 0.3; } /* Lower opacity for sharper on/off blink */
 }
 
+/* 1. WHALE: Razor Red (Sharp & Warning) */
 .effect-whale {
-    animation: urgent-flash 1s infinite; /* Standard Speed */
+    color: #ff0040; /* Razor Red */
+    animation: urgent-flash 1.2s infinite; 
     font-weight: 900 !important;
-    text-shadow: 0 0 10px rgba(244, 63, 94, 0.5); /* Red Glow */
+    /* Hard, tight glow for sharpness */
+    text-shadow: 0 0 5px #ff0040; 
 }
 
-/* 2. MEGALODON: High Frequency Flash (0.5s) - MORE URGENT */
+/* 2. BLUE WHALE: Electric Purple (Neon & Legendary) */
 .effect-megalodon {
-    animation: urgent-flash 0.5s infinite; /* FASTER Speed */
+    color: #d946ef; /* Electric Purple (Fuchsia-500) */
+    animation: urgent-flash 0.4s infinite; /* Fast Speed */
     font-weight: 900 !important;
     letter-spacing: 0.05em;
-    color: #a78bfa; /* Violet */
-    text-shadow: 0 0 10px #8b5cf6, 0 0 20px #8b5cf6; /* Intense Violet Glow */
+    /* Double layer glow for intensity */
+    text-shadow: 0 0 5px #d946ef, 0 0 15px #a21caf; 
 }
 
-/* --- NOTE: Icon animations (float/breathe) have been removed --- */
+/* --- NOTE: Icon animations are removed as requested --- */
