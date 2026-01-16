@@ -34,6 +34,8 @@
                     <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2">
                         PolyPulse
                     </h1>
+                    <p class="text-slate-400 text-sm font-medium mb-3">Real-time Whale Detection System</p>
+                    
                     <div class="flex items-center gap-2">
                          <span class="flex items-center gap-2 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[10px] font-bold text-emerald-400 tracking-wider uppercase">
                             <span class="relative flex h-1.5 w-1.5">
@@ -59,8 +61,13 @@
                     <div>
                         <h2 class="text-sm font-bold text-slate-200 mb-1">Market Surveillance Active</h2>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            We monitor the Polymarket ecosystem 24/7 to detect sudden capital inflows and smart money movements. 
-                            By tracking <strong>Whale 🐋</strong> and <strong>Leviathan 🦖</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts.
+                            We monitor the Polymarket ecosystem 24/7 to detect sudden capital inflows.
+                            <span id="more-text" class="hidden">
+                                By tracking Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts.
+                            </span>
+                            <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
+                                Show more
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -79,6 +86,20 @@
     </div>
 
     <script>
+        // Toggle Description Function
+        function toggleText() {
+            const moreText = document.getElementById("more-text");
+            const btn = document.getElementById("toggle-btn");
+            
+            if (moreText.classList.contains("hidden")) {
+                moreText.classList.remove("hidden");
+                btn.innerText = "Show less";
+            } else {
+                moreText.classList.add("hidden");
+                btn.innerText = "Show more";
+            }
+        }
+
         const DATA_URL = 'data/whales.json'; 
 
         async function loadData() {
@@ -112,14 +133,12 @@
             whales.sort((a, b) => b.time - a.time);
 
             whales.forEach(whale => {
-                // Color Logic
                 const isYes = whale.outcome === 0;
                 const isBuy = whale.side === 'BUY';
                 const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
                 const color = isBullish ? 'emerald' : 'rose';
 
-                // Level Logic (Badge Colors)
-                let levelColor = 'cyan'; // Shark (Default)
+                let levelColor = 'cyan'; 
                 if (whale.level === 'WHALE') levelColor = 'purple';
                 if (whale.level === 'LEVIATHAN') levelColor = 'amber';
 
