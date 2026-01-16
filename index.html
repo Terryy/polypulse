@@ -23,7 +23,7 @@
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         body { background-color: #020617; display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* --- ANIMATIONS --- */
+        /* --- HIGHLIGHT ANIMATIONS --- */
         
         /* 1. LEVIATHAN: Neon Breathing Pulse */
         @keyframes neon-pulse {
@@ -93,7 +93,7 @@
                         <p class="text-sm text-slate-400 leading-relaxed">
                             We monitor the Polymarket ecosystem 24/7 to detect sudden capital inflows.
                             <span id="more-text" class="hidden">
-                                By tracking Minnow, Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades.
+                                By tracking Minnow, Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days to track trends.
                             </span>
                             <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
                                 Show more
@@ -124,8 +124,13 @@
             </div>
             <div class="max-w-md text-center md:text-right">
                 <p class="text-[10px] text-slate-500 leading-relaxed">
-                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only. DYOR.
+                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only and does not constitute financial advice. 
+                    Cryptocurrency and prediction markets involve high risk. Always do your own research (DYOR).
                 </p>
+                <div class="flex justify-center md:justify-end gap-4 mt-3">
+                    <a href="https://github.com/Terryy/polypulse" class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">GitHub</a>
+                    <a href="https://polymarket.com" target="_blank" class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Polymarket</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -175,7 +180,7 @@
             document.getElementById('dashboard-grid').innerHTML = `
                 <div class="col-span-full text-center py-12 bg-slate-900/30 border border-slate-800/50 rounded-xl border-dashed">
                     <p class="text-slate-400 font-bold">Ocean is Quiet</p>
-                    <p class="text-xs text-slate-600 mt-1">No trades found above the current threshold.</p>
+                    <p class="text-xs text-slate-600 mt-1">No trades found above the current threshold ($10).</p>
                 </div>`;
             lucide.createIcons();
         }
@@ -194,13 +199,13 @@
                 // --- HIGHLIGHT LOGIC ---
                 let levelColor = 'slate'; 
                 let iconAnimation = ''; 
-                let textHighlightClass = ''; // New variable for text effect
+                let textHighlightClass = ''; 
 
                 if (whale.level === 'SHARK') {
                      levelColor = 'cyan';
                 }
                 else if (whale.level === 'WHALE') {
-                    levelColor = 'pink'; // Red/Pink for Alert
+                    levelColor = 'pink'; // Alert Red/Pink
                     iconAnimation = 'animate-float';
                     textHighlightClass = 'effect-whale text-rose-500'; // Flash
                 }
