@@ -58,53 +58,46 @@
 
     </main>
 
-    <footer class="text-center text-gray-400 text-xs py-8">
-        <p>© 2026 PolyPulse Project. Open Source.</p>
-        <p class="mt-2 text-[10px] opacity-60">Demonstration Data Only.</p>
-    </footer>
-
     <script>
-        // --- 1. HARDCODED DEMO DATA ---
+        // --- DEMO DATA ---
         const DEMO_TRADES = [
             {
                 timestamp: Date.now() / 1000 - 120, 
                 market: { question: "Will Bitcoin hit $100k in 2026?" },
                 amountUSD: 150000,
-                outcomeIndex: 0 // BETTING ON YES
+                outcomeIndex: 0 // BET YES
             },
             {
                 timestamp: Date.now() / 1000 - 600, 
                 market: { question: "Will Joe Biden finish his term?" },
                 amountUSD: 50000,
-                outcomeIndex: 1 // BETTING ON NO
+                outcomeIndex: 1 // BET NO
             },
             {
                 timestamp: Date.now() / 1000 - 1800, 
                 market: { question: "Fed Interest Rate Cut in March?" },
                 amountUSD: 12000,
-                outcomeIndex: 0 // BETTING ON YES
+                outcomeIndex: 0 // BET YES
             },
             {
                 timestamp: Date.now() / 1000 - 3600, 
                 market: { question: "Who will win the 2028 Election?" },
                 amountUSD: 6000,
-                outcomeIndex: 1 // BETTING ON NO
+                outcomeIndex: 1 // BET NO
             },
             {
                 timestamp: Date.now() / 1000 - 5000, 
                 market: { question: "Super Bowl LIX Winner" },
                 amountUSD: 2500,
-                outcomeIndex: 0 // BETTING ON YES
+                outcomeIndex: 0 // BET YES
             }
         ];
 
-        // --- 2. CONFIGURATION ---
         const TIERS = {
             BLUE_WHALE: { threshold: 50000, emoji: '🐋', name: 'BLUE WHALE', class: 'text-blue-600 bg-blue-100' },
             WHALE:      { threshold: 10000, emoji: '🐳', name: 'WHALE',      class: 'text-sky-500 bg-sky-50' },
             SHARK:      { threshold: 5000,  emoji: '🦈', name: 'SHARK',      class: 'text-teal-500 bg-teal-50' },
             DOLPHIN:    { threshold: 1000,  emoji: '🐬', name: 'DOLPHIN',    class: 'text-cyan-500 bg-cyan-50' }
-            // No Minnow Tier
         };
 
         function getWhaleTier(amountUSD) {
@@ -112,55 +105,56 @@
             if (amountUSD >= TIERS.WHALE.threshold)      return TIERS.WHALE;
             if (amountUSD >= TIERS.SHARK.threshold)      return TIERS.SHARK;
             if (amountUSD >= TIERS.DOLPHIN.threshold)    return TIERS.DOLPHIN;
-            return null; // Return null for anything < $1,000
+            return null;
         }
 
-        // --- 3. RENDER FUNCTION ---
         function loadDemoData() {
             const container = document.getElementById('whale-container');
             container.innerHTML = ''; 
 
             DEMO_TRADES.forEach((trade, index) => {
                 const amountVal = parseFloat(trade.amountUSD);
-                
-                // Filter out small trades (just in case demo data has them)
                 if (Math.abs(amountVal) < 1000) return;
 
                 const amountStr = amountVal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+                const timeStr = new Date(trade.timestamp * 1000).toLocaleString(); // Date First
                 const tier = getWhaleTier(Math.abs(amountVal));
                 
-                // Simplified Logic: 0 = YES, 1 = NO
-                let sideText = "???";
+                let sideText = "UNKNOWN";
                 let badgeClass = "bg-gray-100 text-gray-600";
 
                 if (trade.outcomeIndex === 0) {
-                    sideText = "YES";
+                    sideText = "BET YES";
                     badgeClass = "bg-green-100 text-green-700 border border-green-200";
                 } else if (trade.outcomeIndex === 1) {
-                    sideText = "NO";
+                    sideText = "BET NO";
                     badgeClass = "bg-red-100 text-red-700 border border-red-200";
                 }
                 
                 const card = document.createElement('div');
                 card.style.animationDelay = `${index * 100}ms`;
-                card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex items-center justify-between animate-fade-in opacity-0";
+                card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow animate-fade-in opacity-0";
                 
+                // DATE AT TOP LAYOUT
                 card.innerHTML = `
-                    <div class="flex items-center space-x-4">
-                        <div class="text-4xl" title="${tier.name}">${tier.emoji}</div>
-                        <div>
-                            <div class="text-sm font-bold text-gray-900 line-clamp-2">${trade.market.question}</div>
-                            <div class="text-xs text-gray-500 mt-1 flex items-center space-x-2">
-                                <span class="${tier.class} px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider border border-current opacity-80">${tier.name}</span>
-                                <span>•</span>
-                                <span>${new Date(trade.timestamp * 1000).toLocaleTimeString()}</span>
+                    <div class="text-[10px] text-gray-400 font-mono mb-2 uppercase tracking-wide border-b border-gray-50 pb-1">
+                        ${timeStr}
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-3xl" title="${tier.name}">${tier.emoji}</div>
+                            <div>
+                                <div class="text-sm font-bold text-gray-900 leading-tight">${trade.market.question}</div>
+                                <div class="mt-1">
+                                    <span class="${tier.class} px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider border border-current opacity-80">${tier.name}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-right min-w-[90px]">
-                        <div class="text-lg font-black text-gray-800">${amountStr}</div>
-                        <div class="text-xs font-black uppercase tracking-wider mt-1 px-3 py-1 rounded-md inline-block ${badgeClass}">
-                            ${sideText}
+                        <div class="text-right min-w-[90px] pl-2">
+                            <div class="text-lg font-black text-gray-800">${amountStr}</div>
+                            <div class="text-xs font-black uppercase tracking-wider mt-1 px-3 py-1 rounded-md inline-block ${badgeClass}">
+                                ${sideText}
+                            </div>
                         </div>
                     </div>
                 `;
