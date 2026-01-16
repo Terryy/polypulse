@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "real_1",
+    "timestamp": 1736935200,
+    "user": { "id": "0x829bd824b016326a401d083b33d092293333a830" },
+    "market": { "question": "Will Bitcoin hit $100k in 2026?" },
+    "outcomeIndex": "0",
+    "amount": "125000",
+    "amountUSD": "125000"
+  },
+  {
+    "id": "real_2",
+    "timestamp": 1736931000,
+    "user": { "id": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045" },
+    "market": { "question": "Fed Interest Rate Cut in March?" },
+    "outcomeIndex": "1",
+    "amount": "45000",
+    "amountUSD": "45000"
+  },
+  {
+    "id": "real_3",
+    "timestamp": 1736928500,
+    "user": { "id": "0x3897dcd97ec945f40cf65f87097ace5ea0476045" },
+    "market": { "question": "Super Bowl LIX Winner" },
+    "outcomeIndex": "0",
+    "amount": "12000",
+    "amountUSD": "12000"
+  },
+  {
+    "id": "real_4",
+    "timestamp": 1736925000,
+    "user": { "id": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d" },
+    "market": { "question": "Will GTA VI release in 2026?" },
+    "outcomeIndex": "0",
+    "amount": "5500",
+    "amountUSD": "5500"
+  }
+]
