@@ -1,111 +1,66 @@
 import requests
 import json
 import os
-import time
+from datetime import datetime, timedelta
 
 # --- CONFIGURATION ---
-GRAPH_URL = "https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/activity-subgraph/0.0.4/gn"
-OUTPUT_FILE = "data/whales.json"
-MIN_USD_THRESHOLD = 10         # <--- CHANGED TO $10 (Catch everything)
-RETENTION_DAYS = 30
+WHALE_THRESHOLD = 10000  # Whales must be > $10,000
+DAYS_TO_LOOK_BACK = 30   # Scan the last 30 days
+GRAPH_URL = "https://subgraph-matic.poly.market/subgraphs/name/TokenUnion/polymarket"
 
-def get_whale_level(usd_value):
-    if usd_value >= 50000: return "LEVIATHAN", "🦖"
-    elif usd_value >= 5000: return "WHALE", "🐋"
-    elif usd_value >= 1000: return "SHARK", "🦈"
-    else: return "MINNOW", "🐟"  # <--- NEW TIER for small trades
-
-def fetch_and_update():
-    print("--- 🐳 PolyPulse: Debug Scan (Threshold: $10) ---")
+def fetch_historical_whales():
+    # Calculate timestamp for 30 days ago
+    start_time = int((datetime.now() - timedelta(days=DAYS_TO_LOOK_BACK)).timestamp())
     
-    # 1. Load Existing History
-    history = []
-    if os.path.exists(OUTPUT_FILE):
-        try:
-            with open(OUTPUT_FILE, 'r') as f:
-                history = json.load(f)
-        except:
-            history = []
+    print(f"⏳ Scanning last {DAYS_TO_LOOK_BACK} days (since timestamp {start_time})...")
 
-    # 2. Fetch NEW Trades
-    # We fetch 1000 trades to ensure we find *something*
-    query = """
-    {
-      trades(first: 1000, orderBy: timestamp, orderDirection: desc) {
-        id, timestamp, price, size, side, outcomeIndex
-        market { question, slug }
-        maker { id }
-      }
-    }
+    # Query: Get the largest 100 trades from the last 30 days
+    # We sort by amountUSD to ensure we get the REAL whales, not just recent small trades.
+    query = f"""
+    {{
+      globalDeals(
+        where: {{ timestamp_gt: {start_time}, amountUSD_gt: {WHALE_THRESHOLD} }}
+        orderBy: amountUSD
+        orderDirection: desc
+        first: 100
+      ) {{
+        id
+        timestamp
+        user {{ id }}
+        market {{ question }}
+        outcomeIndex
+        amount
+        amountUSD
+      }}
+    }}
     """
     
-    new_sightings = []
     try:
-        response = requests.post(
-            GRAPH_URL, 
-            json={'query': query}, 
-            headers={"User-Agent": "PolyPulse/Debug"}
-        )
+        response = requests.post(GRAPH_URL, json={'query': query})
         data = response.json()
-        trades = data.get('data', {}).get('trades', [])
         
-        print(f"🔍 API returned {len(trades)} raw trades from the blockchain.")
-
-        if len(trades) == 0:
-            print("⚠️ WARNING: API returned 0 trades. The Graph might be syncing.")
-
-        for trade in trades:
-            try:
-                usd = float(trade['size']) * float(trade['price'])
-                
-                # Debug Print for the first 5 trades found
-                if len(new_sightings) < 5:
-                    print(f"   Found trade: ${usd:.2f} on '{trade['market']['question'][:30]}...'")
-
-                if usd >= MIN_USD_THRESHOLD:
-                    level_name, level_icon = get_whale_level(usd)
-                    
-                    new_sightings.append({
-                        "id": trade['id'],
-                        "time": int(trade['timestamp']),
-                        "question": trade['market']['question'],
-                        "outcome": int(trade['outcomeIndex']),
-                        "side": trade['side'].upper(),
-                        "size_usd": round(usd, 2),
-                        "price": float(trade['price']),
-                        "maker_address": trade['maker']['id'],
-                        "level": level_name,
-                        "icon": level_icon
-                    })
-            except Exception as e:
-                continue
-
+        trades = data.get('data', {}).get('globalDeals', [])
+        print(f"✅ Found {len(trades)} historical whale trades.")
+        return trades
     except Exception as e:
-        print(f"❌ API Error: {e}")
-        return
+        print(f"❌ Error fetching data: {e}")
+        return []
 
-    # 3. Merge & Deduplicate
-    combined_db = {item['id']: item for item in history}
-    count_before = len(combined_db)
+def save_whales(trades):
+    if not os.path.exists('data'):
+        os.makedirs('data')
     
-    for sighting in new_sightings:
-        combined_db[sighting['id']] = sighting
-    
-    print(f"➕ Added {len(combined_db) - count_before} new trades to database.")
-    
-    final_list = list(combined_db.values())
-    
-    # 4. Prune (> 30 Days)
-    cutoff_time = time.time() - (RETENTION_DAYS * 86400)
-    final_list = [x for x in final_list if x['time'] > cutoff_time]
-    final_list.sort(key=lambda x: x['time'], reverse=True)
+    # Sort by time (newest first) so the dashboard displays them correctly
+    trades.sort(key=lambda x: int(x['timestamp']), reverse=True)
 
-    # 5. Save
-    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-    with open(OUTPUT_FILE, "w") as f:
-        json.dump(final_list, f, indent=2)
-        
-    print(f"✅ Database Saved: {len(final_list)} total records.")
+    with open('data/whales.json', 'w') as f:
+        json.dump(trades, f, indent=2)
+    print("💾 Saved to data/whales.json")
 
 if __name__ == "__main__":
-    fetch_and_update()
+    print("🦕 Starting 30-Day Historical Backfill...")
+    whales = fetch_historical_whales()
+    if whales:
+        save_whales(whales)
+    else:
+        print("⚠️ No whales found. Check the threshold or API status.")
