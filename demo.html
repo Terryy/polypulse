@@ -57,7 +57,7 @@
                         <p class="text-sm text-slate-400 leading-relaxed">
                             We monitor the Polymarket ecosystem 24/7.
                             <span id="more-text" class="hidden">
-                                By tracking Minnow, Dolphin, Shark, Whale, and <strong class="text-violet-400">Megalodon</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
+                                By tracking Minnow, Dolphin, Shark, Whale, and <strong class="text-violet-400">Blue Whale</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
                             </span>
                             <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
                                 Show more
@@ -102,19 +102,19 @@
     <script>
         const demoData = [
             {
-                "level": "MEGALODON", 
-                "icon": "🦖", 
+                "level": "BLUE WHALE", 
+                "icon": "🐋", 
                 "question": "Will Bitcoin hit $100k by 2026?",
                 "size_usd": 1500000,
                 "price": 0.65,
                 "outcome": 0,
                 "side": "BUY",
-                "maker_address": "0x123...MEGA",
+                "maker_address": "0x123...BOSS",
                 "time": Math.floor(Date.now() / 1000)
             },
             {
                 "level": "WHALE",
-                "icon": "🐋",
+                "icon": "🐳", 
                 "question": "Fed Interest Rate Cut in March?",
                 "size_usd": 450000,
                 "price": 0.30,
@@ -158,7 +158,6 @@
             }
         ];
 
-        // Render the demo data
         renderCards(demoData);
     </script>
 </body>
