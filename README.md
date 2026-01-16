@@ -11,7 +11,7 @@ PolyPulse is an automated market surveillance tool that monitors the Polymarket 
 ## ⚡ Features
 
 * **Real-Time Surveillance:** Scans the Polymarket Activity Subgraph every 5 minutes.
-* **Whale Classification:** Automatically tags trades based on size (Minnow to Leviathan).
+* **Whale Classification:** Automatically tags trades based on size (Minnow to Blue Whale).
 * **Sentiment Analysis:** Intelligently colors trades as **BULLISH** (Green) or **BEARISH** (Red) based on whether the user is buying "Yes" or selling "No".
 * **30-Day Archive:** Maintains a rolling history log of abnormal movements to track trends over time.
 * **Zero-Maintenance:** Runs entirely on **GitHub Actions** (Backend) and **GitHub Pages** (Frontend). No expensive servers required.
@@ -20,13 +20,14 @@ PolyPulse is an automated market surveillance tool that monitors the Polymarket 
 
 ## 📊 Whale Tier Definitions
 
-PolyPulse categorizes trades into four tiers to filter noise from signal:
+PolyPulse categorizes trades into five tiers to filter noise from signal:
 
 | Badge | Tier Name | Trade Size (USD) | Description |
 | :--- | :--- | :--- | :--- |
-| 🦖 | **LEVIATHAN** | **> $50,000** | Market Makers or High-Conviction Insiders. Often moves the price immediately. |
-| 🐋 | **WHALE** | **$10,000 - $50k** | Serious capital. Notable conviction that warrants attention. |
-| 🦈 | **SHARK** | **$1,000 - $10k** | Aggressive traders. Common but significant in lower-liquidity markets. |
+| 🐋 | **BLUE WHALE** | **> $50,000** | Market Makers or High-Conviction Insiders. Often moves the price immediately. |
+| 🐳 | **WHALE** | **$10,000 - $50k** | Serious capital. Notable conviction that warrants attention. |
+| 🦈 | **SHARK** | **$5,000 - $10k** | Aggressive traders. Significant size for lower-liquidity markets. |
+| 🐬 | **DOLPHIN** | **$1,000 - $5,000** | Active traders. Larger than average retail position sizes. |
 | 🐟 | **MINNOW** | **< $1,000** | Retail activity. Used for "debug mode" or tracking retail sentiment. |
 
 ---
@@ -47,25 +48,25 @@ This project uses a "Flat Data" architecture to remain 100% free and open-source
 
 If you want to run this on your own machine:
 
-1.  **Clone the repo**
-    ```bash
-    git clone [https://github.com/Terryy/polypulse.git](https://github.com/Terryy/polypulse.git)
-    cd polypulse
-    ```
+### 1. Clone the repo
+```bash
+git clone [https://github.com/Terryy/polypulse.git](https://github.com/Terryy/polypulse.git)
+cd polypulse
+```
 
-2.  **Install Python Dependencies**
-    ```bash
-    pip install -r backend/requirements.txt
-    ```
+### 2. Install Python Dependencies
+```bash
+pip install -r backend/requirements.txt
+```
 
-3.  **Run the Scanner Manually**
-    ```bash
-    python backend/main.py
-    ```
-    *This will generate a `data/whales.json` file locally.*
+### 3. Run the Scanner Manually
+This will generate a `data/whales.json` file locally.
+```bash
+python backend/main.py
+```
 
-4.  **Open the Dashboard**
-    Simply double-click `index.html` to open it in your browser.
+### 4. Open the Dashboard
+Simply double-click `index.html` to open it in your browser.
 
 ---
 
