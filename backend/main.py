@@ -4,7 +4,8 @@ import os
 from datetime import datetime
 
 # --- CONFIGURATION ---
-MIN_USD_THRESHOLD = 5000  # Only save trades larger than $5,000
+MIN_USD_THRESHOLD = 5000  # Only save trades larger than $5,000 #old value
+MIN_USD_THRESHOLD = 10    # New value (for testing)
 OUTPUT_FILE = "data/whales.json"
 
 # Polymarket APIs
