@@ -21,12 +21,12 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        body { background-color: #020617; }
+        body { background-color: #020617; display: flex; flex-direction: column; min-height: 100vh; }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen p-4 md:p-8">
+<body class="text-slate-200 p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto w-full flex-grow">
         
         <header class="mb-10 border-b border-slate-800 pb-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
@@ -56,31 +56,72 @@
             <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 max-w-3xl">
                 <div class="flex gap-3">
                     <div class="shrink-0 mt-1">
-                        <i data-lucide="history" class="w-5 h-5 text-indigo-400"></i>
+                        <i data-lucide="radar" class="w-5 h-5 text-indigo-400"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-200 mb-1">30-Day Historical Archive</h2>
+                        <h2 class="text-sm font-bold text-slate-200 mb-1">Market Surveillance Active</h2>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            We monitor the Polymarket ecosystem 24/7. This dashboard maintains a 
-                            <strong>30-day record</strong> of abnormal whale movements, allowing you to analyze past trends and detection timelines.
+                            We monitor the Polymarket ecosystem 24/7 to detect sudden capital inflows.
+                            <span id="more-text" class="hidden">
+                                By tracking Minnow, Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days to track trends.
+                            </span>
+                            <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
+                                Show more
+                            </button>
                         </p>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             <div class="col-span-full text-center py-20">
                 <div class="inline-block animate-spin text-indigo-500 mb-4">
                     <i data-lucide="loader-2" class="w-8 h-8"></i>
                 </div>
-                <p class="text-slate-500">Loading historical data...</p>
+                <p class="text-slate-500">Scanning the blockchain...</p>
             </div>
         </div>
 
     </div>
 
+    <footer class="border-t border-slate-800/50 mt-auto pt-8 pb-4">
+        <div class="max-w-6xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div>
+                <h3 class="font-bold text-slate-200 text-lg mb-1">PolyPulse</h3>
+                <p class="text-slate-500 text-xs">Open Source Whale Intelligence.</p>
+                <p class="text-slate-600 text-[10px] mt-2">© 2026 PolyPulse Project</p>
+            </div>
+
+            <div class="max-w-md text-center md:text-right">
+                <p class="text-[10px] text-slate-500 leading-relaxed">
+                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only and does not constitute financial advice. 
+                    Cryptocurrency and prediction markets involve high risk. Always do your own research (DYOR).
+                </p>
+                <div class="flex justify-center md:justify-end gap-4 mt-3">
+                    <a href="https://github.com/Terryy/polypulse" class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">GitHub</a>
+                    <a href="https://polymarket.com" target="_blank" class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Polymarket</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
     <script>
+        // Toggle Description
+        function toggleText() {
+            const moreText = document.getElementById("more-text");
+            const btn = document.getElementById("toggle-btn");
+            if (moreText.classList.contains("hidden")) {
+                moreText.classList.remove("hidden");
+                btn.innerText = "Show less";
+            } else {
+                moreText.classList.add("hidden");
+                btn.innerText = "Show more";
+            }
+        }
+
         const DATA_URL = 'data/whales.json'; 
 
         async function loadData() {
@@ -103,22 +144,16 @@
             const date = new Date(timestamp * 1000);
             const now = new Date();
             const isToday = date.toDateString() === now.toDateString();
-            
-            if (isToday) {
-                // Just time: "2:30 PM"
-                return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            } else {
-                // Date and Time: "Jan 15, 2:30 PM"
-                return date.toLocaleDateString([], {month: 'short', day: 'numeric'}) + ', ' + 
-                       date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            }
+            return isToday 
+                ? date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                : date.toLocaleDateString([], {month: 'short', day: 'numeric'}) + ', ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         }
 
         function showEmptyState() {
             document.getElementById('dashboard-grid').innerHTML = `
                 <div class="col-span-full text-center py-12 bg-slate-900/30 border border-slate-800/50 rounded-xl border-dashed">
-                    <p class="text-slate-400 font-bold">No Records Found</p>
-                    <p class="text-xs text-slate-600 mt-1">Database is empty or no whales detected yet.</p>
+                    <p class="text-slate-400 font-bold">Ocean is Quiet</p>
+                    <p class="text-xs text-slate-600 mt-1">No trades found above the current threshold ($10).</p>
                 </div>`;
             lucide.createIcons();
         }
@@ -126,8 +161,6 @@
         function renderCards(whales) {
             const container = document.getElementById('dashboard-grid');
             container.innerHTML = ''; 
-            
-            // Sort by time descending (newest first)
             whales.sort((a, b) => b.time - a.time);
 
             whales.forEach(whale => {
@@ -136,8 +169,8 @@
                 const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
                 const color = isBullish ? 'emerald' : 'rose';
 
-                // Level Logic (Badge Colors)
-                let levelColor = 'slate'; // Default gray for MINNOW
+                // Level Logic including MINNOW
+                let levelColor = 'slate'; 
                 if (whale.level === 'SHARK') levelColor = 'cyan';
                 if (whale.level === 'WHALE') levelColor = 'purple';
                 if (whale.level === 'LEVIATHAN') levelColor = 'amber';
@@ -145,40 +178,42 @@
                 const timeString = formatSmartDate(whale.time);
 
                 container.innerHTML += `
-                    <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl">
+                    <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between">
                         
-                        <div class="flex justify-between items-start mb-4 gap-2">
-                            <div class="flex items-center gap-3 overflow-hidden">
-                                <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
-                                    ${whale.icon}
-                                </div>
-                                <div class="min-w-0">
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <span class="text-[9px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded bg-${levelColor}-500/10 text-${levelColor}-400 border border-${levelColor}-500/20">
-                                            ${whale.level || 'SHARK'}
-                                        </span>
-                                        <span class="text-xs text-slate-500 font-mono">${timeString}</span>
+                        <div>
+                            <div class="flex justify-between items-start mb-4 gap-2">
+                                <div class="flex items-center gap-3 overflow-hidden">
+                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
+                                        ${whale.icon}
                                     </div>
-                                    <h3 class="font-bold text-slate-100 text-sm leading-tight truncate" title="${whale.question}">
-                                        ${whale.question}
-                                    </h3>
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-[9px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded bg-${levelColor}-500/10 text-${levelColor}-400 border border-${levelColor}-500/20">
+                                                ${whale.level || 'MINNOW'}
+                                            </span>
+                                            <span class="text-xs text-slate-500 font-mono">${timeString}</span>
+                                        </div>
+                                        <h3 class="font-bold text-slate-100 text-sm leading-tight truncate" title="${whale.question}">
+                                            ${whale.question}
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
-                                <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Size (USD)</p>
-                                <p class="text-lg font-mono font-bold text-white">$${whale.size_usd.toLocaleString()}</p>
-                            </div>
-                            <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 w-8 h-8 bg-${color}-500/20 blur-xl rounded-full -mr-4 -mt-4"></div>
-                                <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Position</p>
-                                <div class="flex items-center gap-1">
-                                    <span class="text-sm font-bold text-${color}-400">
-                                        ${isBullish ? 'BULLISH' : 'BEARISH'}
-                                    </span>
-                                    <span class="text-xs text-slate-600">(${(whale.price * 100).toFixed(0)}¢)</span>
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+                                    <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Size (USD)</p>
+                                    <p class="text-lg font-mono font-bold text-white">$${whale.size_usd.toLocaleString()}</p>
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800 relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-8 h-8 bg-${color}-500/20 blur-xl rounded-full -mr-4 -mt-4"></div>
+                                    <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Position</p>
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-sm font-bold text-${color}-400">
+                                            ${isBullish ? 'BULLISH' : 'BEARISH'}
+                                        </span>
+                                        <span class="text-xs text-slate-600">(${(whale.price * 100).toFixed(0)}¢)</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
