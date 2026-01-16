@@ -44,7 +44,7 @@
                             </span>
                             System Online
                         </span>
-                        <span class="text-slate-500 text-xs font-mono" id="last-updated">Waiting for update...</span>
+                        <span class="text-slate-500 text-xs font-mono" id="last-updated">Connecting...</span>
                     </div>
                 </div>
                 
@@ -56,18 +56,13 @@
             <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 max-w-3xl">
                 <div class="flex gap-3">
                     <div class="shrink-0 mt-1">
-                        <i data-lucide="radar" class="w-5 h-5 text-indigo-400"></i>
+                        <i data-lucide="history" class="w-5 h-5 text-indigo-400"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-slate-200 mb-1">Market Surveillance Active</h2>
+                        <h2 class="text-sm font-bold text-slate-200 mb-1">30-Day Historical Archive</h2>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            We monitor the Polymarket ecosystem 24/7 to detect sudden capital inflows.
-                            <span id="more-text" class="hidden">
-                                By tracking Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts.
-                            </span>
-                            <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
-                                Show more
-                            </button>
+                            We monitor the Polymarket ecosystem 24/7. This dashboard maintains a 
+                            <strong>30-day record</strong> of abnormal whale movements, allowing you to analyze past trends and detection timelines.
                         </p>
                     </div>
                 </div>
@@ -79,27 +74,13 @@
                 <div class="inline-block animate-spin text-indigo-500 mb-4">
                     <i data-lucide="loader-2" class="w-8 h-8"></i>
                 </div>
-                <p class="text-slate-500">Scanning the blockchain...</p>
+                <p class="text-slate-500">Loading historical data...</p>
             </div>
         </div>
 
     </div>
 
     <script>
-        // Toggle Description Function
-        function toggleText() {
-            const moreText = document.getElementById("more-text");
-            const btn = document.getElementById("toggle-btn");
-            
-            if (moreText.classList.contains("hidden")) {
-                moreText.classList.remove("hidden");
-                btn.innerText = "Show less";
-            } else {
-                moreText.classList.add("hidden");
-                btn.innerText = "Show more";
-            }
-        }
-
         const DATA_URL = 'data/whales.json'; 
 
         async function loadData() {
@@ -118,11 +99,26 @@
             }
         }
 
+        function formatSmartDate(timestamp) {
+            const date = new Date(timestamp * 1000);
+            const now = new Date();
+            const isToday = date.toDateString() === now.toDateString();
+            
+            if (isToday) {
+                // Just time: "2:30 PM"
+                return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            } else {
+                // Date and Time: "Jan 15, 2:30 PM"
+                return date.toLocaleDateString([], {month: 'short', day: 'numeric'}) + ', ' + 
+                       date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            }
+        }
+
         function showEmptyState() {
             document.getElementById('dashboard-grid').innerHTML = `
                 <div class="col-span-full text-center py-12 bg-slate-900/30 border border-slate-800/50 rounded-xl border-dashed">
-                    <p class="text-slate-400 font-bold">Ocean is Quiet</p>
-                    <p class="text-xs text-slate-600 mt-1">No large trades detected in the last scan.</p>
+                    <p class="text-slate-400 font-bold">No Records Found</p>
+                    <p class="text-xs text-slate-600 mt-1">Database is empty or no whales detected yet.</p>
                 </div>`;
             lucide.createIcons();
         }
@@ -130,6 +126,8 @@
         function renderCards(whales) {
             const container = document.getElementById('dashboard-grid');
             container.innerHTML = ''; 
+            
+            // Sort by time descending (newest first)
             whales.sort((a, b) => b.time - a.time);
 
             whales.forEach(whale => {
@@ -142,8 +140,7 @@
                 if (whale.level === 'WHALE') levelColor = 'purple';
                 if (whale.level === 'LEVIATHAN') levelColor = 'amber';
 
-                const date = new Date(whale.time * 1000);
-                const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const timeString = formatSmartDate(whale.time);
 
                 container.innerHTML += `
                     <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl">
