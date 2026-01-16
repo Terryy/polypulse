@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PolyPulse | Whale Watcher</title>
-    
     <link rel="stylesheet" href="style.css">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             theme: {
@@ -58,7 +55,7 @@
                         <p class="text-sm text-slate-400 leading-relaxed">
                             We monitor the Polymarket ecosystem 24/7.
                             <span id="more-text" class="hidden">
-                                By tracking Minnow, Dolphin, Shark, Whale, and Leviathan activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
+                                By tracking Minnow, Dolphin, Shark, Whale, and <strong class="text-violet-400">Megalodon</strong> activity, this dashboard highlights high-conviction trades that may signal potential investment opportunities before the wider market reacts. Data is archived for 30 days.
                             </span>
                             <button onclick="toggleText()" id="toggle-btn" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold ml-1 hover:underline focus:outline-none">
                                 Show more
@@ -88,7 +85,7 @@
             </div>
             <div class="max-w-md text-center md:text-right">
                 <p class="text-[10px] text-slate-500 leading-relaxed">
-                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only and does not constitute financial advice. DYOR.
+                    <strong>Disclaimer:</strong> This dashboard is for informational purposes only. DYOR.
                 </p>
             </div>
         </div>
@@ -96,7 +93,6 @@
 
     <script src="script.js"></script>
     <script>
-        // Init: Load Real Data
         loadData('data/whales.json');
     </script>
 </body>
