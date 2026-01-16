@@ -57,44 +57,46 @@ function renderCards(whales) {
         // --- HIERARCHY & HIGHLIGHT LOGIC ---
         let levelColor = 'slate'; 
         let textHighlightClass = ''; 
-        let displayIcon = whale.icon;
+        let iconSizeClass = 'text-2xl'; // Default icon size
+        
+        // Normalize Level Name (Map old names to new display if needed)
+        let displayLevel = whale.level || 'MINNOW';
+        if (displayLevel === 'LEVIATHAN' || displayLevel === 'MEGALODON') displayLevel = 'BLUE WHALE';
 
-        // Force T-Rex for MEGALODON if not set
-        if (whale.level === 'MEGALODON' || whale.level === 'LEVIATHAN') {
-            displayIcon = '🦖';
-        }
-
-        if (whale.level === 'DOLPHIN') {
+        // 1. DOLPHIN
+        if (displayLevel === 'DOLPHIN') {
             levelColor = 'blue'; 
         }
-        else if (whale.level === 'SHARK') {
+        // 2. SHARK
+        else if (displayLevel === 'SHARK') {
             levelColor = 'cyan';
         }
-        else if (whale.level === 'WHALE') {
+        // 3. WHALE (Standard)
+        else if (displayLevel === 'WHALE') {
             levelColor = 'rose'; 
             textHighlightClass = 'effect-whale text-rose-500'; // Standard Flash
         }
-        // Updated to MEGALODON (Bigger than Whale)
-        else if (whale.level === 'MEGALODON' || whale.level === 'LEVIATHAN') {
+        // 4. BLUE WHALE (Boss Tier)
+        else if (displayLevel === 'BLUE WHALE') {
             levelColor = 'violet'; 
-            textHighlightClass = 'effect-megalodon text-violet-400'; // Fast Flash
+            textHighlightClass = 'effect-megalodon text-violet-400'; // Fast Intense Flash
+            iconSizeClass = 'text-4xl'; // <--- MAKE ICON BIGGER
         }
 
         const timeString = formatSmartDate(whale.time);
 
-        // NOTE: removed ${iconAnimation} class from the icon div below
         container.innerHTML += `
             <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between">
                 <div>
                     <div class="flex justify-between items-start mb-4 gap-2">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
-                                ${displayIcon}
+                            <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 ${iconSizeClass}">
+                                ${whale.icon}
                             </div>
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
                                     <span class="text-[10px] tracking-wider uppercase px-2 py-0.5 rounded bg-${levelColor}-500/10 border border-${levelColor}-500/20 ${textHighlightClass ? textHighlightClass : `text-${levelColor}-400 font-bold`}">
-                                        ${whale.level === 'LEVIATHAN' ? 'MEGALODON' : (whale.level || 'MINNOW')}
+                                        ${displayLevel}
                                     </span>
                                     <span class="text-xs text-slate-500 font-mono">${timeString}</span>
                                 </div>
