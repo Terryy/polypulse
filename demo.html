@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyPulse | Demo Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { bull: '#10b981', bear: '#f43f5e' }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        body { background-color: #020617; display: flex; flex-direction: column; min-height: 100vh; }
+    </style>
+</head>
+<body class="text-slate-200 p-4 md:p-8 border-t-4 border-indigo-500">
+
+    <div class="max-w-6xl mx-auto w-full flex-grow">
+        
+        <div class="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-2 rounded-lg mb-8 text-center text-sm font-bold">
+            🧪 DEMO MODE: Displaying simulated data to visualize all Whale Tiers.
+        </div>
+
+        <header class="mb-10 border-b border-slate-800 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2">
+                        PolyPulse
+                    </h1>
+                    <p class="text-slate-400 text-sm font-medium mb-3">Real-time Whale Detection System</p>
+                    <div class="flex items-center gap-2">
+                         <span class="flex items-center gap-2 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[10px] font-bold text-emerald-400 tracking-wider uppercase">
+                            <span class="relative flex h-1.5 w-1.5">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                            </span>
+                            System Online
+                        </span>
+                        <span class="text-slate-500 text-xs font-mono">Simulated Feed</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            </div>
+
+    </div>
+
+    <script>
+        // --- 🧪 HARDCODED DEMO DATA ---
+        const MOCK_DATA = [
+            {
+                "time": Date.now() / 1000 - 120, // 2 mins ago
+                "question": "Will Trump be inaugurated on Jan 20?",
+                "outcome": 0, // YES
+                "side": "BUY",
+                "size_usd": 152000.50,
+                "price": 0.92,
+                "maker_address": "0x7a2...8b1",
+                "level": "LEVIATHAN",
+                "icon": "🦖"
+            },
+            {
+                "time": Date.now() / 1000 - 600, // 10 mins ago
+                "question": "Fed Interest Rate Cut in March 2026?",
+                "outcome": 1, // NO
+                "side": "SELL", // Selling NO = Bullish on YES
+                "size_usd": 45000.00,
+                "price": 0.35,
+                "maker_address": "0x3c4...d99",
+                "level": "WHALE",
+                "icon": "🐋"
+            },
+            {
+                "time": Date.now() / 1000 - 3600, // 1 hour ago
+                "question": "Bitcoin > $100k by end of 2026?",
+                "outcome": 1, // NO
+                "side": "BUY", // Buying NO = Bearish
+                "size_usd": 8500.00,
+                "price": 0.42,
+                "maker_address": "0x1a1...f02",
+                "level": "SHARK",
+                "icon": "🦈"
+            },
+            {
+                "time": Date.now() / 1000 - 7200, // 2 hours ago
+                "question": "Will GPT-5 release before Q3?",
+                "outcome": 0, // YES
+                "side": "BUY",
+                "size_usd": 12500.00,
+                "price": 0.15, // Longshot bet
+                "maker_address": "0x99b...a12",
+                "level": "WHALE",
+                "icon": "🐋"
+            },
+            {
+                "time": Date.now() / 1000 - 86400, // 1 day ago
+                "question": "Super Bowl Winner: Chiefs?",
+                "outcome": 0, // YES
+                "side": "BUY",
+                "size_usd": 150.00,
+                "price": 0.60,
+                "maker_address": "0x22c...11a",
+                "level": "MINNOW",
+                "icon": "🐟"
+            },
+            {
+                "time": Date.now() / 1000 - 1500, 
+                "question": "Will China invade Taiwan in 2026?",
+                "outcome": 0, // YES
+                "side": "SELL", // Selling YES = Bearish
+                "size_usd": 62000.00,
+                "price": 0.08,
+                "maker_address": "0x55f...e33",
+                "level": "LEVIATHAN",
+                "icon": "🦖"
+            }
+        ];
+
+        function formatSmartDate(timestamp) {
+            const date = new Date(timestamp * 1000);
+            const now = new Date();
+            const isToday = date.toDateString() === now.toDateString();
+            return isToday 
+                ? date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                : date.toLocaleDateString([], {month: 'short', day: 'numeric'}) + ', ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function renderCards(whales) {
+            const container = document.getElementById('dashboard-grid');
+            container.innerHTML = ''; 
+            
+            whales.forEach(whale => {
+                const isYes = whale.outcome === 0;
+                const isBuy = whale.side === 'BUY';
+                // Logic: Buy Yes / Sell No = Bullish. Buy No / Sell Yes = Bearish.
+                const isBullish = (isBuy && isYes) || (!isBuy && !isYes);
+                const color = isBullish ? 'emerald' : 'rose';
+
+                // Level Logic
+                let levelColor = 'slate'; 
+                if (whale.level === 'SHARK') levelColor = 'cyan';
+                if (whale.level === 'WHALE') levelColor = 'purple';
+                if (whale.level === 'LEVIATHAN') levelColor = 'amber';
+
+                const timeString = formatSmartDate(whale.time);
+
+                container.innerHTML += `
+                    <div class="group relative overflow-hidden rounded-xl bg-slate-900/80 backdrop-blur border border-slate-800 p-5 hover:border-${levelColor}-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between">
+                        
+                        <div>
+                            <div class="flex justify-between items-start mb-4 gap-2">
+                                <div class="flex items-center gap-3 overflow-hidden">
+                                    <div class="w-12 h-12 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-2xl border border-slate-700">
+                                        ${whale.icon}
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-[9px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded bg-${levelColor}-500/10 text-${levelColor}-400 border border-${levelColor}-500/20">
+                                                ${whale.level}
+                                            </span>
+                                            <span class="text-xs text-slate-500 font-mono">${timeString}</span>
+                                        </div>
+                                        <h3 class="font-bold text-slate-100 text-sm leading-tight truncate" title="${whale.question}">
+                                            ${whale.question}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+                                    <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Size (USD)</p>
+                                    <p class="text-lg font-mono font-bold text-white">$${whale.size_usd.toLocaleString()}</p>
+                                </div>
+                                <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800 relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-8 h-8 bg-${color}-500/20 blur-xl rounded-full -mr-4 -mt-4"></div>
+                                    <p class="text-[10px] uppercase text-slate-500 mb-1 font-bold">Position</p>
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-sm font-bold text-${color}-400">
+                                            ${isBullish ? 'BULLISH' : 'BEARISH'}
+                                        </span>
+                                        <span class="text-xs text-slate-600">(${(whale.price * 100).toFixed(0)}¢)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-3 border-t border-slate-800/50">
+                            <i data-lucide="wallet" class="w-3 h-3 text-slate-500"></i>
+                            <span class="text-xs font-mono text-slate-400 truncate w-full">
+                                ${whale.maker_address}
+                            </span>
+                            <span class="text-[10px] text-indigo-400 cursor-pointer hover:underline shrink-0">
+                                Trace
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        // Run immediately with mock data
+        renderCards(MOCK_DATA);
+    </script>
+</body>
+</html>
