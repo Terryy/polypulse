@@ -13,7 +13,7 @@ function getWhaleTier(amountUSD) {
     if (amountUSD >= TIERS.WHALE.threshold)      return TIERS.WHALE;
     if (amountUSD >= TIERS.SHARK.threshold)      return TIERS.SHARK;
     if (amountUSD >= TIERS.DOLPHIN.threshold)    return TIERS.DOLPHIN;
-    return null; 
+    return null; // Return null if too small
 }
 
 async function fetchWhales() {
@@ -40,7 +40,7 @@ async function fetchWhales() {
         significantTrades.forEach(trade => {
             const amountVal = parseFloat(trade.amountUSD);
             const amountStr = amountVal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-            const timeStr = new Date(trade.timestamp * 1000).toLocaleString(); // Date & Time
+            const timeStr = new Date(trade.timestamp * 1000).toLocaleString(); // Full Date & Time
             
             const tier = getWhaleTier(Math.abs(amountVal));
             if (!tier) return; 
@@ -60,7 +60,7 @@ async function fetchWhales() {
             const card = document.createElement('div');
             card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow animate-fade-in";
             
-            // New Layout: Time on top
+            // Layout: Time at the top
             card.innerHTML = `
                 <div class="text-[10px] text-gray-400 font-mono mb-2 uppercase tracking-wide border-b border-gray-50 pb-1">
                     ${timeStr}
