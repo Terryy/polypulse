@@ -29,7 +29,7 @@
         
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
             <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Whale Tier Definitions</h2>
-            <div class="grid grid-cols-2 gap-4 text-xs sm:grid-cols-5 text-center">
+            <div class="grid grid-cols-2 gap-4 text-xs sm:grid-cols-4 text-center">
                 <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
                     <div class="text-xl">🐋</div>
                     <div class="font-bold text-blue-800 mt-1">Blue Whale</div>
@@ -50,11 +50,6 @@
                     <div class="font-bold text-cyan-800 mt-1">Dolphin</div>
                     <div class="text-cyan-400">$1k-$5k</div>
                 </div>
-                <div class="p-2 bg-gray-50 rounded-lg border border-gray-100">
-                    <div class="text-xl">🐟</div>
-                    <div class="font-bold text-gray-800 mt-1">Minnow</div>
-                    <div class="text-gray-400"><$1k</div>
-                </div>
             </div>
         </div>
 
@@ -72,44 +67,34 @@
         // --- 1. HARDCODED DEMO DATA ---
         const DEMO_TRADES = [
             {
-                id: "demo_1",
-                timestamp: Date.now() / 1000 - 120, // 2 mins ago
+                timestamp: Date.now() / 1000 - 120, 
                 market: { question: "Will Bitcoin hit $100k in 2026?" },
-                amount: 150000,
                 amountUSD: 150000,
-                side: "BUY"
+                outcomeIndex: 0 // BETTING ON YES
             },
             {
-                id: "demo_2",
-                timestamp: Date.now() / 1000 - 600, // 10 mins ago
-                market: { question: "Presidential Election Winner 2028" },
-                amount: 45000,
-                amountUSD: 45000,
-                side: "BUY"
+                timestamp: Date.now() / 1000 - 600, 
+                market: { question: "Will Joe Biden finish his term?" },
+                amountUSD: 50000,
+                outcomeIndex: 1 // BETTING ON NO
             },
             {
-                id: "demo_3",
-                timestamp: Date.now() / 1000 - 1800, // 30 mins ago
+                timestamp: Date.now() / 1000 - 1800, 
                 market: { question: "Fed Interest Rate Cut in March?" },
-                amount: -8500, // Negative amount implies selling NO or similar bearish action
-                amountUSD: 8500,
-                side: "SELL"
+                amountUSD: 12000,
+                outcomeIndex: 0 // BETTING ON YES
             },
             {
-                id: "demo_4",
-                timestamp: Date.now() / 1000 - 3600, // 1 hour ago
-                market: { question: "Will GPT-6 release before Q4?" },
-                amount: 3200,
-                amountUSD: 3200,
-                side: "BUY"
+                timestamp: Date.now() / 1000 - 3600, 
+                market: { question: "Who will win the 2028 Election?" },
+                amountUSD: 6000,
+                outcomeIndex: 1 // BETTING ON NO
             },
             {
-                id: "demo_5",
-                timestamp: Date.now() / 1000 - 7200, // 2 hours ago
+                timestamp: Date.now() / 1000 - 5000, 
                 market: { question: "Super Bowl LIX Winner" },
-                amount: 1200,
-                amountUSD: 1200,
-                side: "BUY"
+                amountUSD: 2500,
+                outcomeIndex: 0 // BETTING ON YES
             }
         ];
 
@@ -118,8 +103,8 @@
             BLUE_WHALE: { threshold: 50000, emoji: '🐋', name: 'BLUE WHALE', class: 'text-blue-600 bg-blue-100' },
             WHALE:      { threshold: 10000, emoji: '🐳', name: 'WHALE',      class: 'text-sky-500 bg-sky-50' },
             SHARK:      { threshold: 5000,  emoji: '🦈', name: 'SHARK',      class: 'text-teal-500 bg-teal-50' },
-            DOLPHIN:    { threshold: 1000,  emoji: '🐬', name: 'DOLPHIN',    class: 'text-cyan-500 bg-cyan-50' },
-            MINNOW:     { threshold: 0,     emoji: '🐟', name: 'MINNOW',     class: 'text-gray-400 bg-gray-50' }
+            DOLPHIN:    { threshold: 1000,  emoji: '🐬', name: 'DOLPHIN',    class: 'text-cyan-500 bg-cyan-50' }
+            // No Minnow Tier
         };
 
         function getWhaleTier(amountUSD) {
@@ -127,25 +112,36 @@
             if (amountUSD >= TIERS.WHALE.threshold)      return TIERS.WHALE;
             if (amountUSD >= TIERS.SHARK.threshold)      return TIERS.SHARK;
             if (amountUSD >= TIERS.DOLPHIN.threshold)    return TIERS.DOLPHIN;
-            return TIERS.MINNOW;
+            return null; // Return null for anything < $1,000
         }
 
         // --- 3. RENDER FUNCTION ---
         function loadDemoData() {
             const container = document.getElementById('whale-container');
-            container.innerHTML = ''; // Clear loading skeleton
+            container.innerHTML = ''; 
 
             DEMO_TRADES.forEach((trade, index) => {
                 const amountVal = parseFloat(trade.amountUSD);
-                const amountStr = amountVal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-                const tier = getWhaleTier(amountVal);
                 
-                // Simple logic: If amount is positive, treat as Green (Accumulating), else Red (Dumping)
-                // In demo data, we set this manually via 'side' or just check sign
-                const isBuy = trade.amount > 0; 
+                // Filter out small trades (just in case demo data has them)
+                if (Math.abs(amountVal) < 1000) return;
+
+                const amountStr = amountVal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+                const tier = getWhaleTier(Math.abs(amountVal));
+                
+                // Simplified Logic: 0 = YES, 1 = NO
+                let sideText = "???";
+                let badgeClass = "bg-gray-100 text-gray-600";
+
+                if (trade.outcomeIndex === 0) {
+                    sideText = "YES";
+                    badgeClass = "bg-green-100 text-green-700 border border-green-200";
+                } else if (trade.outcomeIndex === 1) {
+                    sideText = "NO";
+                    badgeClass = "bg-red-100 text-red-700 border border-red-200";
+                }
                 
                 const card = document.createElement('div');
-                // Add staggered animation delay
                 card.style.animationDelay = `${index * 100}ms`;
                 card.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex items-center justify-between animate-fade-in opacity-0";
                 
@@ -153,18 +149,18 @@
                     <div class="flex items-center space-x-4">
                         <div class="text-4xl" title="${tier.name}">${tier.emoji}</div>
                         <div>
-                            <div class="text-sm font-bold text-gray-900">${trade.market.question}</div>
-                            <div class="text-xs text-gray-500 mt-1">
+                            <div class="text-sm font-bold text-gray-900 line-clamp-2">${trade.market.question}</div>
+                            <div class="text-xs text-gray-500 mt-1 flex items-center space-x-2">
                                 <span class="${tier.class} px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider border border-current opacity-80">${tier.name}</span>
-                                <span class="mx-1">•</span>
-                                ${new Date(trade.timestamp * 1000).toLocaleTimeString()}
+                                <span>•</span>
+                                <span>${new Date(trade.timestamp * 1000).toLocaleTimeString()}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right min-w-[90px]">
                         <div class="text-lg font-black text-gray-800">${amountStr}</div>
-                        <div class="text-xs font-medium ${isBuy ? 'text-green-500' : 'text-red-500'} uppercase tracking-wide">
-                            ${isBuy ? 'Accumulating' : 'Dumping'}
+                        <div class="text-xs font-black uppercase tracking-wider mt-1 px-3 py-1 rounded-md inline-block ${badgeClass}">
+                            ${sideText}
                         </div>
                     </div>
                 `;
@@ -172,7 +168,6 @@
             });
         }
 
-        // Load data immediately
         loadDemoData();
     </script>
 </body>
