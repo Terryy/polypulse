@@ -1,82 +1,88 @@
 import requests
 import json
 import os
-from datetime import datetime
+import time
 
 # --- CONFIGURATION ---
-MIN_USD_THRESHOLD = 5000  # Only save trades larger than $5,000 #old value
-MIN_USD_THRESHOLD = 10    # New value (for testing)
+# We use the Goldsky Subgraph (Official Polymarket Data Source)
+# This does NOT require an API Key.
+GRAPH_URL = "https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/activity-subgraph/0.0.4/gn"
 OUTPUT_FILE = "data/whales.json"
+MIN_USD_THRESHOLD = 1000  # Show trades > $1k
 
-# Polymarket APIs
-CLOB_URL = "https://data-api.polymarket.com/trades"
-GAMMA_URL = "https://gamma-api.polymarket.com/markets"
+def fetch_whales():
+    print("--- 🐳 PolyPulse: Connecting to Subgraph ---")
+    
+    # GraphQL Query to get recent trades
+    query = """
+    {
+      trades(first: 30, orderBy: timestamp, orderDirection: desc) {
+        timestamp
+        price
+        size
+        side
+        market {
+          question
+          slug
+        }
+        maker {
+          id
+        }
+        outcomeIndex
+      }
+    }
+    """
 
-def get_market_details(token_id):
-    """Fetches human-readable title for a given token ID"""
     try:
-        # We query Gamma to find the market that matches this token
-        # Note: This is a simplified lookup. 
-        resp = requests.get(f"{GAMMA_URL}?clob_token_id={token_id}")
-        if resp.status_code == 200:
-            data = resp.json()
-            if isinstance(data, list) and len(data) > 0:
-                return {
-                    "question": data[0].get("question", "Unknown Market"),
-                    "slug": data[0].get("slug", ""),
-                    "icon": data[0].get("icon", "")
+        response = requests.post(
+            GRAPH_URL, 
+            json={'query': query},
+            headers={"User-Agent": "PolyPulse/1.0"}
+        )
+        
+        if response.status_code != 200:
+            print(f"Error: API returned {response.status_code}")
+            print(response.text)
+            return
+
+        data = response.json()
+        trades = data.get('data', {}).get('trades', [])
+        
+        whale_sightings = []
+        
+        for trade in trades:
+            # Calculate USD Size
+            size_shares = float(trade.get('size', 0))
+            price = float(trade.get('price', 0))
+            usd_value = size_shares * price
+            
+            # Filter
+            if usd_value >= MIN_USD_THRESHOLD:
+                # Format Data for Frontend
+                market = trade.get('market', {})
+                maker = trade.get('maker', {})
+                
+                sighting = {
+                    "time": int(trade.get('timestamp')),
+                    "question": market.get('question', "Unknown Market"),
+                    "outcome": int(trade.get('outcomeIndex', 0)),
+                    "side": trade.get('side').upper(),
+                    "size_usd": round(usd_value, 2),
+                    "price": price,
+                    "maker_address": maker.get('id', '0x...'),
+                    "icon": "🐳" if usd_value > 10000 else "🐟"
                 }
+                whale_sightings.append(sighting)
+
+        print(f"✅ Found {len(whale_sightings)} whale trades.")
+        
+        # Save to File
+        os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
+        with open(OUTPUT_FILE, "w") as f:
+            json.dump(whale_sightings, f, indent=2)
+
     except Exception as e:
-        print(f"Warning: Could not fetch details for {token_id}: {e}")
-    
-    return {"question": "Unknown Market", "slug": "", "icon": ""}
-
-def fetch_and_filter():
-    print("--- PolyPulse: Scanning the Ocean ---")
-    
-    # 1. Fetch recent trades (last 50)
-    params = {"limit": 50, "taker_only": "true"}
-    try:
-        r = requests.get(CLOB_URL, params=params)
-        trades = r.json()
-    except Exception as e:
-        print(f"Critical Error fetching trades: {e}")
-        return
-
-    whale_sightings = []
-
-    for trade in trades:
-        size = float(trade.get('size', 0))
-        price = float(trade.get('price', 0))
-        usd_value = size * price
-
-        # 2. Filter: Is it a Whale?
-        if usd_value >= MIN_USD_THRESHOLD:
-            print(f"🐳 Whale found: ${usd_value:,.2f}")
-            
-            # 3. Enrich: Get the real question name
-            details = get_market_details(trade.get('asset_id'))
-            
-            sighting = {
-                "id": trade.get('match_id'),
-                "time": trade.get('timestamp'),
-                "question": details['question'],
-                "outcome": trade.get('outcome_index'), # 0 usually YES, 1 usually NO
-                "side": trade.get('side'),             # BUY or SELL
-                "size_usd": round(usd_value, 2),
-                "price": price,
-                "maker_address": trade.get('maker_address'),
-                "icon": details['icon']
-            }
-            whale_sightings.append(sighting)
-
-    # 4. Save to JSON
-    # Ensure directory exists
-    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-    
-    with open(OUTPUT_FILE, "w") as f:
-        json.dump(whale_sightings, f, indent=2)
-    print(f"--- Saved {len(whale_sightings)} whales to {OUTPUT_FILE} ---")
+        print(f"Critical Error: {e}")
 
 if __name__ == "__main__":
-    fetch_and_filter()
+    fetch_whales()
