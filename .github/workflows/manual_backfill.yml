@@ -1,0 +1,20 @@
+name: Run 30-Day Backfill
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: pip install requests
+      - run: python backend/backfill.py
+      - run: |
+          git config --global user.name 'PolyPulse Bot'
+          git config --global user.email 'bot@polypulse.xyz'
+          git add data/whales.json
+          git commit -m "📜 Backfilled 30 days of history"
+          git push
