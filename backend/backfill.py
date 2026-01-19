@@ -5,21 +5,17 @@ import time
 from datetime import datetime, timedelta
 
 # --- CONFIGURATION ---
-WHALE_THRESHOLD = 1000       # Trades must be > $1,000 USD
+WHALE_THRESHOLD = 1000       # Trades > $1,000
 DAYS_TO_BACKFILL = 30        # Look back 30 days
 GRAPH_URL = "https://subgraph-matic.poly.market/subgraphs/name/TokenUnion/polymarket"
 
-def fetch_all_history():
-    # Calculate cutoff time (30 days ago)
-    end_time = int(time.time())
+def fetch_history():
     start_time = int((datetime.now() - timedelta(days=DAYS_TO_BACKFILL)).timestamp())
+    current_time = int(time.time())
     
-    print(f"⏳ Starting Backfill: {DAYS_TO_BACKFILL} days ({datetime.fromtimestamp(start_time)} to Now)")
-    
+    print(f"⏳ Backfilling {DAYS_TO_BACKFILL} days of whale data...")
     all_trades = []
-    current_time = end_time
     
-    # Loop to fetch data in chunks (Graph API limit is usually 100-1000 items)
     while current_time > start_time:
         query = f"""
         {{
@@ -27,11 +23,7 @@ def fetch_all_history():
             first: 1000,
             orderBy: timestamp,
             orderDirection: desc,
-            where: {{ 
-              timestamp_lt: {current_time}, 
-              timestamp_gt: {start_time},
-              amountUSD_gt: {WHALE_THRESHOLD}
-            }}
+            where: {{ timestamp_lt: {current_time}, timestamp_gt: {start_time}, amountUSD_gt: {WHALE_THRESHOLD} }}
           ) {{
             id
             timestamp
@@ -43,54 +35,39 @@ def fetch_all_history():
           }}
         }}
         """
-        
         try:
-            print(f"   Scanning before timestamp {current_time}...")
-            response = requests.post(GRAPH_URL, json={'query': query}, timeout=15)
-            
-            if response.status_code != 200:
-                print(f"❌ API Error: {response.status_code}")
-                break
-                
+            response = requests.post(GRAPH_URL, json={'query': query}, timeout=30)
             data = response.json()
             trades = data.get('data', {}).get('globalDeals', [])
             
             if not trades:
-                print("   ✅ No more trades found in this time range.")
                 break
                 
             all_trades.extend(trades)
-            print(f"   Found {len(trades)} trades... (Total: {len(all_trades)})")
+            print(f"   Collected {len(trades)} trades (Total: {len(all_trades)})...")
             
-            # Update cursor to the oldest timestamp found to get the next batch
-            last_timestamp = int(trades[-1]['timestamp'])
-            current_time = last_timestamp
-            
-            # Safety sleep to avoid rate limits
-            time.sleep(1)
+            # Update cursor
+            current_time = int(trades[-1]['timestamp'])
+            time.sleep(0.5) # Be nice to the API
             
         except Exception as e:
-            print(f"❌ Critical Error: {e}")
+            print(f"❌ Error: {e}")
             break
             
     return all_trades
 
-def save_to_file(trades):
+def save_trades(trades):
     if not os.path.exists('data'):
         os.makedirs('data')
         
-    # Final sort just in case
+    # Sort by time (newest first)
     trades.sort(key=lambda x: int(x['timestamp']), reverse=True)
     
-    file_path = 'data/whales.json'
-    with open(file_path, 'w') as f:
+    with open('data/whales.json', 'w') as f:
         json.dump(trades, f, indent=2)
-    
-    print(f"\n🎉 SUCCESS! Saved {len(trades)} historical whale trades to {file_path}")
+    print(f"💾 Saved {len(trades)} historical trades to data/whales.json")
 
 if __name__ == "__main__":
-    history = fetch_all_history()
+    history = fetch_history()
     if history:
-        save_to_file(history)
-    else:
-        print("⚠️ No data found. The API might be down or parameters are too strict.")
+        save_trades(history)
