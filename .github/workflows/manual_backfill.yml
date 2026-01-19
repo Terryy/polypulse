@@ -1,20 +1,33 @@
-name: Run 30-Day Backfill
-on: workflow_dispatch
+name: Manual Backfill (30 Days)
+
+on:
+  workflow_dispatch:      # Allows you to click a button to run this
+
 permissions:
   contents: write
+
 jobs:
   backfill:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - run: pip install requests
-      - run: python backend/backfill.py
-      - run: |
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Backfill Script
+        run: python backend/backfill.py
+
+      - name: Commit Historical Data
+        run: |
           git config --global user.name 'PolyPulse Bot'
           git config --global user.email 'bot@polypulse.xyz'
           git add data/whales.json
-          git commit -m "📜 Backfilled 30 days of history"
-          git push
+          # The "|| echo" part prevents the crash if data didn't change
+          git diff --quiet && git diff --staged --quiet || (git commit -m "📜 Backfilled 30 days of history" && git push) || echo "⚠️ No changes to commit"
