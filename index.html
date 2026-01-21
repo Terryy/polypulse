@@ -13,7 +13,7 @@
 <body class="bg-slate-50 min-h-screen font-sans flex flex-col">
 
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <span class="text-2xl">🐋</span>
                 <h1 class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</h1>
@@ -25,31 +25,48 @@
         </div>
     </header>
 
-    <main class="max-w-3xl mx-auto px-4 py-8 flex-grow">
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow">
         
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
-            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Market Surveillance Active</h2>
-            
-            <div class="grid grid-cols-2 gap-4 text-xs sm:grid-cols-4 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">24h Volume</div>
+                <div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Whale Count</div>
+                <div id="stat-count" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Largest Bet</div>
+                <div id="stat-max" class="text-xl sm:text-2xl font-black text-blue-600 mt-1">$0</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Buy Pressure</div>
+                <div id="stat-ratio" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">--%</div>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-8">
+            <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-4 text-center">
                 <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <div class="text-xl">🐋</div>
+                    <div class="text-lg">🐋</div>
                     <div class="font-bold text-blue-800 mt-1">Blue Whale</div>
-                    <div class="text-blue-400">>$50k</div>
+                    <div class="text-blue-400 text-[10px] font-mono">>$50k</div>
                 </div>
                 <div class="p-2 bg-sky-50 rounded-lg border border-sky-100">
-                    <div class="text-xl">🐳</div>
+                    <div class="text-lg">🐳</div>
                     <div class="font-bold text-sky-800 mt-1">Whale</div>
-                    <div class="text-sky-400">$10k-$50k</div>
+                    <div class="text-sky-400 text-[10px] font-mono">$10k-$50k</div>
                 </div>
                 <div class="p-2 bg-teal-50 rounded-lg border border-teal-100">
-                    <div class="text-xl">🦈</div>
+                    <div class="text-lg">🦈</div>
                     <div class="font-bold text-teal-800 mt-1">Shark</div>
-                    <div class="text-teal-400">$5k-$10k</div>
+                    <div class="text-teal-400 text-[10px] font-mono">$5k-$10k</div>
                 </div>
                 <div class="p-2 bg-cyan-50 rounded-lg border border-cyan-100">
-                    <div class="text-xl">🐬</div>
+                    <div class="text-lg">🐬</div>
                     <div class="font-bold text-cyan-800 mt-1">Dolphin</div>
-                    <div class="text-cyan-400">$1k-$5k</div>
+                    <div class="text-cyan-400 text-[10px] font-mono">$1k-$5k</div>
                 </div>
             </div>
         </div>
@@ -64,7 +81,7 @@
 
     </main>
 
-    <footer class="max-w-3xl mx-auto w-full px-4 mt-8 pb-8">
+    <footer class="max-w-4xl mx-auto w-full px-4 mt-8 pb-8">
         <div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs">
             <p>© 2026 PolyPulse Project. Open Source.</p>
             <p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p>
