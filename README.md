@@ -85,6 +85,23 @@ Double-click `index.html` to open it in your browser.
 
 ---
 
+## 📦 Release & Publish
+
+PolyPulse releases are tagged and published automatically via GitHub Actions.
+
+### 1. Tag a Release
+
+```bash
+git tag vYYYY.MM.DD
+git push origin vYYYY.MM.DD
+```
+
+### 2. Automated Publish
+
+Pushing a `v*` tag creates a GitHub Release and deploys the latest site to GitHub Pages.
+
+---
+
 ## ⚠️ Disclaimer
 
 **This tool is for informational purposes only.**
