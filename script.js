@@ -1,28 +1,4 @@
 const WHALE_DATA_URL = 'data/whales.json';
-const DEMO_TRADES = [
-    {
-        amountUSD: 125000,
-        timestamp: Math.floor(Date.now() / 1000) - 120,
-        outcomeIndex: 0,
-        user: { id: '0x82c4a830' },
-        market: { question: 'Will Bitcoin hit $100k in 2026?' }
-    },
-    {
-        amountUSD: 45000,
-        timestamp: Math.floor(Date.now() / 1000) - 900,
-        outcomeIndex: 1,
-        user: { id: '0xd8f86045' },
-        market: { question: 'Fed Interest Rate Cut in March?' }
-    },
-    {
-        amountUSD: 63000,
-        timestamp: Math.floor(Date.now() / 1000) - 1800,
-        outcomeIndex: 0,
-        user: { id: '0x38ad6045' },
-        market: { question: 'Super Bowl LIX Winner' }
-    }
-];
-
 const TIERS = {
     BLUE_WHALE: { threshold: 50000, emoji: '🐋', name: 'BLUE WHALE', class: 'text-blue-600 bg-blue-100 border-blue-200' },
     WHALE:      { threshold: 10000, emoji: '🐳', name: 'WHALE',      class: 'text-sky-600 bg-sky-100 border-sky-200' },
@@ -95,19 +71,13 @@ async function fetchWhales() {
         container.innerHTML = '';
         status.innerHTML = '<span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span> System Online';
 
-        let significantTrades = trades.filter(t => Math.abs(parseFloat(t.amountUSD)) >= 1000);
-        let isDemoMode = false;
-
-        if (significantTrades.length === 0) {
-            significantTrades = DEMO_TRADES;
-            isDemoMode = true;
-        }
+        const significantTrades = trades.filter(t => Math.abs(parseFloat(t.amountUSD)) >= 1000);
 
         // --- UPDATE STATS BAR ---
         updateStats(significantTrades);
 
-        if (isDemoMode) {
-            status.innerHTML = '<span class="h-3 w-3 rounded-full bg-sky-500 mr-2"></span> Demo Mode (No live trades yet)';
+        if (significantTrades.length === 0) {
+            status.innerHTML = '<span class="h-3 w-3 rounded-full bg-sky-500 mr-2"></span> No whale trades yet';
         }
 
         significantTrades.forEach(trade => {
