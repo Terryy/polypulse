@@ -1,12 +1,16 @@
-import requests
 import json
 import os
-import time
 from datetime import datetime, timedelta
+
+import requests
 
 # --- CONFIGURATION ---
 WHALE_THRESHOLD = 1000
 GRAPH_URL = "https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/polymarket/prod/gn"
+
+BASE_DIR = os.path.dirname(__file__)
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
+DATA_PATH = os.path.join(ROOT_DIR, "data", "whales.json")
 
 def fetch_new_whales():
     # Look back 1 hour
@@ -53,12 +57,11 @@ def fetch_new_whales():
         return []
 
 def update_database(new_trades):
-    file_path = 'data/whales.json'
     existing_trades = []
 
-    if os.path.exists(file_path):
+    if os.path.exists(DATA_PATH):
         try:
-            with open(file_path, 'r') as f:
+            with open(DATA_PATH, 'r') as f:
                 existing_trades = json.load(f)
         except:
             existing_trades = []
@@ -76,7 +79,8 @@ def update_database(new_trades):
     all_trades.sort(key=lambda x: int(x['timestamp']), reverse=True)
     all_trades = all_trades[:2000] 
 
-    with open(file_path, 'w') as f:
+    os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
+    with open(DATA_PATH, 'w') as f:
         json.dump(all_trades, f, indent=2)
     print(f"💾 Database updated. Total: {len(all_trades)}")
 

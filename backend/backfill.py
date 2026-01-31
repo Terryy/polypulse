@@ -1,8 +1,8 @@
-import requests
 import json
 import os
-import time
 from datetime import datetime, timedelta
+
+import requests
 
 # --- CONFIGURATION ---
 WHALE_THRESHOLD = 1000       
@@ -10,6 +10,10 @@ DAYS_TO_BACKFILL = 30
 
 # ✅ CORRECT URL (The "Main" Subgraph, not the Activity one)
 GRAPH_URL = "https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/polymarket/prod/gn"
+
+BASE_DIR = os.path.dirname(__file__)
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
+DATA_PATH = os.path.join(ROOT_DIR, "data", "whales.json")
 
 def fetch_history():
     start_time = int((datetime.now() - timedelta(days=DAYS_TO_BACKFILL)).timestamp())
@@ -68,14 +72,13 @@ def fetch_history():
         return []
 
 def save_trades(trades):
-    if not os.path.exists('data'):
-        os.makedirs('data')
+    os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
         
     trades.sort(key=lambda x: int(x['timestamp']), reverse=True)
     
-    with open('data/whales.json', 'w') as f:
+    with open(DATA_PATH, 'w') as f:
         json.dump(trades, f, indent=2)
-    print(f"💾 Saved {len(trades)} trades to data/whales.json")
+    print(f"💾 Saved {len(trades)} trades to {DATA_PATH}")
 
 if __name__ == "__main__":
     history = fetch_history()
