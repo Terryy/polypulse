@@ -1,333 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolyPulse | Signal Ideas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.35s ease-out forwards; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PolyPulse | Signal Ideas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center space-x-2">
-                <span class="text-2xl">🐋</span>
-                <span class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</span>
-            </a>
-            <nav class="flex items-center gap-2">
-                <a href="index.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Feed</a>
-                <a href="details.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Details</a>
-            </nav>
-        </div>
-    </header>
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <a href="index.html" class="flex items-center space-x-2"><span class="text-2xl">🐋</span><span class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</span></a>
+      <nav class="flex items-center gap-2 overflow-x-auto">
+        <a href="index.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Feed</a>
+        <a href="signals.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white">Signals</a>
+        <a href="details.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Details</a>
+      </nav>
+    </div>
+  </header>
 
-    <main class="max-w-5xl mx-auto px-4 py-8">
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-5">
-            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Heuristic signal ideas</div>
-            <h1 class="text-3xl font-black tracking-tight text-slate-900">Top markets by flow, edge, and trade size</h1>
-            <p class="mt-3 text-sm leading-6 text-slate-600 max-w-3xl">This page ranks candidate outcomes from the stored PolyPulse feed. It estimates a rough fair chance from recent buy/sell flow and compares it with the latest traded price. These are research prompts, not financial advice or guaranteed profitable bets.</p>
-        </section>
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-5">
+      <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Heuristic signal ideas</div>
+      <h1 class="text-3xl font-black tracking-tight text-slate-900">Top markets by flow, edge, and trade size</h1>
+      <p class="mt-3 text-sm leading-6 text-slate-600 max-w-3xl">This page ranks candidate outcomes from the stored PolyPulse feed. It estimates a rough fair chance from recent buy/sell flow and compares it with the latest traded price. These are research prompts, not financial advice or guaranteed profitable bets.</p>
+    </section>
 
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
-            <div class="grid gap-4 md:grid-cols-4 md:items-end">
-                <label class="block">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Show</span>
-                    <select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none">
-                        <option value="10">Top 10</option>
-                        <option value="25" selected>Top 25</option>
-                        <option value="50">Top 50</option>
-                    </select>
-                </label>
-                <label class="block">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span>
-                    <select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none">
-                        <option value="1">Last day</option>
-                        <option value="7">Last 7 days</option>
-                        <option value="30">Last month</option>
-                        <option value="365">Last year</option>
-                        <option value="all">All stored</option>
-                    </select>
-                </label>
-                <label class="block">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Minimum edge</span>
-                    <select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none">
-                        <option value="0">Any positive edge</option>
-                        <option value="0.03" selected>3%+</option>
-                        <option value="0.05">5%+</option>
-                        <option value="0.10">10%+</option>
-                    </select>
-                </label>
-                <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500">
-                    <span class="font-bold text-slate-700">Model:</span> price + recent flow bias + volume confirmation
-                </div>
-            </div>
-        </section>
+    <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
+      <div class="grid gap-4 md:grid-cols-4 md:items-end">
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Show</span><select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="10">Top 10</option><option value="25" selected>Top 25</option><option value="50">Top 50</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span><select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Minimum edge</span><select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-s-slate-700"><option value="0">Any positive edge</option><option value="0.03" selected>3%+</option><option value="0.05">5%+</option><option value="0.10">10%+</option></select></label>
+        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Model:</span> price + recent flow bias + volume confirmation</div>
+      </div>
+    </section>
 
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Candidates</div>
-                <div id="stat-candidates" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Edge</div>
-                <div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Volume</div>
-                <div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Last Scan</div>
-                <div id="stat-scan" class="text-sm font-black text-slate-800 mt-2">--</div>
-            </div>
-        </section>
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Candidates</div><div id="stat-candidates" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Edge</div><div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Volume</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Last Scan</div><div id="stat-scan" class="text-sm font-black text-slate-800 mt-2">--</div></div>
+    </section>
 
-        <div id="signals-container" class="space-y-4">
-            <div class="animate-pulse space-y-4">
-                <div class="h-28 bg-gray-200 rounded-xl"></div>
-                <div class="h-28 bg-gray-200 rounded-xl"></div>
-                <div class="h-28 bg-gray-200 rounded-xl"></div>
-            </div>
-        </div>
+    <div id="signals-container" class="space-y-4"><div class="animate-pulse space-y-4"><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div></div></div>
 
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mt-6">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Calculation Idea</h2>
-            <div class="grid gap-4 mt-3 md:grid-cols-2">
-                <div class="text-sm leading-6 text-slate-600">
-                    <p><span class="font-bold text-slate-800">Implied chance</span> is the latest traded price for the outcome.</p>
-                    <p><span class="font-bold text-slate-800">Flow bias</span> compares buy volume and sell volume for that outcome.</p>
-                    <p><span class="font-bold text-slate-800">Estimated chance</span> adjusts price by recent flow and volume confirmation.</p>
-                </div>
-                <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
+    <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mt-6">
+      <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Calculation Idea</h2>
+      <div class="grid gap-4 mt-3 md:grid-cols-2">
+        <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Implied chance</span> is the latest traded price for the outcome.</p><p><span class="font-bold text-slate-800">Flow bias</span> compares buy volume and sell volume for that outcome.</p><p><span class="font-bold text-slate-800">Estimated chance</span> adjusts price by recent flow and volume confirmation.</p></div>
+        <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
 estimated_chance = price + flow_bias * 12% + volume_bonus
 edge = estimated_chance - price
 score = edge + volume_strength + max_trade_strength</code></pre>
-            </div>
-            <p class="text-xs text-slate-400 mt-4">This is a lightweight heuristic. It does not include outside news, settlement rules, liquidity depth, market-maker hedging, or whether a whale trade was informed.</p>
-        </section>
-    </main>
+      </div>
+      <p class="text-xs text-slate-400 mt-4">This is a lightweight heuristic. It does not include outside news, settlement rules, liquidity depth, market-maker hedging, or whether a whale trade was informed.</p>
+    </section>
+  </main>
 
-    <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8">
-        <div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs">
-            <p>© 2026 PolyPulse Project. Open Source.</p>
-            <p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p>
-        </div>
-    </footer>
+  <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8"><div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs"><p>© 2026 PolyPulse Project. Open Source.</p><p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p></div></footer>
 
-    <script>
-        const WHALE_DATA_URL = 'data/whales.json';
-
-        let allTrades = [];
-        let feedMeta = null;
-
-        function escapeHTML(value) {
-            return String(value ?? '').replace(/[&<>'"]/g, (char) => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-            }[char]));
-        }
-
-        function formatCurrency(value) {
-            const number = Number.parseFloat(value) || 0;
-            return number.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-        }
-
-        function formatPercent(value) {
-            return `${Math.round(value * 100)}%`;
-        }
-
-        function formatDate(value) {
-            if (!value) return '--';
-            const date = new Date(value);
-            if (Number.isNaN(date.getTime())) return '--';
-            return date.toLocaleString();
-        }
-
-        function clamp(value, min, max) {
-            return Math.max(min, Math.min(max, value));
-        }
-
-        function normalizePayload(payload) {
-            if (Array.isArray(payload)) return { meta: null, trades: payload };
-            return {
-                meta: payload?.meta || null,
-                trades: Array.isArray(payload?.trades) ? payload.trades : []
-            };
-        }
-
-        function getSelectedPeriodDays() {
-            const value = document.getElementById('period-filter').value;
-            return value === 'all' ? null : Number(value);
-        }
-
-        function getPolymarketUrl(signal) {
-            const slug = signal.eventSlug || signal.slug;
-            return slug ? `https://polymarket.com/event/${encodeURIComponent(slug)}` : 'https://polymarket.com/';
-        }
-
-        function getPeriodTrades() {
-            const periodDays = getSelectedPeriodDays();
-            const cutoffSeconds = periodDays ? Math.floor(Date.now() / 1000) - (periodDays * 24 * 60 * 60) : null;
-            return allTrades.filter(trade => !cutoffSeconds || Number(trade.timestamp || 0) >= cutoffSeconds);
-        }
-
-        function buildSignals() {
-            const grouped = new Map();
-            const trades = getPeriodTrades();
-
-            trades.forEach(trade => {
-                const amount = Math.abs(Number.parseFloat(trade.amountUSD) || 0);
-                const price = clamp(Number.parseFloat(trade.price) || 0, 0.01, 0.99);
-                const outcome = trade.outcome || (Number(trade.outcomeIndex) === 0 ? 'Outcome 1' : 'Outcome 2');
-                const key = `${trade.slug || trade.market?.question || 'market'}::${outcome}`;
-                const current = grouped.get(key) || {
-                    key,
-                    question: trade.market?.question || 'Unknown Market',
-                    outcome,
-                    slug: trade.slug,
-                    eventSlug: trade.eventSlug,
-                    latestPrice: price,
-                    latestTimestamp: 0,
-                    buyVolume: 0,
-                    sellVolume: 0,
-                    totalVolume: 0,
-                    maxTrade: 0,
-                    tradeCount: 0,
-                    buyCount: 0,
-                    sellCount: 0
-                };
-
-                const side = String(trade.type || '').toUpperCase();
-                if (side === 'SELL') {
-                    current.sellVolume += amount;
-                    current.sellCount += 1;
-                } else {
-                    current.buyVolume += amount;
-                    current.buyCount += 1;
-                }
-
-                current.totalVolume += amount;
-                current.maxTrade = Math.max(current.maxTrade, amount);
-                current.tradeCount += 1;
-
-                if (Number(trade.timestamp || 0) > current.latestTimestamp) {
-                    current.latestTimestamp = Number(trade.timestamp || 0);
-                    current.latestPrice = price;
-                    current.slug = trade.slug || current.slug;
-                    current.eventSlug = trade.eventSlug || current.eventSlug;
-                }
-
-                grouped.set(key, current);
-            });
-
-            return Array.from(grouped.values()).map(signal => {
-                const flowBias = signal.totalVolume > 0 ? (signal.buyVolume - signal.sellVolume) / signal.totalVolume : 0;
-                const volumeBonus = Math.min(signal.totalVolume / 100000, 1) * 0.03;
-                const estimatedChance = clamp(signal.latestPrice + (flowBias * 0.12) + volumeBonus, 0.02, 0.98);
-                const edge = estimatedChance - signal.latestPrice;
-                const volumeStrength = Math.min(Math.log10(signal.totalVolume + 1) / 5, 1);
-                const maxTradeStrength = Math.min(Math.log10(signal.maxTrade + 1) / 5, 1);
-                const score = (edge * 100) + (volumeStrength * 12) + (maxTradeStrength * 8) + Math.min(signal.tradeCount, 20) * 0.25;
-
-                return { ...signal, flowBias, estimatedChance, edge, score };
-            }).filter(signal => signal.edge > 0 && signal.buyVolume > signal.sellVolume);
-        }
-
-        function renderStats(signals) {
-            document.getElementById('stat-candidates').innerText = signals.length;
-            document.getElementById('stat-edge').innerText = signals.length ? `+${Math.round(signals[0].edge * 100)}%` : '--';
-            document.getElementById('stat-volume').innerText = signals.length ? formatCurrency(Math.max(...signals.map(s => s.totalVolume))) : '$0';
-            document.getElementById('stat-scan').innerText = formatDate(feedMeta?.last_checked_at);
-        }
-
-        function renderSignals() {
-            const limit = Number(document.getElementById('limit-filter').value);
-            const minEdge = Number(document.getElementById('edge-filter').value);
-            const signals = buildSignals()
-                .filter(signal => signal.edge >= minEdge)
-                .sort((a, b) => b.score - a.score);
-            const shown = signals.slice(0, limit);
-            const container = document.getElementById('signals-container');
-
-            renderStats(signals);
-            container.innerHTML = '';
-
-            if (!shown.length) {
-                container.innerHTML = `
-                    <div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm">
-                        <div class="text-sm font-black text-slate-800 uppercase tracking-wide">No signal ideas matched</div>
-                        <p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            shown.forEach((signal, index) => {
-                const card = document.createElement('div');
-                card.className = 'bg-white border border-slate-200 rounded-xl shadow-sm p-5 animate-fade-in';
-                card.innerHTML = `
-                    <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                        <div class="min-w-0">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="rounded bg-slate-900 px-2 py-1 text-[10px] font-black text-white">#${index + 1}</span>
-                                <span class="rounded bg-green-100 px-2 py-1 text-[10px] font-black text-green-700">BUY ${escapeHTML(signal.outcome)}</span>
-                            </div>
-                            <h2 class="text-base font-black text-slate-900 leading-snug">${escapeHTML(signal.question)}</h2>
-                            <p class="text-xs text-slate-400 mt-2">${signal.tradeCount} trades · ${formatCurrency(signal.totalVolume)} flow · max trade ${formatCurrency(signal.maxTrade)}</p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 text-right md:min-w-[280px]">
-                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Price</div>
-                                <div class="text-lg font-black text-slate-800">${formatPercent(signal.latestPrice)}</div>
-                            </div>
-                            <div class="rounded-lg bg-green-50 border border-green-100 p-3">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-green-500">Est. Chance</div>
-                                <div class="text-lg font-black text-green-700">${formatPercent(signal.estimatedChance)}</div>
-                            </div>
-                            <div class="rounded-lg bg-blue-50 border border-blue-100 p-3">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">Edge</div>
-                                <div class="text-lg font-black text-blue-700">+${Math.round(signal.edge * 100)}%</div>
-                            </div>
-                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</div>
-                                <div class="text-lg font-black text-slate-800">${Math.round(signal.score)}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
-                        <span>Buy flow ${formatCurrency(signal.buyVolume)} vs sell flow ${formatCurrency(signal.sellVolume)}.</span>
-                        <a href="${getPolymarketUrl(signal)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">Open market ↗</a>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        async function loadSignals() {
-            try {
-                const response = await fetch(`${WHALE_DATA_URL}?t=${Date.now()}`);
-                if (!response.ok) throw new Error('Could not load feed');
-                const normalized = normalizePayload(await response.json());
-                allTrades = normalized.trades;
-                feedMeta = normalized.meta;
-                renderSignals();
-            } catch (error) {
-                document.getElementById('signals-container').innerHTML = `
-                    <div class="bg-white border border-red-200 rounded-xl p-6 text-center shadow-sm">
-                        <div class="text-sm font-black text-red-700 uppercase tracking-wide">Unable to load signals</div>
-                        <p class="text-sm text-slate-500 mt-2">${escapeHTML(error.message)}</p>
-                    </div>
-                `;
-            }
-        }
-
-        ['limit-filter', 'period-filter', 'edge-filter'].forEach(id => {
-            document.getElementById(id).addEventListener('change', renderSignals);
-        });
-
-        loadSignals();
-    </script>
+  <script>
+    const WHALE_DATA_URL='data/whales.json'; let allTrades=[],feedMeta=null;
+    const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    const money=v=>(Number.parseFloat(v)||0).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+    const pct=v=>`${Math.round(v*100)}%`; const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+    const date=v=>{const d=new Date(v);return v&&!Number.isNaN(d.getTime())?d.toLocaleString():'--'};
+    function norm(p){return Array.isArray(p)?{meta:null,trades:p}:{meta:p?.meta||null,trades:Array.isArray(p?.trades)?p.trades:[]}}
+    function periodTrades(){const v=document.getElementById('period-filter').value;const days=v==='all'?null:Number(v);const cut=days?Math.floor(Date.now()/1000)-days*86400:null;return allTrades.filter(t=>!cut||Number(t.timestamp||0)>=cut)}
+    function marketUrl(s){const slug=s.eventSlug||s.slug;return slug?`https://polymarket.com/event/${encodeURIComponent(slug)}`:'https://polymarket.com/'}
+    function buildSignals(){const g=new Map();periodTrades().forEach(t=>{const amt=Math.abs(Number.parseFloat(t.amountUSD)||0),price=clamp(Number.parseFloat(t.price)||0,0.01,0.99),out=t.outcome||(Number(t.outcomeIndex)===0?'Outcome 1':'Outcome 2'),key=`${t.slug||t.market?.question||'market'}::${out}`;const s=g.get(key)||{key,question:t.market?.question||'Unknown Market',outcome:out,slug:t.slug,eventSlug:t.eventSlug,latestPrice:price,latestTimestamp:0,buyVolume:0,sellVolume:0,totalVolume:0,maxTrade:0,tradeCount:0};if(String(t.type||'').toUpperCase()==='SELL')s.sellVolume+=amt;else s.buyVolume+=amt;s.totalVolume+=amt;s.maxTrade=Math.max(s.maxTrade,amt);s.tradeCount++;if(Number(t.timestamp||0)>s.latestTimestamp){s.latestTimestamp=Number(t.timestamp||0);s.latestPrice=price;s.slug=t.slug||s.slug;s.eventSlug=t.eventSlug||s.eventSlug}g.set(key,s)});return Array.from(g.values()).map(s=>{const flow=s.totalVolume?(s.buyVolume-s.sellVolume)/s.totalVolume:0,bonus=Math.min(s.totalVolume/100000,1)*0.03,est=clamp(s.latestPrice+flow*0.12+bonus,0.02,0.98),edge=est-s.latestPrice,vol=Math.min(Math.log10(s.totalVolume+1)/5,1),max=Math.min(Math.log10(s.maxTrade+1)/5,1),score=edge*100+vol*12+max*8+Math.min(s.tradeCount,20)*0.25;return {...s,flowBias:flow,estimatedChance:est,edge,score}}).filter(s=>s.edge>0&&s.buyVolume>s.sellVolume)}
+    function renderStats(s){document.getElementById('stat-candidates').innerText=s.length;document.getElementById('stat-edge').innerText=s.length?`+${Math.round(s[0].edge*100)}%`:'--';document.getElementById('stat-volume').innerText=s.length?money(Math.max(...s.map(x=>x.totalVolume))):'$0';document.getElementById('stat-scan').innerText=date(feedMeta?.last_checked_at)}
+    function renderSignals(){const limit=Number(document.getElementById('limit-filter').value),minEdge=Number(document.getElementById('edge-filter').value),signals=buildSignals().filter(s=>s.edge>=minEdge).sort((a,b)=>b.score-a.score),shown=signals.slice(0,limit),c=document.getElementById('signals-container');renderStats(signals);c.innerHTML='';if(!shown.length){c.innerHTML='<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No signal ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period.</p></div>';return}shown.forEach((s,i)=>{const el=document.createElement('div');el.className='bg-white border border-slate-200 rounded-xl shadow-sm p-5';el.innerHTML=`<div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between"><div class="min-w-0"><div class="flex items-center gap-3 mb-3"><span class="rounded-lg bg-slate-900 px-4 py-2 text-2xl font-black leading-none text-white shadow-sm">#${i+1}</span><span class="rounded bg-green-100 px-2 py-1 text-[10px] font-black text-green-700">BUY ${esc(s.outcome)}</span></div><h2 class="text-base font-black text-slate-900 leading-snug">${esc(s.question)}</h2><p class="text-xs text-slate-400 mt-2">${s.tradeCount} trades · ${money(s.totalVolume)} flow · max trade ${money(s.maxTrade)}</p></div><div class="grid grid-cols-2 gap-2 text-right md:min-w-[280px]"><div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Price</div><div class="text-lg font-black text-slate-800">${pct(s.latestPrice)}</div></div><div class="rounded-lg bg-green-50 border border-green-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-green-500">Est. Chance</div><div class="text-lg font-black text-green-700">${pct(s.estimatedChance)}</div></div><div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">Edge</div><div class="text-lg font-black text-blue-700">+${Math.round(s.edge*100)}%</div></div><div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</div><div class="text-lg font-black text-slate-800">${Math.round(s.score)}</div></div></div></div><div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between"><span>Buy flow ${money(s.buyVolume)} vs sell flow ${money(s.sellVolume)}.</span><a href="${marketUrl(s)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">Open market ↗</a></div>`;c.appendChild(el)})}
+    async function load(){try{const r=await fetch(`${WHALE_DATA_URL}?t=${Date.now()}`);if(!r.ok)throw new Error('Could not load feed');const n=norm(await r.json());allTrades=n.trades;feedMeta=n.meta;renderSignals()}catch(e){document.getElementById('signals-container').innerHTML=`<div class="bg-white border border-red-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-red-700 uppercase tracking-wide">Unable to load signals</div><p class="text-sm text-slate-500 mt-2">${esc(e.message)}</p></div>`}}
+    ['limit-filter','period-filter','edge-filter'].forEach(id=>document.getElementById(id).addEventListener('change',renderSignals));load();
+  </script>
 </body>
 </html>
