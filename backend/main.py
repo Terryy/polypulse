@@ -9,8 +9,8 @@ import requests
 # highlights larger trades with whale tiers.
 MIN_TRADE_USD = int(os.getenv("POLYPULSE_MIN_TRADE_USD", "100"))
 LOOKBACK_HOURS = int(os.getenv("POLYPULSE_LOOKBACK_HOURS", "24"))
-ARCHIVE_DAYS = int(os.getenv("POLYPULSE_ARCHIVE_DAYS", "30"))
-MAX_TRADES = int(os.getenv("POLYPULSE_MAX_TRADES", "2000"))
+ARCHIVE_DAYS = int(os.getenv("POLYPULSE_ARCHIVE_DAYS", "365"))
+MAX_TRADES = int(os.getenv("POLYPULSE_MAX_TRADES", "10000"))
 DATA_API_URL = "https://data-api.polymarket.com/trades"
 
 BASE_DIR = os.path.dirname(__file__)
