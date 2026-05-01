@@ -5,7 +5,7 @@ const TIERS = {
     WHALE:      { threshold: 10000, emoji: '🐳', name: 'WHALE',      class: 'text-sky-600 bg-sky-100 border-sky-200' },
     SHARK:      { threshold: 5000,  emoji: '🦈', name: 'SHARK',      class: 'text-teal-600 bg-teal-100 border-teal-200' },
     DOLPHIN:    { threshold: 1000,  emoji: '🐬', name: 'DOLPHIN',    class: 'text-cyan-600 bg-cyan-100 border-cyan-200' },
-    PULSE:      { threshold: 100,   emoji: '•',  name: 'PULSE',      class: 'text-slate-600 bg-slate-100 border-slate-200' }
+    PULSE:      { threshold: 100,   emoji: '🐟', name: 'PULSE',      class: 'text-slate-600 bg-slate-100 border-slate-200' }
 };
 
 let feedMeta = null;
