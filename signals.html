@@ -27,17 +27,15 @@
 
   <main class="max-w-5xl mx-auto px-4 py-8">
     <section class="mb-6">
-      <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Ranked signal ideas</div>
+      <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Ranked value ideas</div>
       <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Win Chance Tracker</h1>
-      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">Rank candidate Polymarket outcomes by recent buy flow, trade size, market price, and estimated edge. Each market appears at most once: only the highest estimated chance is suggested, and close two-sided markets are skipped.</p>
-      <div class="mt-4 flex flex-wrap gap-4">
-        <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a>
-      </div>
+      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">Rank candidate Polymarket outcomes by estimated chance, market price, and model value. Each market appears at most once, close two-sided markets are skipped, and expensive bets with weak upside are filtered out.</p>
+      <div class="mt-4 flex flex-wrap gap-4"><a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a></div>
     </section>
 
     <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
       <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ideas Found</div><div id="stat-candidates" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Edge</div><div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Value</div><div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div></div>
       <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Flow</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
       <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Last Scan</div><div id="stat-scan" class="text-sm font-black text-slate-800 mt-2">--</div></div>
     </section>
@@ -48,24 +46,12 @@
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Show</span><select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="10">Top 10</option><option value="25" selected>Top 25</option><option value="50">Top 50</option></select></label>
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span><select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option></select></label>
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Minimum edge</span><select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="0">Any positive edge</option><option value="0.03" selected>3%+</option><option value="0.05">5%+</option><option value="0.10">10%+</option></select></label>
-        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Sorted by:</span> highest estimated chance, then edge</div>
+        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Sorted by:</span> model value per $1, then edge</div>
       </div>
     </section>
 
-    <section class="mb-3"><h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Top Ranked Ideas</h2></section>
+    <section class="mb-3"><h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Top Worth-Betting Ideas</h2></section>
     <div id="signals-container" class="space-y-4"><div class="animate-pulse space-y-4"><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div></div></div>
-
-    <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mt-6">
-      <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Calculation Idea</h2>
-      <div class="grid gap-4 mt-3 md:grid-cols-2">
-        <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Implied chance</span> is the latest traded price for the outcome.</p><p><span class="font-bold text-slate-800">Flow bias</span> compares buy volume and sell volume for that outcome.</p><p><span class="font-bold text-slate-800">Market selection</span> keeps only the highest estimated chance per market, and skips close calls under a 5-point gap.</p></div>
-        <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
-estimated_chance = price + flow_bias * 12% + volume_bonus
-edge = estimated_chance - price
-suggestion = top estimated_chance if gap >= 5%</code></pre>
-      </div>
-      <p class="text-xs text-slate-400 mt-4">This is a lightweight heuristic. It does not include outside news, settlement rules, liquidity depth, market-maker hedging, or whether a large trade was informed.</p>
-    </section>
   </main>
 
   <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8"><div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs"><p>© 2026 PolyPulse Project. Open Source.</p><p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p></div></footer>
@@ -73,11 +59,14 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
   <script>
     const WHALE_DATA_URL = 'data/whales.json';
     const MIN_CHANCE_GAP = 0.05;
+    const MIN_VALUE_ROI = 0.05;
     let allTrades = [];
     let feedMeta = null;
     const esc = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
     const money = value => (Number.parseFloat(value) || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
     const pct = value => `${Math.round(value * 100)}%`;
+    const signedPct = value => `${value >= 0 ? '+' : ''}${Math.round(value * 100)}%`;
+    const signedMoney = value => `${value >= 0 ? '+' : '-'}$${Math.abs(value).toFixed(2)}`;
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
     const date = value => {
       const parsed = new Date(value);
@@ -132,10 +121,11 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
         const volumeBonus = Math.min(signal.totalVolume / 100000, 1) * 0.03;
         const estimatedChance = clamp(signal.latestPrice + flowBias * 0.12 + volumeBonus, 0.02, 0.98);
         const edge = estimatedChance - signal.latestPrice;
+        const valueRoi = edge / signal.latestPrice;
         const volumeStrength = Math.min(Math.log10(signal.totalVolume + 1) / 5, 1);
         const maxTradeStrength = Math.min(Math.log10(signal.maxTrade + 1) / 5, 1);
-        const score = edge * 100 + volumeStrength * 12 + maxTradeStrength * 8 + Math.min(signal.tradeCount, 20) * 0.25;
-        return { ...signal, flowBias, estimatedChance, edge, score };
+        const score = valueRoi * 100 + edge * 100 + volumeStrength * 8 + maxTradeStrength * 5;
+        return { ...signal, flowBias, estimatedChance, edge, valueRoi, score };
       });
 
       const markets = new Map();
@@ -146,12 +136,12 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
 
       const suggestions = [];
       markets.forEach(outcomes => {
-        const ranked = outcomes.sort((a, b) => b.estimatedChance - a.estimatedChance || b.edge - a.edge || b.score - a.score);
-        const top = ranked[0];
-        const second = ranked[1];
+        const byChance = outcomes.sort((a, b) => b.estimatedChance - a.estimatedChance || b.edge - a.edge || b.valueRoi - a.valueRoi);
+        const top = byChance[0];
+        const second = byChance[1];
         if (!top) return;
         if (second && top.estimatedChance - second.estimatedChance <= MIN_CHANCE_GAP) return;
-        if (top.edge <= 0 || top.buyVolume <= top.sellVolume) return;
+        if (top.edge <= 0 || top.valueRoi < MIN_VALUE_ROI || top.buyVolume <= top.sellVolume) return;
         suggestions.push(top);
       });
 
@@ -160,8 +150,8 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
 
     function renderStats(signals) {
       document.getElementById('stat-candidates').innerText = signals.length;
-      const bestEdge = signals.length ? Math.max(...signals.map(signal => signal.edge)) : null;
-      document.getElementById('stat-edge').innerText = bestEdge !== null ? `+${Math.round(bestEdge * 100)}%` : '--';
+      const bestValue = signals.length ? Math.max(...signals.map(signal => signal.valueRoi)) : null;
+      document.getElementById('stat-edge').innerText = bestValue !== null ? signedPct(bestValue) : '--';
       document.getElementById('stat-volume').innerText = signals.length ? money(Math.max(...signals.map(signal => signal.totalVolume))) : '$0';
       document.getElementById('stat-scan').innerText = date(feedMeta?.last_checked_at);
     }
@@ -169,14 +159,14 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
     function renderSignals() {
       const limit = Number(document.getElementById('limit-filter').value);
       const minEdge = Number(document.getElementById('edge-filter').value);
-      const signals = buildSignals().filter(signal => signal.edge >= minEdge).sort((a, b) => b.estimatedChance - a.estimatedChance || b.edge - a.edge || b.score - a.score);
+      const signals = buildSignals().filter(signal => signal.edge >= minEdge).sort((a, b) => b.valueRoi - a.valueRoi || b.edge - a.edge || b.estimatedChance - a.estimatedChance);
       const shown = signals.slice(0, limit);
       const container = document.getElementById('signals-container');
       renderStats(signals);
       container.innerHTML = '';
 
       if (!shown.length) {
-        container.innerHTML = '<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No clear signal ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period. Close two-sided markets are skipped.</p></div>';
+        container.innerHTML = '<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No worth-betting ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period. Close markets and low-value expensive bets are skipped.</p></div>';
         return;
       }
 
@@ -193,11 +183,11 @@ suggestion = top estimated_chance if gap >= 5%</code></pre>
             <div class="grid grid-cols-2 gap-2 text-right md:min-w-[280px]">
               <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Price</div><div class="text-lg font-black text-slate-800">${pct(signal.latestPrice)}</div></div>
               <div class="rounded-lg bg-green-50 border border-green-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-green-500">Est. Chance</div><div class="text-lg font-black text-green-700">${pct(signal.estimatedChance)}</div></div>
-              <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">Edge</div><div class="text-lg font-black text-blue-700">+${Math.round(signal.edge * 100)}%</div></div>
-              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</div><div class="text-lg font-black text-slate-800">${Math.round(signal.score)}</div></div>
+              <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">Value / $1</div><div class="text-lg font-black text-blue-700">${signedPct(signal.valueRoi)}</div></div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Edge</div><div class="text-lg font-black text-slate-800">${signedPct(signal.edge)}</div></div>
             </div>
           </div>
-          <div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between"><span>Buy flow ${money(signal.buyVolume)} vs sell flow ${money(signal.sellVolume)}.</span><a href="${marketUrl(signal)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">Open market ↗</a></div>
+          <div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between"><span>Model value ${signedMoney(signal.valueRoi)} per $1 staked. Buy flow ${money(signal.buyVolume)} vs sell flow ${money(signal.sellVolume)}.</span><a href="${marketUrl(signal)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">Open market ↗</a></div>
         `;
         container.appendChild(element);
       });
