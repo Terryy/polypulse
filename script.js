@@ -52,13 +52,13 @@ function normalizePayload(payload) {
 function updateStats(trades) {
     let totalVol = 0;
     let maxVol = 0;
-    let yesCount = 0;
+    let buyCount = 0;
 
     trades.forEach(t => {
         const val = Math.abs(Number.parseFloat(t.amountUSD) || 0);
         totalVol += val;
         if (val > maxVol) maxVol = val;
-        if (Number(t.outcomeIndex) === 0) yesCount++;
+        if (String(t.type || '').toUpperCase() === 'BUY') buyCount++;
     });
 
     document.getElementById('stat-volume').innerText = formatCurrency(totalVol);
@@ -66,7 +66,7 @@ function updateStats(trades) {
     document.getElementById('stat-max').innerText = formatCurrency(maxVol);
 
     const total = trades.length;
-    const ratio = total > 0 ? Math.round((yesCount / total) * 100) : 0;
+    const ratio = total > 0 ? Math.round((buyCount / total) * 100) : 0;
     const ratioEl = document.getElementById('stat-ratio');
 
     if (total === 0) {
@@ -74,10 +74,10 @@ function updateStats(trades) {
         ratioEl.innerText = '--';
     } else if (ratio >= 50) {
         ratioEl.className = 'text-xl sm:text-2xl font-black text-green-500 mt-1';
-        ratioEl.innerHTML = `${ratio}% <span class="text-[10px] text-gray-400 font-bold uppercase ml-1">YES</span>`;
+        ratioEl.innerHTML = `${ratio}% <span class="text-[10px] text-gray-400 font-bold uppercase ml-1">BUY</span>`;
     } else {
         ratioEl.className = 'text-xl sm:text-2xl font-black text-red-500 mt-1';
-        ratioEl.innerHTML = `${ratio}% <span class="text-[10px] text-gray-400 font-bold uppercase ml-1">NO</span>`;
+        ratioEl.innerHTML = `${ratio}% <span class="text-[10px] text-gray-400 font-bold uppercase ml-1">BUY</span>`;
     }
 }
 
@@ -128,13 +128,12 @@ function renderTrade(container, trade) {
 
     if (!tier) return;
 
-    let sideText = 'BET YES';
-    let badgeClass = 'bg-green-100 text-green-700 border-green-200';
-
-    if (Number(trade.outcomeIndex) === 1) {
-        sideText = 'BET NO';
-        badgeClass = 'bg-red-100 text-red-700 border-red-200';
-    }
+    const tradeSide = String(trade.type || 'TRADE').toUpperCase();
+    const outcome = trade.outcome || (Number(trade.outcomeIndex) === 0 ? 'Outcome 1' : 'Outcome 2');
+    const sideText = `${tradeSide} ${outcome}`;
+    const badgeClass = tradeSide === 'SELL'
+        ? 'bg-red-100 text-red-700 border-red-200'
+        : 'bg-green-100 text-green-700 border-green-200';
 
     const card = document.createElement('div');
     card.className = 'bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow animate-fade-in';
@@ -161,10 +160,10 @@ function renderTrade(container, trade) {
                     </div>
                 </div>
             </div>
-            <div class="text-right pl-4 border-l border-gray-50 min-w-[100px]">
+            <div class="text-right pl-4 border-l border-gray-50 min-w-[100px] max-w-[150px]">
                 <div class="text-lg font-black text-gray-800 tracking-tight">${amountStr}</div>
                 <div class="text-[10px] font-bold uppercase tracking-widest mt-1 px-2 py-1 rounded inline-block border ${badgeClass}">
-                    ${sideText}
+                    ${escapeHTML(sideText)}
                 </div>
             </div>
         </div>
