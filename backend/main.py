@@ -11,7 +11,7 @@ MIN_TRADE_USD = int(os.getenv("POLYPULSE_MIN_TRADE_USD", "100"))
 LOOKBACK_HOURS = int(os.getenv("POLYPULSE_LOOKBACK_HOURS", "24"))
 ARCHIVE_DAYS = int(os.getenv("POLYPULSE_ARCHIVE_DAYS", "30"))
 MAX_TRADES = int(os.getenv("POLYPULSE_MAX_TRADES", "2000"))
-GRAPH_URL = "https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/polymarket/prod/gn"
+DATA_API_URL = "https://data-api.polymarket.com/trades"
 
 BASE_DIR = os.path.dirname(__file__)
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
@@ -41,49 +41,63 @@ def load_existing_trades():
     return []
 
 
+def get_trade_amount_usd(trade):
+    if trade.get("amountUSD") is not None:
+        return float(trade.get("amountUSD") or 0)
+
+    size = float(trade.get("size") or 0)
+    price = float(trade.get("price") or 0)
+    return abs(size * price)
+
+
+def get_trade_id(trade):
+    parts = [
+        trade.get("transactionHash"),
+        trade.get("asset"),
+        str(trade.get("timestamp", "")),
+        trade.get("side"),
+    ]
+    return ":".join(str(part) for part in parts if part) or str(trade.get("id"))
+
+
 def normalize_trade(trade):
     return {
-        "id": trade["id"],
-        "timestamp": int(trade["creationTimestamp"]),
-        "user": trade.get("creator") or {"id": "0x00"},
+        "id": get_trade_id(trade),
+        "timestamp": int(trade.get("timestamp") or 0),
+        "user": {"id": trade.get("proxyWallet") or "0x00"},
         "market": {"question": trade.get("title") or "Unknown Market"},
         "outcomeIndex": trade.get("outcomeIndex"),
-        "amountUSD": trade.get("amountUSD") or "0",
-        "type": trade.get("type"),
+        "outcome": trade.get("outcome"),
+        "amountUSD": f"{get_trade_amount_usd(trade):.2f}",
+        "size": trade.get("size"),
+        "price": trade.get("price"),
+        "type": trade.get("side"),
+        "slug": trade.get("slug"),
+        "eventSlug": trade.get("eventSlug"),
+        "transactionHash": trade.get("transactionHash"),
     }
 
 
 def fetch_new_trades():
     start_time = int((utc_now() - timedelta(hours=LOOKBACK_HOURS)).timestamp())
+    params = {
+        "limit": 1000,
+        "offset": 0,
+        "takerOnly": "true",
+        "filterType": "CASH",
+        "filterAmount": MIN_TRADE_USD,
+        "after": start_time,
+    }
 
-    query = f"""
-    {{
-      fpmmTrades(
-        first: 1000,
-        orderBy: creationTimestamp,
-        orderDirection: desc,
-        where: {{ creationTimestamp_gt: {start_time}, amountUSD_gt: {MIN_TRADE_USD} }}
-      ) {{
-        id
-        creationTimestamp
-        title
-        outcomeIndex
-        amountUSD
-        type
-        creator {{ id }}
-      }}
-    }}
-    """
-
-    response = requests.post(GRAPH_URL, json={"query": query}, timeout=20)
+    response = requests.get(DATA_API_URL, params=params, timeout=20)
     response.raise_for_status()
 
     payload = response.json()
-    if payload.get("errors"):
-        raise RuntimeError(payload["errors"])
+    if not isinstance(payload, list):
+        raise RuntimeError(f"Unexpected Data API payload: {payload}")
 
-    trades = payload.get("data", {}).get("fpmmTrades", [])
-    return [normalize_trade(trade) for trade in trades]
+    trades = [normalize_trade(trade) for trade in payload]
+    return [trade for trade in trades if trade["timestamp"] >= start_time and float(trade["amountUSD"]) >= MIN_TRADE_USD]
 
 
 def prune_archive(trades):
@@ -104,7 +118,7 @@ def write_database(trades, status, error=None, fetched_count=0):
             "min_trade_usd": MIN_TRADE_USD,
             "fetched_count": fetched_count,
             "stored_count": len(trades),
-            "source": "Goldsky Polymarket subgraph",
+            "source": "Polymarket Data API /trades",
         },
         "trades": trades,
     }
