@@ -10,99 +10,62 @@
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-            <a href="index.html" class="flex items-center gap-3">
-                <span class="text-2xl">🐋</span>
-                <span>
-                    <span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span>
-                    <span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Polymarket trade tracker</span>
-                </span>
-            </a>
-            <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
-                <a href="index.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Whale Trade Tracker</a>
-                <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Win Chance Tracker</a>
-            </nav>
-            <details class="relative sm:hidden">
-                <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800">Menu</summary>
-                <nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
-                    <a href="index.html" class="block pb-2 hover:text-slate-900">Whale Trade Tracker</a>
-                    <a href="signals.html" class="block border-t border-slate-100 pt-3 hover:text-slate-900">Win Chance Tracker</a>
-                </nav>
-            </details>
+            <a href="index.html" class="flex items-center gap-3"><span class="text-2xl">🐋</span><span><span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span><span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1" data-i18n="tagline">Polymarket trade tracker</span></span></a>
+            <div class="flex items-center gap-3 sm:gap-8">
+                <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500"><a href="index.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a><a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900" data-i18n="navSignals">Win Chance Tracker</a></nav>
+                <label class="flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2 py-2 text-xs font-black text-slate-700"><span aria-hidden="true">🌐</span><select class="language-select bg-transparent text-xs font-black outline-none" aria-label="Language"><option value="en">EN</option><option value="zh-Hans">简</option><option value="zh-Hant">繁</option></select></label>
+                <details class="relative sm:hidden"><summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800" data-i18n="menu">Menu</summary><nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600"><a href="index.html" class="block pb-2 hover:text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a><a href="signals.html" class="block border-t border-slate-100 pt-3 hover:text-slate-900" data-i18n="navSignals">Win Chance Tracker</a></nav></details>
+            </div>
         </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-4 py-8">
-        <section class="mb-6">
-            <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Site help</div>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">How PolyPulse Works</h1>
-            <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">PolyPulse has two main pages. Page 1 shows what large traders are doing. Page 2 turns that flow into value-ranked research ideas.</p>
-        </section>
+        <section class="mb-6"><div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2" data-i18n="eyebrow">Site help</div><h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950" data-i18n="title">How PolyPulse Works</h1><p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl" data-i18n="description">PolyPulse has two main pages. Page 1 shows what large traders are doing. Page 2 turns that flow into value-ranked research ideas.</p></section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-6">
-            <div class="text-[11px] font-black text-blue-500 uppercase tracking-wider mb-2">Page 1 Help</div>
-            <h2 class="text-2xl font-black tracking-tight text-slate-950">Whale Trade Tracker</h2>
-            <p class="mt-3 text-sm leading-6 text-slate-600">This page is a filtered feed of individual Polymarket trades. Use it to see which markets are getting larger buy or sell activity, when the trades happened, and how large each trade was.</p>
+            <div class="text-[11px] font-black text-blue-500 uppercase tracking-wider mb-2" data-i18n="page1">Page 1 Help</div>
+            <h2 class="text-2xl font-black tracking-tight text-slate-950" data-i18n="page1Title">Whale Trade Tracker</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600" data-i18n="page1Desc">This page is a filtered feed of individual Polymarket trades. Use it to see which markets are getting larger buy or sell activity, when the trades happened, and how large each trade was.</p>
             <div class="grid gap-4 mt-5 md:grid-cols-3">
-                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900">What It Shows</h3><p class="mt-2 text-sm leading-6 text-slate-600">Trade amount, market question, buy or sell side, wallet profile link, timestamp, and trade-size tier.</p></div>
-                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900">How To Filter</h3><p class="mt-2 text-sm leading-6 text-slate-600">Choose a time period and turn trade-size tiers on or off. The stats and feed update from those filters.</p></div>
-                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900">How To Read It</h3><p class="mt-2 text-sm leading-6 text-slate-600">Large flow can be useful context, but it is not automatically a good bet or a profitable trader.</p></div>
+                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="showsTitle">What It Shows</h3><p class="mt-2 text-sm leading-6 text-slate-600" data-i18n="showsBody">Trade amount, market question, buy or sell side, wallet profile link, timestamp, and trade-size tier.</p></div>
+                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="filterTitle">How To Filter</h3><p class="mt-2 text-sm leading-6 text-slate-600" data-i18n="filterBody">Choose a time period and turn trade-size tiers on or off. The stats and feed update from those filters.</p></div>
+                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="readTitle">How To Read It</h3><p class="mt-2 text-sm leading-6 text-slate-600" data-i18n="readBody">Large flow can be useful context, but it is not automatically a good bet or a profitable trader.</p></div>
             </div>
-            <a href="index.html" class="inline-block mt-5 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">Open Whale Trade Tracker</a>
+            <div class="mt-6 rounded-lg bg-slate-50 border border-slate-200 p-4">
+                <h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="tiersTitle">Trade Size Tiers</h3>
+                <div class="mt-3 overflow-x-auto"><table class="w-full text-sm text-left"><thead class="text-[10px] uppercase tracking-wider text-slate-400 border-b border-slate-200"><tr><th class="py-2 pr-3" data-i18n="tier">Tier</th><th class="py-2 pr-3" data-i18n="tradeSize">Trade Size</th><th class="py-2" data-i18n="meaning">Meaning</th></tr></thead><tbody class="divide-y divide-slate-100 text-slate-600"><tr><td class="py-3 pr-3 font-bold text-blue-700">Blue Whale</td><td class="py-3 pr-3">Over $50,000</td><td class="py-3" data-i18n="blueMeaning">Very large position.</td></tr><tr><td class="py-3 pr-3 font-bold text-sky-700">Whale</td><td class="py-3 pr-3">$10,000-$50,000</td><td class="py-3" data-i18n="whaleMeaning">Large trade.</td></tr><tr><td class="py-3 pr-3 font-bold text-teal-700">Shark</td><td class="py-3 pr-3">$5,000-$10,000</td><td class="py-3" data-i18n="sharkMeaning">Significant active-trader size.</td></tr><tr><td class="py-3 pr-3 font-bold text-cyan-700">Dolphin</td><td class="py-3 pr-3">$1,000-$5,000</td><td class="py-3" data-i18n="dolphinMeaning">Larger than small retail size.</td></tr><tr><td class="py-3 pr-3 font-bold text-slate-700">Pulse</td><td class="py-3 pr-3">$100-$1,000</td><td class="py-3" data-i18n="pulseMeaning">Smaller activity that keeps the feed useful in quiet periods.</td></tr></tbody></table></div>
+            </div>
+            <div class="mt-6 rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="page1Data">Page 1 Data And Refresh</h3><div class="grid gap-4 mt-3 md:grid-cols-2"><p class="text-sm leading-6 text-slate-600" data-i18n="sourceBody">The scanner reads Polymarket's public Data API trades endpoint, normalizes the latest trades, and saves them into data/whales.json.</p><p class="text-sm leading-6 text-slate-600" data-i18n="refreshBody">GitHub Actions updates the stored JSON on a schedule. The website fetches that file in the browser after GitHub Pages serves it.</p></div></div>
+            <a href="index.html" class="inline-block mt-5 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" data-i18n="openFeed">Open Whale Trade Tracker</a>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-6">
-            <div class="text-[11px] font-black text-green-500 uppercase tracking-wider mb-2">Page 2 Help</div>
-            <h2 class="text-2xl font-black tracking-tight text-slate-950">Win Chance Tracker</h2>
-            <p class="mt-3 text-sm leading-6 text-slate-600">This page groups trades by market outcome and suggests only one side per market. It is designed to find outcomes that look both likely enough and cheap enough to be worth researching.</p>
-            <div class="grid gap-4 mt-5 md:grid-cols-2">
-                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900">One Pick Per Market</h3><p class="mt-2 text-sm leading-6 text-slate-600">For two-option markets, PolyPulse keeps only the outcome with the higher estimated chance. If the top two outcomes are within 5 percentage points, the market is skipped.</p></div>
-                <div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900">Worth-Betting Value</h3><p class="mt-2 text-sm leading-6 text-slate-600">A high win chance alone is not enough. The page compares estimated chance with market price, then estimates value per $1 staked. Expensive bets with weak upside are filtered out.</p></div>
-            </div>
-            <div class="mt-5 grid gap-4 md:grid-cols-2">
-                <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Market price</span> is the cost to buy the outcome and the market's implied chance.</p><p><span class="font-bold text-slate-800">Estimated chance</span> adjusts that price using recent buy/sell flow and volume.</p><p><span class="font-bold text-slate-800">Value per $1</span> is the model's estimated edge divided by the price paid.</p></div>
-                <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>edge = estimated_chance - market_price
+            <div class="text-[11px] font-black text-green-500 uppercase tracking-wider mb-2" data-i18n="page2">Page 2 Help</div>
+            <h2 class="text-2xl font-black tracking-tight text-slate-950" data-i18n="page2Title">Win Chance Tracker</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600" data-i18n="page2Desc">This page groups trades by market outcome and suggests only one side per market. It is designed to find outcomes that look both likely enough and cheap enough to be worth researching.</p>
+            <div class="grid gap-4 mt-5 md:grid-cols-2"><div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="onePick">One Pick Per Market</h3><p class="mt-2 text-sm leading-6 text-slate-600" data-i18n="onePickBody">For two-option markets, PolyPulse keeps only the outcome with the higher estimated chance. If the top two outcomes are within 5 percentage points, the market is skipped.</p></div><div class="rounded-lg bg-slate-50 border border-slate-200 p-4"><h3 class="text-xs font-black uppercase tracking-wide text-slate-900" data-i18n="valueTitle">Worth-Betting Value</h3><p class="mt-2 text-sm leading-6 text-slate-600" data-i18n="valueBody">A high win chance alone is not enough. The page compares estimated chance with market price, then estimates value per $1 staked. Expensive bets with weak upside are filtered out.</p></div></div>
+            <div class="mt-5 grid gap-4 md:grid-cols-2"><div class="text-sm leading-6 text-slate-600"><p data-i18n="metricPrice">Market price is the cost to buy the outcome and the market's implied chance.</p><p data-i18n="metricChance">Estimated chance adjusts that price using recent buy/sell flow and volume.</p><p data-i18n="metricValue">Value per $1 is the model's estimated edge divided by the price paid.</p></div><pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>edge = estimated_chance - market_price
 value_per_$1 = edge / market_price
 suggest only if value_per_$1 >= 5%
-skip if top two outcomes are within 5%</code></pre>
-            </div>
-            <a href="signals.html" class="inline-block mt-5 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">Open Win Chance Tracker</a>
+skip if top two outcomes are within 5%</code></pre></div>
+            <a href="signals.html" class="inline-block mt-5 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" data-i18n="openSignals">Open Win Chance Tracker</a>
         </section>
 
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Data And Refresh</h2>
-            <div class="grid gap-4 mt-3 md:grid-cols-2">
-                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Source</h3><p class="mt-1 text-sm leading-6 text-slate-600">The scanner reads Polymarket's public Data API `/trades` endpoint, normalizes the latest trades, and saves them into `data/whales.json`.</p></div>
-                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Refresh</h3><p class="mt-1 text-sm leading-6 text-slate-600">GitHub Actions updates the stored JSON on a schedule. The website then fetches that file in the browser, so new results appear after the scanner has run and GitHub Pages has served the new file.</p></div>
-            </div>
-        </section>
-
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Trade Size Tiers</h2>
-            <div class="mt-3 overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="text-[10px] uppercase tracking-wider text-slate-400 border-b border-slate-200"><tr><th class="py-2 pr-3">Tier</th><th class="py-2 pr-3">Trade Size</th><th class="py-2">Meaning</th></tr></thead>
-                    <tbody class="divide-y divide-slate-100 text-slate-600">
-                        <tr><td class="py-3 pr-3 font-bold text-blue-700">Blue Whale</td><td class="py-3 pr-3">Over $50,000</td><td class="py-3">Very large position.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-sky-700">Whale</td><td class="py-3 pr-3">$10,000-$50,000</td><td class="py-3">Large trade.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-teal-700">Shark</td><td class="py-3 pr-3">$5,000-$10,000</td><td class="py-3">Significant active-trader size.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-cyan-700">Dolphin</td><td class="py-3 pr-3">$1,000-$5,000</td><td class="py-3">Larger than small retail size.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-slate-700">Pulse</td><td class="py-3 pr-3">$100-$1,000</td><td class="py-3">Smaller activity that keeps the feed useful in quiet periods.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Important Limits</h2>
-            <ul class="mt-3 space-y-2 text-sm leading-6 text-slate-600">
-                <li>Large trades are not automatically smart trades.</li>
-                <li>The value score does not include news, settlement rules, liquidity depth, hedging, or wallet history.</li>
-                <li>One trader can split activity across many trades or wallets.</li>
-                <li>Results depend on Polymarket's public API, GitHub Actions, and the stored archive size.</li>
-            </ul>
-        </section>
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5"><h2 class="text-sm font-black uppercase tracking-wide text-slate-900" data-i18n="limitsTitle">Important Limits</h2><ul class="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li data-i18n="limitOne">Large trades are not automatically smart trades.</li><li data-i18n="limitTwo">The value score does not include news, settlement rules, liquidity depth, hedging, or wallet history.</li><li data-i18n="limitThree">One trader can split activity across many trades or wallets.</li><li data-i18n="limitFour">Results depend on Polymarket's public API, GitHub Actions, and the stored archive size.</li></ul></section>
     </main>
 
     <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8"><div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs"><p>© 2026 PolyPulse Project. Open Source.</p><p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p></div></footer>
+    <script>
+        const pageText = {
+            en: { tagline:'Polymarket trade tracker', navFeed:'Whale Trade Tracker', navSignals:'Win Chance Tracker', menu:'Menu', eyebrow:'Site help', title:'How PolyPulse Works', description:'PolyPulse has two main pages. Page 1 shows what large traders are doing. Page 2 turns that flow into value-ranked research ideas.', page1:'Page 1 Help', page1Title:'Whale Trade Tracker', page1Desc:'This page is a filtered feed of individual Polymarket trades. Use it to see which markets are getting larger buy or sell activity, when the trades happened, and how large each trade was.', showsTitle:'What It Shows', showsBody:'Trade amount, market question, buy or sell side, wallet profile link, timestamp, and trade-size tier.', filterTitle:'How To Filter', filterBody:'Choose a time period and turn trade-size tiers on or off. The stats and feed update from those filters.', readTitle:'How To Read It', readBody:'Large flow can be useful context, but it is not automatically a good bet or a profitable trader.', tiersTitle:'Trade Size Tiers', tier:'Tier', tradeSize:'Trade Size', meaning:'Meaning', blueMeaning:'Very large position.', whaleMeaning:'Large trade.', sharkMeaning:'Significant active-trader size.', dolphinMeaning:'Larger than small retail size.', pulseMeaning:'Smaller activity that keeps the feed useful in quiet periods.', page1Data:'Page 1 Data And Refresh', sourceBody:"The scanner reads Polymarket's public Data API trades endpoint, normalizes the latest trades, and saves them into data/whales.json.", refreshBody:'GitHub Actions updates the stored JSON on a schedule. The website fetches that file in the browser after GitHub Pages serves it.', openFeed:'Open Whale Trade Tracker', page2:'Page 2 Help', page2Title:'Win Chance Tracker', page2Desc:'This page groups trades by market outcome and suggests only one side per market. It is designed to find outcomes that look both likely enough and cheap enough to be worth researching.', onePick:'One Pick Per Market', onePickBody:'For two-option markets, PolyPulse keeps only the outcome with the higher estimated chance. If the top two outcomes are within 5 percentage points, the market is skipped.', valueTitle:'Worth-Betting Value', valueBody:'A high win chance alone is not enough. The page compares estimated chance with market price, then estimates value per $1 staked. Expensive bets with weak upside are filtered out.', metricPrice:"Market price is the cost to buy the outcome and the market's implied chance.", metricChance:'Estimated chance adjusts that price using recent buy/sell flow and volume.', metricValue:"Value per $1 is the model's estimated edge divided by the price paid.", openSignals:'Open Win Chance Tracker', limitsTitle:'Important Limits', limitOne:'Large trades are not automatically smart trades.', limitTwo:'The value score does not include news, settlement rules, liquidity depth, hedging, or wallet history.', limitThree:'One trader can split activity across many trades or wallets.', limitFour:"Results depend on Polymarket's public API, GitHub Actions, and the stored archive size." },
+            'zh-Hans': { tagline:'Polymarket 交易追踪器', navFeed:'鲸鱼交易追踪器', navSignals:'胜率价值追踪器', menu:'菜单', eyebrow:'网站帮助', title:'PolyPulse 如何运作', description:'PolyPulse 有两个主要页面。第 1 页显示大额交易者在做什么。第 2 页把这些资金流转成按价值排序的研究想法。', page1:'第 1 页帮助', page1Title:'鲸鱼交易追踪器', page1Desc:'此页面是 Polymarket 单笔交易的筛选动态，用来查看哪些市场有较大的买入或卖出活动、交易时间和交易规模。', showsTitle:'显示内容', showsBody:'交易金额、市场问题、买入或卖出方向、钱包资料链接、时间和交易金额等级。', filterTitle:'如何筛选', filterBody:'选择时间范围，并开启或关闭交易金额等级。统计和动态会按筛选更新。', readTitle:'如何理解', readBody:'大额资金流可以作为参考，但不代表一定是好投注或盈利交易者。', tiersTitle:'交易金额等级', tier:'等级', tradeSize:'交易金额', meaning:'含义', blueMeaning:'非常大的仓位。', whaleMeaning:'大额交易。', sharkMeaning:'明显的活跃交易者金额。', dolphinMeaning:'高于小额散户的金额。', pulseMeaning:'较小活动，让冷清时期也有可用动态。', page1Data:'第 1 页数据与更新', sourceBody:'扫描器读取 Polymarket 公共 Data API 的 trades 数据，整理最新交易，并保存到 data/whales.json。', refreshBody:'GitHub Actions 会定时更新 JSON。GitHub Pages 提供新文件后，网站会在浏览器中读取。', openFeed:'打开鲸鱼交易追踪器', page2:'第 2 页帮助', page2Title:'胜率价值追踪器', page2Desc:'此页面按市场结果分组，每个市场只建议一个方向，用来寻找看起来既有机会又价格合理、值得研究的结果。', onePick:'每个市场一个选择', onePickBody:'对于两个选项的市场，PolyPulse 只保留估算胜率较高的结果。如果前两名相差在 5 个百分点以内，会跳过该市场。', valueTitle:'值得投注的价值', valueBody:'高胜率本身并不足够。页面会比较估算胜率和市场价格，再估算每 $1 投入的价值。回报太弱的昂贵投注会被过滤。', metricPrice:'市场价格是买入该结果的成本，也是市场隐含概率。', metricChance:'估算胜率会用近期买入/卖出资金流和成交量调整价格。', metricValue:'每 $1 价值是模型估算优势除以买入价格。', openSignals:'打开胜率价值追踪器', limitsTitle:'重要限制', limitOne:'大额交易不一定是聪明交易。', limitTwo:'价值分数不包含新闻、结算规则、流动性深度、对冲或钱包历史。', limitThree:'同一交易者可能把活动拆分到多笔交易或多个钱包。', limitFour:'结果取决于 Polymarket 公共 API、GitHub Actions 和保存的数据量。' },
+            'zh-Hant': { tagline:'Polymarket 交易追蹤器', navFeed:'鯨魚交易追蹤器', navSignals:'勝率價值追蹤器', menu:'選單', eyebrow:'網站幫助', title:'PolyPulse 如何運作', description:'PolyPulse 有兩個主要頁面。第 1 頁顯示大額交易者在做什麼。第 2 頁把這些資金流轉成按價值排序的研究想法。', page1:'第 1 頁幫助', page1Title:'鯨魚交易追蹤器', page1Desc:'此頁面是 Polymarket 單筆交易的篩選動態，用來查看哪些市場有較大的買入或賣出活動、交易時間和交易規模。', showsTitle:'顯示內容', showsBody:'交易金額、市場問題、買入或賣出方向、錢包資料連結、時間和交易金額等級。', filterTitle:'如何篩選', filterBody:'選擇時間範圍，並開啟或關閉交易金額等級。統計和動態會按篩選更新。', readTitle:'如何理解', readBody:'大額資金流可以作為參考，但不代表一定是好投注或盈利交易者。', tiersTitle:'交易金額等級', tier:'等級', tradeSize:'交易金額', meaning:'含義', blueMeaning:'非常大的倉位。', whaleMeaning:'大額交易。', sharkMeaning:'明顯的活躍交易者金額。', dolphinMeaning:'高於小額散戶的金額。', pulseMeaning:'較小活動，讓冷清時期也有可用動態。', page1Data:'第 1 頁資料與更新', sourceBody:'掃描器讀取 Polymarket 公共 Data API 的 trades 資料，整理最新交易，並保存到 data/whales.json。', refreshBody:'GitHub Actions 會定時更新 JSON。GitHub Pages 提供新檔案後，網站會在瀏覽器中讀取。', openFeed:'打開鯨魚交易追蹤器', page2:'第 2 頁幫助', page2Title:'勝率價值追蹤器', page2Desc:'此頁面按市場結果分組，每個市場只建議一個方向，用來尋找看起來既有機會又價格合理、值得研究的結果。', onePick:'每個市場一個選擇', onePickBody:'對於兩個選項的市場，PolyPulse 只保留估算勝率較高的結果。如果前兩名相差在 5 個百分點以內，會跳過該市場。', valueTitle:'值得投注的價值', valueBody:'高勝率本身並不足夠。頁面會比較估算勝率和市場價格，再估算每 $1 投入的價值。回報太弱的昂貴投注會被過濾。', metricPrice:'市場價格是買入該結果的成本，也是市場隱含機率。', metricChance:'估算勝率會用近期買入/賣出資金流和成交量調整價格。', metricValue:'每 $1 價值是模型估算優勢除以買入價格。', openSignals:'打開勝率價值追蹤器', limitsTitle:'重要限制', limitOne:'大額交易不一定是聰明交易。', limitTwo:'價值分數不包含新聞、結算規則、流動性深度、對沖或錢包歷史。', limitThree:'同一交易者可能把活動拆分到多筆交易或多個錢包。', limitFour:'結果取決於 Polymarket 公共 API、GitHub Actions 和保存的資料量。' }
+        };
+        function getLang(){ return document.cookie.split('; ').find(row => row.startsWith('polypulse_lang='))?.split('=')[1] || 'en'; }
+        function saveLang(lang){ const expires = new Date(Date.now() + 10 * 864e5).toUTCString(); document.cookie = `polypulse_lang=${lang}; expires=${expires}; path=/; SameSite=Lax`; }
+        function applyLang(lang){ document.documentElement.lang = lang; document.querySelectorAll('.language-select').forEach(select => select.value = lang); document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = pageText[lang]?.[el.dataset.i18n] || pageText.en[el.dataset.i18n] || el.textContent; }); }
+        document.querySelectorAll('.language-select').forEach(select => select.addEventListener('change', event => { saveLang(event.target.value); applyLang(event.target.value); }));
+        applyLang(getLang());
+    </script>
 </body>
 </html>
