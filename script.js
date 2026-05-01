@@ -1,3 +1,24 @@
+const GA_MEASUREMENT_ID = 'G-34GL6CGH9E';
+
+function loadGoogleAnalytics() {
+    if (window.gtag || document.querySelector(`script[src*="${GA_MEASUREMENT_ID}"]`)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+        window.dataLayer.push(arguments);
+    };
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID);
+}
+
+loadGoogleAnalytics();
+
 const WHALE_DATA_URL = 'data/whales.json';
 const PAGE_SIZE = 50;
 const TIERS = {
