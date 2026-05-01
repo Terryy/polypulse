@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolyPulse | Details</title>
+    <title>PolyPulse | How It Works</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
@@ -16,27 +16,43 @@
             <nav class="flex items-center gap-2 overflow-x-auto">
                 <a href="index.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Feed</a>
                 <a href="signals.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Signals</a>
-                <a href="details.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Details</a>
             </nav>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8">
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-5">
-            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">About this dashboard</div>
-            <h1 class="text-3xl font-black tracking-tight text-slate-900">What PolyPulse shows</h1>
-            <p class="mt-3 text-sm leading-6 text-slate-600">PolyPulse monitors public Polymarket trade history and turns recent trades into a filterable feed. It is meant to help you spot larger trades, repeated activity, and markets with notable recent flow.</p>
-            <p class="mt-3 text-sm leading-6 text-slate-600">The dashboard is informational only. It does not know whether a trade is smart, profitable, hedged, or part of a larger strategy.</p>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Help page</div>
+            <h1 class="text-3xl font-black tracking-tight text-slate-900">How PolyPulse works</h1>
+            <p class="mt-3 text-sm leading-6 text-slate-600">PolyPulse watches public Polymarket trade data and turns it into two views: a live-style trade feed and a signal-ideas page. It is built for research and scanning, not for automatic trading or guaranteed profit.</p>
         </section>
 
         <section class="grid gap-5 md:grid-cols-2 mb-5">
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Data Source</h2>
-                <p class="mt-2 text-sm leading-6 text-slate-600">The scanner uses Polymarket's public Data API `/trades` endpoint. A scheduled GitHub Actions job writes the latest normalized trades into `data/whales.json`, which the static page reads in the browser.</p>
+                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Feed Page</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-600">The Feed page lists individual Polymarket trades from the stored data file. It shows trade size, market question, buy or sell side, time, wallet profile link, and a size tier.</p>
+                <p class="mt-2 text-sm leading-6 text-slate-600">Use the period filter and whale filters to focus on recent trades or larger trade sizes. The summary cards update based on the active filters.</p>
+                <a href="index.html" class="inline-block mt-4 rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Open Feed</a>
             </div>
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Refresh Model</h2>
-                <p class="mt-2 text-sm leading-6 text-slate-600">The backend scanner is scheduled to run every 5 minutes. The browser checks the JSON feed every 30 seconds, so a new trade appears after the scanner has fetched and committed it.</p>
+                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Signals Page</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-600">The Signals page groups trades by market outcome and ranks possible ideas using recent buy/sell flow, trade size, market price, and estimated edge.</p>
+                <p class="mt-2 text-sm leading-6 text-slate-600">A high rank means the recent stored flow looks interesting by the simple model. It does not mean the bet will win.</p>
+                <a href="signals.html" class="inline-block mt-4 rounded-lg bg-green-600 px-3 py-2 text-xs font-bold text-white hover:bg-green-700">Open Signals</a>
+            </div>
+        </section>
+
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Data And Refresh</h2>
+            <div class="grid gap-4 mt-3 md:grid-cols-2">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Source</h3>
+                    <p class="mt-1 text-sm leading-6 text-slate-600">The scanner reads Polymarket's public Data API `/trades` endpoint, normalizes the latest trades, and saves them into `data/whales.json`.</p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Refresh</h3>
+                    <p class="mt-1 text-sm leading-6 text-slate-600">GitHub Actions updates the stored JSON on a schedule. The website then fetches that file in the browser, so new results appear after the scanner has run and GitHub Pages has served the new file.</p>
+                </div>
             </div>
         </section>
 
@@ -45,12 +61,27 @@
             <div class="grid gap-4 mt-3 md:grid-cols-2">
                 <div>
                     <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Period</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">Choose last day, last 7 days, last month, last year, or all stored trades. The filter only works on trades currently stored in the JSON archive.</p>
+                    <p class="mt-1 text-sm leading-6 text-slate-600">Choose last day, last 7 days, last month, last year, or all stored trades. These filters only search trades currently stored in the JSON archive.</p>
                 </div>
                 <div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Tier</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">Enable or disable trade-size tiers to focus on larger positions or include smaller pulse-level activity.</p>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Trade Size</h3>
+                    <p class="mt-1 text-sm leading-6 text-slate-600">Turn tiers on or off to focus on large positions or include smaller activity. The default minimum stored signal is currently $100.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Signal Calculation Idea</h2>
+            <div class="grid gap-4 mt-3 md:grid-cols-2">
+                <div class="text-sm leading-6 text-slate-600">
+                    <p><span class="font-bold text-slate-800">Market price</span> is treated as the current implied chance for an outcome.</p>
+                    <p><span class="font-bold text-slate-800">Flow bias</span> compares recent buy volume with sell volume.</p>
+                    <p><span class="font-bold text-slate-800">Estimated chance</span> is a simple adjustment from price, flow, and volume. It is only a research shortcut.</p>
+                </div>
+                <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
+estimated_chance = price + flow_bias * 12% + volume_bonus
+edge = estimated_chance - price
+score = edge + volume_strength + max_trade_strength</code></pre>
             </div>
         </section>
 
@@ -59,30 +90,26 @@
             <div class="mt-3 overflow-x-auto">
                 <table class="w-full text-sm text-left">
                     <thead class="text-[10px] uppercase tracking-wider text-slate-400 border-b border-slate-200">
-                        <tr>
-                            <th class="py-2 pr-3">Tier</th>
-                            <th class="py-2 pr-3">Trade Size</th>
-                            <th class="py-2">Meaning</th>
-                        </tr>
+                        <tr><th class="py-2 pr-3">Tier</th><th class="py-2 pr-3">Trade Size</th><th class="py-2">Meaning</th></tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 text-slate-600">
                         <tr><td class="py-3 pr-3 font-bold text-blue-700">Blue Whale</td><td class="py-3 pr-3">Over $50,000</td><td class="py-3">Very large position.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-sky-700">Whale</td><td class="py-3 pr-3">$10,000-$50,000</td><td class="py-3">Large high-conviction-size trade.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-teal-700">Shark</td><td class="py-3 pr-3">$5,000-$10,000</td><td class="py-3">Significant active trader size.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-cyan-700">Dolphin</td><td class="py-3 pr-3">$1,000-$5,000</td><td class="py-3">Larger than typical retail size.</td></tr>
-                        <tr><td class="py-3 pr-3 font-bold text-slate-700">Pulse</td><td class="py-3 pr-3">$100-$1,000</td><td class="py-3">Smaller signal that keeps the feed active during quieter periods.</td></tr>
+                        <tr><td class="py-3 pr-3 font-bold text-sky-700">Whale</td><td class="py-3 pr-3">$10,000-$50,000</td><td class="py-3">Large trade.</td></tr>
+                        <tr><td class="py-3 pr-3 font-bold text-teal-700">Shark</td><td class="py-3 pr-3">$5,000-$10,000</td><td class="py-3">Significant active-trader size.</td></tr>
+                        <tr><td class="py-3 pr-3 font-bold text-cyan-700">Dolphin</td><td class="py-3 pr-3">$1,000-$5,000</td><td class="py-3">Larger than small retail size.</td></tr>
+                        <tr><td class="py-3 pr-3 font-bold text-slate-700">Pulse</td><td class="py-3 pr-3">$100-$1,000</td><td class="py-3">Smaller activity that keeps the feed useful in quiet periods.</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Limitations</h2>
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Important Limits</h2>
             <ul class="mt-3 space-y-2 text-sm leading-6 text-slate-600">
-                <li>The feed depends on Polymarket's public API and GitHub Actions availability.</li>
-                <li>Large trades are not automatically good trades.</li>
-                <li>One wallet may split activity across multiple trades or addresses.</li>
-                <li>The archive grows over time and is capped by the configured maximum stored trades.</li>
+                <li>Large trades are not automatically smart trades.</li>
+                <li>The signal score does not include news, settlement rules, liquidity depth, hedging, or wallet history.</li>
+                <li>One trader can split activity across many trades or wallets.</li>
+                <li>Results depend on Polymarket's public API, GitHub Actions, and the stored archive size.</li>
             </ul>
         </section>
     </main>
