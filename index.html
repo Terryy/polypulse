@@ -13,27 +13,26 @@
 <body class="bg-slate-50 min-h-screen font-sans flex flex-col">
 
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center gap-4">
             <div class="flex items-center space-x-2">
                 <span class="text-2xl">🐋</span>
                 <h1 class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</h1>
             </div>
-            <div id="status-indicator" class="flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+            <div id="status-indicator" class="flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">
                 <span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
                 Initializing...
             </div>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow">
-        
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">24h Volume</div>
                 <div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Whale Count</div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Signal Count</div>
                 <div id="stat-count" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
@@ -41,13 +40,13 @@
                 <div id="stat-max" class="text-xl sm:text-2xl font-black text-blue-600 mt-1">$0</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Buy Pressure</div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">YES Pressure</div>
                 <div id="stat-ratio" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">--%</div>
             </div>
         </div>
 
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-8">
-            <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-4 text-center">
+            <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-5 text-center">
                 <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
                     <div class="text-lg">🐋</div>
                     <div class="font-bold text-blue-800 mt-1">Blue Whale</div>
@@ -68,6 +67,11 @@
                     <div class="font-bold text-cyan-800 mt-1">Dolphin</div>
                     <div class="text-cyan-400 text-[10px] font-mono">$1k-$5k</div>
                 </div>
+                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 col-span-2 sm:col-span-1">
+                    <div class="text-lg text-slate-500">•</div>
+                    <div class="font-bold text-slate-700 mt-1">Pulse</div>
+                    <div class="text-slate-400 text-[10px] font-mono">$100-$1k</div>
+                </div>
             </div>
         </div>
 
@@ -78,7 +82,6 @@
                 <div class="h-24 bg-gray-200 rounded-xl"></div>
             </div>
         </div>
-
     </main>
 
     <footer class="max-w-4xl mx-auto w-full px-4 mt-8 pb-8">
