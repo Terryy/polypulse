@@ -11,7 +11,6 @@
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen font-sans flex flex-col">
-
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
             <div class="flex items-center justify-between gap-4">
@@ -27,7 +26,6 @@
             <nav class="flex items-center gap-2 overflow-x-auto">
                 <a href="index.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white">Feed</a>
                 <a href="signals.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Signals</a>
-                <a href="details.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Details</a>
                 <div id="status-indicator-desktop" class="hidden sm:flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">
                     <span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
                     Initializing...
@@ -45,15 +43,13 @@
                     <p class="text-sm text-slate-600 mt-2 max-w-2xl">PolyPulse scans public Polymarket trade data, groups trades by size, and highlights larger signals in a simple feed. Use the filters below to narrow the feed by period and trade tier.</p>
                     <div id="intro-more" class="hidden mt-3 text-sm text-slate-500 max-w-2xl space-y-2">
                         <p>The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
-                        <p>This page is informational only and does not provide financial advice.</p>
+                        <p>The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.</p>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2 md:flex-col md:items-end">
-                    <button id="intro-toggle" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50" aria-expanded="false">
-                        Show more
-                    </button>
+                    <button id="intro-toggle" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50" aria-expanded="false">Show more</button>
                     <a href="signals.html" class="rounded-lg bg-green-600 px-3 py-2 text-xs font-bold text-white hover:bg-green-700">Signals</a>
-                    <a href="details.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Details</a>
+                    <a href="details.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">How it works</a>
                 </div>
             </div>
         </section>
@@ -79,31 +75,11 @@
 
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-5">
             <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-5 text-center">
-                <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <div class="text-lg">🐋</div>
-                    <div class="font-bold text-blue-800 mt-1">Blue Whale</div>
-                    <div class="text-blue-400 text-[10px] font-mono">>$50k</div>
-                </div>
-                <div class="p-2 bg-sky-50 rounded-lg border border-sky-100">
-                    <div class="text-lg">🐳</div>
-                    <div class="font-bold text-sky-800 mt-1">Whale</div>
-                    <div class="text-sky-400 text-[10px] font-mono">$10k-$50k</div>
-                </div>
-                <div class="p-2 bg-teal-50 rounded-lg border border-teal-100">
-                    <div class="text-lg">🦈</div>
-                    <div class="font-bold text-teal-800 mt-1">Shark</div>
-                    <div class="text-teal-400 text-[10px] font-mono">$5k-$10k</div>
-                </div>
-                <div class="p-2 bg-cyan-50 rounded-lg border border-cyan-100">
-                    <div class="text-lg">🐬</div>
-                    <div class="font-bold text-cyan-800 mt-1">Dolphin</div>
-                    <div class="text-cyan-400 text-[10px] font-mono">$1k-$5k</div>
-                </div>
-                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 col-span-2 sm:col-span-1">
-                    <div class="text-lg text-slate-500">•</div>
-                    <div class="font-bold text-slate-700 mt-1">Pulse</div>
-                    <div class="text-slate-400 text-[10px] font-mono">$100-$1k</div>
-                </div>
+                <div class="p-2 bg-blue-50 rounded-lg border border-blue-100"><div class="text-lg">🐋</div><div class="font-bold text-blue-800 mt-1">Blue Whale</div><div class="text-blue-400 text-[10px] font-mono">>$50k</div></div>
+                <div class="p-2 bg-sky-50 rounded-lg border border-sky-100"><div class="text-lg">🐳</div><div class="font-bold text-sky-800 mt-1">Whale</div><div class="text-sky-400 text-[10px] font-mono">$10k-$50k</div></div>
+                <div class="p-2 bg-teal-50 rounded-lg border border-teal-100"><div class="text-lg">🦈</div><div class="font-bold text-teal-800 mt-1">Shark</div><div class="text-teal-400 text-[10px] font-mono">$5k-$10k</div></div>
+                <div class="p-2 bg-cyan-50 rounded-lg border border-cyan-100"><div class="text-lg">🐬</div><div class="font-bold text-cyan-800 mt-1">Dolphin</div><div class="text-cyan-400 text-[10px] font-mono">$1k-$5k</div></div>
+                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 col-span-2 sm:col-span-1"><div class="text-lg text-slate-500">•</div><div class="font-bold text-slate-700 mt-1">Pulse</div><div class="text-slate-400 text-[10px] font-mono">$100-$1k</div></div>
             </div>
         </div>
 
@@ -123,26 +99,11 @@
                 <div class="flex-1">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Tiers</div>
                     <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
-                        <label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-800">
-                            <input type="checkbox" class="tier-filter" data-tier="BLUE_WHALE" checked>
-                            Blue
-                        </label>
-                        <label class="flex items-center gap-2 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800">
-                            <input type="checkbox" class="tier-filter" data-tier="WHALE" checked>
-                            Whale
-                        </label>
-                        <label class="flex items-center gap-2 rounded-lg border border-teal-100 bg-teal-50 px-3 py-2 text-xs font-bold text-teal-800">
-                            <input type="checkbox" class="tier-filter" data-tier="SHARK" checked>
-                            Shark
-                        </label>
-                        <label class="flex items-center gap-2 rounded-lg border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-bold text-cyan-800">
-                            <input type="checkbox" class="tier-filter" data-tier="DOLPHIN" checked>
-                            Dolphin
-                        </label>
-                        <label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700">
-                            <input type="checkbox" class="tier-filter" data-tier="PULSE" checked>
-                            Pulse
-                        </label>
+                        <label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-800"><input type="checkbox" class="tier-filter" data-tier="BLUE_WHALE" checked>Blue</label>
+                        <label class="flex items-center gap-2 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800"><input type="checkbox" class="tier-filter" data-tier="WHALE" checked>Whale</label>
+                        <label class="flex items-center gap-2 rounded-lg border border-teal-100 bg-teal-50 px-3 py-2 text-xs font-bold text-teal-800"><input type="checkbox" class="tier-filter" data-tier="SHARK" checked>Shark</label>
+                        <label class="flex items-center gap-2 rounded-lg border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-bold text-cyan-800"><input type="checkbox" class="tier-filter" data-tier="DOLPHIN" checked>Dolphin</label>
+                        <label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700"><input type="checkbox" class="tier-filter" data-tier="PULSE" checked>Pulse</label>
                     </div>
                 </div>
             </div>
@@ -153,17 +114,11 @@
         </div>
 
         <div id="whale-container" class="space-y-4">
-            <div class="animate-pulse space-y-4">
-                <div class="h-24 bg-gray-200 rounded-xl"></div>
-                <div class="h-24 bg-gray-200 rounded-xl"></div>
-                <div class="h-24 bg-gray-200 rounded-xl"></div>
-            </div>
+            <div class="animate-pulse space-y-4"><div class="h-24 bg-gray-200 rounded-xl"></div><div class="h-24 bg-gray-200 rounded-xl"></div><div class="h-24 bg-gray-200 rounded-xl"></div></div>
         </div>
 
         <div class="mt-5 text-center">
-            <button id="load-more" type="button" class="hidden rounded-lg bg-slate-900 px-5 py-2 text-sm font-bold text-white hover:bg-slate-700">
-                Load more
-            </button>
+            <button id="load-more" type="button" class="hidden rounded-lg bg-slate-900 px-5 py-2 text-sm font-bold text-white hover:bg-slate-700">Load more</button>
         </div>
     </main>
 
