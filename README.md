@@ -8,7 +8,7 @@ PolyPulse is an automated market surveillance dashboard that scans Polymarket tr
 
 ## Features
 
-- Real-time-ish surveillance via the Polymarket Goldsky subgraph.
+- Trade surveillance via the public Polymarket Data API.
 - Scheduled scanner runs on GitHub Actions every 5 minutes.
 - Feed metadata shows the last scan time, scan status, lookback window, and listing threshold.
 - Signal listing starts at $100 so the dashboard can show smaller activity when no larger trades are present.
@@ -31,7 +31,7 @@ The backend default listing threshold is controlled by `POLYPULSE_MIN_TRADE_USD`
 
 - Frontend: HTML5 + Tailwind CSS via CDN.
 - Backend: Python 3.9 with `requests`.
-- Data Source: Goldsky Polymarket subgraph.
+- Data Source: Polymarket Data API `/trades`.
 - Automation: GitHub Actions cron.
 - Data Store: Static JSON file at `data/whales.json`.
 
