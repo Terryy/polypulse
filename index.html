@@ -28,7 +28,7 @@
     <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">24h Volume</div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Filtered Volume</div>
                 <div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-8">
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-5">
             <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-5 text-center">
                 <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
                     <div class="text-lg">🐋</div>
@@ -75,12 +75,63 @@
             </div>
         </div>
 
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
+            <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <label class="block">
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span>
+                    <select id="period-filter" class="w-full md:w-48 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none">
+                        <option value="1">Last day</option>
+                        <option value="7">Last 7 days</option>
+                        <option value="30">Last month</option>
+                        <option value="365">Last year</option>
+                        <option value="all">All stored</option>
+                    </select>
+                </label>
+
+                <div class="flex-1">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Tiers</div>
+                    <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
+                        <label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-800">
+                            <input type="checkbox" class="tier-filter" data-tier="BLUE_WHALE" checked>
+                            Blue
+                        </label>
+                        <label class="flex items-center gap-2 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800">
+                            <input type="checkbox" class="tier-filter" data-tier="WHALE" checked>
+                            Whale
+                        </label>
+                        <label class="flex items-center gap-2 rounded-lg border border-teal-100 bg-teal-50 px-3 py-2 text-xs font-bold text-teal-800">
+                            <input type="checkbox" class="tier-filter" data-tier="SHARK" checked>
+                            Shark
+                        </label>
+                        <label class="flex items-center gap-2 rounded-lg border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-bold text-cyan-800">
+                            <input type="checkbox" class="tier-filter" data-tier="DOLPHIN" checked>
+                            Dolphin
+                        </label>
+                        <label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700">
+                            <input type="checkbox" class="tier-filter" data-tier="PULSE" checked>
+                            Pulse
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="flex items-center justify-between mb-3 text-xs text-slate-400 font-bold uppercase tracking-wider">
+            <span id="result-summary">Showing 0</span>
+        </div>
+
         <div id="whale-container" class="space-y-4">
             <div class="animate-pulse space-y-4">
                 <div class="h-24 bg-gray-200 rounded-xl"></div>
                 <div class="h-24 bg-gray-200 rounded-xl"></div>
                 <div class="h-24 bg-gray-200 rounded-xl"></div>
             </div>
+        </div>
+
+        <div class="mt-5 text-center">
+            <button id="load-more" type="button" class="hidden rounded-lg bg-slate-900 px-5 py-2 text-sm font-bold text-white hover:bg-slate-700">
+                Load more
+            </button>
         </div>
     </main>
 
@@ -91,6 +142,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260501-2"></script>
+    <script src="script.js?v=20260501-3"></script>
 </body>
 </html>
