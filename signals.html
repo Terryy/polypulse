@@ -10,16 +10,16 @@
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-      <a href="index.html" class="flex items-center gap-3"><span class="text-2xl">🐋</span><span><span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span><span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Polymarket trade tracker</span></span></a>
+      <a href="index.html" class="flex items-center gap-3"><span class="text-2xl">🐋</span><span><span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span><span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1" data-i18n="tagline">Polymarket trade tracker</span></span></a>
       <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
-        <a href="index.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Whale Trade Tracker</a>
-        <a href="signals.html" class="border-b-2 border-slate-900 pb-1 text-slate-900">Win Chance Tracker</a>
+        <a href="index.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a>
+        <a href="signals.html" class="border-b-2 border-slate-900 pb-1 text-slate-900" data-i18n="navSignals">Win Chance Tracker</a>
       </nav>
       <details class="relative sm:hidden">
-        <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800">Menu</summary>
+        <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800" data-i18n="menu">Menu</summary>
         <nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
-          <a href="index.html" class="block pb-2 hover:text-slate-900">Whale Trade Tracker</a>
-          <a href="signals.html" class="block border-b-2 border-slate-900 pt-3 pb-2 text-slate-900">Win Chance Tracker</a>
+          <a href="index.html" class="block pb-2 hover:text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a>
+          <a href="signals.html" class="block border-b-2 border-slate-900 pt-3 pb-2 text-slate-900" data-i18n="navSignals">Win Chance Tracker</a>
         </nav>
       </details>
     </div>
@@ -27,30 +27,41 @@
 
   <main class="max-w-5xl mx-auto px-4 py-8">
     <section class="mb-6">
-      <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Ranked value ideas</div>
-      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Win Chance Tracker</h1>
-      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">Rank candidate Polymarket outcomes by estimated chance, market price, and model value. Each market appears at most once, close two-sided markets are skipped, and expensive bets with weak upside are filtered out.</p>
-      <div class="mt-4 flex flex-wrap gap-4"><a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a></div>
+      <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2" data-i18n="eyebrow">Ranked value ideas</div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950" data-i18n="title">Win Chance Tracker</h1>
+      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl" data-i18n="description">Rank candidate Polymarket outcomes by estimated chance, market price, and model value. Each market appears at most once, close two-sided markets are skipped, and expensive bets with weak upside are filtered out.</p>
+      <div class="mt-4 flex flex-wrap gap-4"><a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" data-i18n="howItWorks">How it works</a></div>
     </section>
 
     <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ideas Found</div><div id="stat-candidates" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Value</div><div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div></div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Flow</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Last Scan</div><div id="stat-scan" class="text-sm font-black text-slate-800 mt-2">--</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="ideasFound">Ideas Found</div><div id="stat-candidates" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="bestValue">Best Value</div><div id="stat-edge" class="text-xl sm:text-2xl font-black text-green-600 mt-1">--</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="topFlow">Top Flow</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="lastScan">Last Scan</div><div id="stat-scan" class="text-sm font-black text-slate-800 mt-2">--</div></div>
     </section>
 
     <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
-      <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3">Signal Filters And Sorting</h2>
-      <div class="grid gap-4 md:grid-cols-4 md:items-end">
-        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Show</span><select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="10">Top 10</option><option value="25" selected>Top 25</option><option value="50">Top 50</option></select></label>
-        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span><select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option></select></label>
-        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Minimum edge</span><select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="0">Any positive edge</option><option value="0.03" selected>3%+</option><option value="0.05">5%+</option><option value="0.10">10%+</option></select></label>
-        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Sorted by:</span> model value per $1, then edge</div>
+      <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3" data-i18n="glossaryTitle">What The Numbers Mean</h2>
+      <div class="grid gap-3 md:grid-cols-4">
+        <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-black uppercase tracking-wide text-slate-500" data-i18n="marketPrice">Market Price</div><p class="mt-1 text-xs leading-5 text-slate-600" data-i18n="marketPriceHelp">The current cost to buy this outcome, also the market's implied chance.</p></div>
+        <div class="rounded-lg bg-green-50 border border-green-100 p-3"><div class="text-[10px] font-black uppercase tracking-wide text-green-600" data-i18n="estChance">Est. Chance</div><p class="mt-1 text-xs leading-5 text-slate-600" data-i18n="estChanceHelp">PolyPulse's rough chance estimate from price, flow, and volume.</p></div>
+        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-black uppercase tracking-wide text-blue-600" data-i18n="value1">Value / $1</div><p class="mt-1 text-xs leading-5 text-slate-600" data-i18n="valueHelp">Estimated extra value per $1 staked. Higher is more attractive.</p></div>
+        <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-black uppercase tracking-wide text-slate-500" data-i18n="edge">Edge</div><p class="mt-1 text-xs leading-5 text-slate-600" data-i18n="edgeHelp">Estimated chance minus market price. Positive means the model thinks it may be underpriced.</p></div>
       </div>
     </section>
 
-    <section class="mb-3"><h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Top Worth-Betting Ideas</h2></section>
+    <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
+      <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3" data-i18n="filtersTitle">Signal Filters And Sorting</h2>
+      <div class="grid gap-4 md:grid-cols-5 md:items-end">
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="language">Language</span><select id="language-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="en">English</option><option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="show">Show</span><select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="10" data-i18n="top10">Top 10</option><option value="25" selected data-i18n="top25">Top 25</option><option value="50" data-i18n="top50">Top 50</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="period">Period</span><select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="1" data-i18n="lastDay">Last day</option><option value="7" data-i18n="last7">Last 7 days</option><option value="30" data-i18n="lastMonth">Last month</option><option value="365" data-i18n="lastYear">Last year</option><option value="all" data-i18n="allStored">All stored</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="minEdge">Minimum edge</span><select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="0" data-i18n="anyEdge">Any positive edge</option><option value="0.03" selected>3%+</option><option value="0.05">5%+</option><option value="0.10">10%+</option></select></label>
+        <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="sortBy">Sort by</span><select id="sort-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="value" selected data-i18n="sortValue">Best value</option><option value="chance" data-i18n="sortChance">Highest chance</option><option value="edge" data-i18n="sortEdge">Highest edge</option><option value="flow" data-i18n="sortFlow">Largest flow</option><option value="newest" data-i18n="sortNewest">Newest activity</option></select></label>
+      </div>
+    </section>
+
+    <section class="mb-3"><h2 class="text-sm font-black uppercase tracking-wide text-slate-900" data-i18n="resultsTitle">Top Worth-Betting Ideas</h2></section>
     <div id="signals-container" class="space-y-4"><div class="animate-pulse space-y-4"><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div><div class="h-28 bg-gray-200 rounded-xl"></div></div></div>
   </main>
 
@@ -62,6 +73,21 @@
     const MIN_VALUE_ROI = 0.05;
     let allTrades = [];
     let feedMeta = null;
+    let currentLanguage = 'en';
+
+    const translations = {
+      en: {
+        tagline: 'Polymarket trade tracker', navFeed: 'Whale Trade Tracker', navSignals: 'Win Chance Tracker', menu: 'Menu', eyebrow: 'Ranked value ideas', title: 'Win Chance Tracker', description: 'Rank candidate Polymarket outcomes by estimated chance, market price, and model value. Each market appears at most once, close two-sided markets are skipped, and expensive bets with weak upside are filtered out.', howItWorks: 'How it works', ideasFound: 'Ideas Found', bestValue: 'Best Value', topFlow: 'Top Flow', lastScan: 'Last Scan', glossaryTitle: 'What The Numbers Mean', marketPrice: 'Market Price', marketPriceHelp: "The current cost to buy this outcome, also the market's implied chance.", estChance: 'Est. Chance', estChanceHelp: "PolyPulse's rough chance estimate from price, flow, and volume.", value1: 'Value / $1', valueHelp: 'Estimated extra value per $1 staked. Higher is more attractive.', edge: 'Edge', edgeHelp: 'Estimated chance minus market price. Positive means the model thinks it may be underpriced.', filtersTitle: 'Signal Filters And Sorting', language: 'Language', show: 'Show', period: 'Period', minEdge: 'Minimum edge', sortBy: 'Sort by', top10: 'Top 10', top25: 'Top 25', top50: 'Top 50', lastDay: 'Last day', last7: 'Last 7 days', lastMonth: 'Last month', lastYear: 'Last year', allStored: 'All stored', anyEdge: 'Any positive edge', sortValue: 'Best value', sortChance: 'Highest chance', sortEdge: 'Highest edge', sortFlow: 'Largest flow', sortNewest: 'Newest activity', resultsTitle: 'Top Worth-Betting Ideas', buy: 'BUY', trades: 'trades', flow: 'flow', maxTrade: 'max trade', noTitle: 'No worth-betting ideas matched', noBody: 'Try lowering the minimum edge or widening the period. Close markets and low-value expensive bets are skipped.', modelValue: 'Model value', perDollar: 'per $1 staked', buyFlow: 'Buy flow', sellFlow: 'sell flow', openMarket: 'Open market'
+      },
+      'zh-Hans': {
+        tagline: 'Polymarket 交易追踪器', navFeed: '鲸鱼交易追踪器', navSignals: '胜率价值追踪器', menu: '菜单', eyebrow: '按价值排序的交易想法', title: '胜率价值追踪器', description: '按估算胜率、市场价格和模型价值排列 Polymarket 结果。每个市场最多只显示一个建议；双方接近的市场会跳过；胜率高但回报太低的昂贵投注也会过滤。', howItWorks: '运作方式', ideasFound: '想法数量', bestValue: '最佳价值', topFlow: '最高资金流', lastScan: '上次扫描', glossaryTitle: '数字含义', marketPrice: '市场价格', marketPriceHelp: '买入该结果的当前成本，也可理解为市场隐含概率。', estChance: '估算胜率', estChanceHelp: 'PolyPulse 根据价格、资金流和成交量估算的粗略概率。', value1: '每 $1 价值', valueHelp: '每投入 $1 的估算额外价值。越高越值得关注。', edge: '优势', edgeHelp: '估算胜率减去市场价格。正数代表模型认为可能被低估。', filtersTitle: '信号筛选与排序', language: '语言', show: '显示', period: '时间范围', minEdge: '最低优势', sortBy: '排序', top10: '前 10', top25: '前 25', top50: '前 50', lastDay: '最近一天', last7: '最近 7 天', lastMonth: '最近一月', lastYear: '最近一年', allStored: '全部储存', anyEdge: '任何正优势', sortValue: '最佳价值', sortChance: '最高胜率', sortEdge: '最高优势', sortFlow: '最大资金流', sortNewest: '最新活动', resultsTitle: '最值得研究的投注想法', buy: '买入', trades: '笔交易', flow: '资金流', maxTrade: '最大交易', noTitle: '没有符合条件的价值想法', noBody: '可尝试降低最低优势或扩大时间范围。双方接近的市场和低价值昂贵投注会被跳过。', modelValue: '模型价值', perDollar: '每投入 $1', buyFlow: '买入资金流', sellFlow: '卖出资金流', openMarket: '打开市场'
+      },
+      'zh-Hant': {
+        tagline: 'Polymarket 交易追蹤器', navFeed: '鯨魚交易追蹤器', navSignals: '勝率價值追蹤器', menu: '選單', eyebrow: '按價值排序的交易想法', title: '勝率價值追蹤器', description: '按估算勝率、市場價格和模型價值排列 Polymarket 結果。每個市場最多只顯示一個建議；雙方接近的市場會跳過；勝率高但回報太低的昂貴投注也會過濾。', howItWorks: '運作方式', ideasFound: '想法數量', bestValue: '最佳價值', topFlow: '最高資金流', lastScan: '上次掃描', glossaryTitle: '數字含義', marketPrice: '市場價格', marketPriceHelp: '買入該結果的目前成本，也可理解為市場隱含機率。', estChance: '估算勝率', estChanceHelp: 'PolyPulse 根據價格、資金流和成交量估算的粗略機率。', value1: '每 $1 價值', valueHelp: '每投入 $1 的估算額外價值。越高越值得關注。', edge: '優勢', edgeHelp: '估算勝率減去市場價格。正數代表模型認為可能被低估。', filtersTitle: '信號篩選與排序', language: '語言', show: '顯示', period: '時間範圍', minEdge: '最低優勢', sortBy: '排序', top10: '前 10', top25: '前 25', top50: '前 50', lastDay: '最近一天', last7: '最近 7 天', lastMonth: '最近一月', lastYear: '最近一年', allStored: '全部儲存', anyEdge: '任何正優勢', sortValue: '最佳價值', sortChance: '最高勝率', sortEdge: '最高優勢', sortFlow: '最大資金流', sortNewest: '最新活動', resultsTitle: '最值得研究的投注想法', buy: '買入', trades: '筆交易', flow: '資金流', maxTrade: '最大交易', noTitle: '沒有符合條件的價值想法', noBody: '可嘗試降低最低優勢或擴大時間範圍。雙方接近的市場和低價值昂貴投注會被跳過。', modelValue: '模型價值', perDollar: '每投入 $1', buyFlow: '買入資金流', sellFlow: '賣出資金流', openMarket: '打開市場'
+      }
+    };
+
+    const t = key => translations[currentLanguage]?.[key] || translations.en[key] || key;
     const esc = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
     const money = value => (Number.parseFloat(value) || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
     const pct = value => `${Math.round(value * 100)}%`;
@@ -72,6 +98,13 @@
       const parsed = new Date(value);
       return value && !Number.isNaN(parsed.getTime()) ? parsed.toLocaleString() : '--';
     };
+
+    function applyTranslations() {
+      document.documentElement.lang = currentLanguage;
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        element.textContent = t(element.dataset.i18n);
+      });
+    }
 
     function normalizePayload(payload) {
       return Array.isArray(payload) ? { meta: null, trades: payload } : { meta: payload?.meta || null, trades: Array.isArray(payload?.trades) ? payload.trades : [] };
@@ -148,6 +181,18 @@
       return suggestions;
     }
 
+    function sortSignals(signals) {
+      const sort = document.getElementById('sort-filter').value;
+      const sorters = {
+        value: (a, b) => b.valueRoi - a.valueRoi || b.edge - a.edge || b.estimatedChance - a.estimatedChance,
+        chance: (a, b) => b.estimatedChance - a.estimatedChance || b.valueRoi - a.valueRoi,
+        edge: (a, b) => b.edge - a.edge || b.valueRoi - a.valueRoi,
+        flow: (a, b) => b.totalVolume - a.totalVolume || b.valueRoi - a.valueRoi,
+        newest: (a, b) => b.latestTimestamp - a.latestTimestamp || b.valueRoi - a.valueRoi
+      };
+      return signals.sort(sorters[sort] || sorters.value);
+    }
+
     function renderStats(signals) {
       document.getElementById('stat-candidates').innerText = signals.length;
       const bestValue = signals.length ? Math.max(...signals.map(signal => signal.valueRoi)) : null;
@@ -159,14 +204,14 @@
     function renderSignals() {
       const limit = Number(document.getElementById('limit-filter').value);
       const minEdge = Number(document.getElementById('edge-filter').value);
-      const signals = buildSignals().filter(signal => signal.edge >= minEdge).sort((a, b) => b.valueRoi - a.valueRoi || b.edge - a.edge || b.estimatedChance - a.estimatedChance);
+      const signals = sortSignals(buildSignals().filter(signal => signal.edge >= minEdge));
       const shown = signals.slice(0, limit);
       const container = document.getElementById('signals-container');
       renderStats(signals);
       container.innerHTML = '';
 
       if (!shown.length) {
-        container.innerHTML = '<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No worth-betting ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period. Close markets and low-value expensive bets are skipped.</p></div>';
+        container.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">${t('noTitle')}</div><p class="text-sm text-slate-500 mt-2">${t('noBody')}</p></div>`;
         return;
       }
 
@@ -176,18 +221,18 @@
         element.innerHTML = `
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div class="min-w-0">
-              <div class="flex items-center gap-3 mb-3"><span class="rounded-lg bg-slate-900 px-4 py-2 text-2xl font-black leading-none text-white shadow-sm">#${index + 1}</span><span class="rounded bg-green-100 px-2 py-1 text-[10px] font-black text-green-700">BUY ${esc(signal.outcome)}</span></div>
+              <div class="flex items-center gap-3 mb-3"><span class="rounded-lg bg-slate-900 px-4 py-2 text-2xl font-black leading-none text-white shadow-sm">#${index + 1}</span><span class="rounded bg-green-100 px-2 py-1 text-[10px] font-black text-green-700">${t('buy')} ${esc(signal.outcome)}</span></div>
               <h2 class="text-base font-black text-slate-900 leading-snug">${esc(signal.question)}</h2>
-              <p class="text-xs text-slate-400 mt-2">${signal.tradeCount} trades · ${money(signal.totalVolume)} flow · max trade ${money(signal.maxTrade)}</p>
+              <p class="text-xs text-slate-400 mt-2">${signal.tradeCount} ${t('trades')} · ${money(signal.totalVolume)} ${t('flow')} · ${t('maxTrade')} ${money(signal.maxTrade)}</p>
             </div>
             <div class="grid grid-cols-2 gap-2 text-right md:min-w-[280px]">
-              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Price</div><div class="text-lg font-black text-slate-800">${pct(signal.latestPrice)}</div></div>
-              <div class="rounded-lg bg-green-50 border border-green-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-green-500">Est. Chance</div><div class="text-lg font-black text-green-700">${pct(signal.estimatedChance)}</div></div>
-              <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">Value / $1</div><div class="text-lg font-black text-blue-700">${signedPct(signal.valueRoi)}</div></div>
-              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Edge</div><div class="text-lg font-black text-slate-800">${signedPct(signal.edge)}</div></div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">${t('marketPrice')}</div><div class="text-lg font-black text-slate-800">${pct(signal.latestPrice)}</div></div>
+              <div class="rounded-lg bg-green-50 border border-green-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-green-500">${t('estChance')}</div><div class="text-lg font-black text-green-700">${pct(signal.estimatedChance)}</div></div>
+              <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-blue-500">${t('value1')}</div><div class="text-lg font-black text-blue-700">${signedPct(signal.valueRoi)}</div></div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">${t('edge')}</div><div class="text-lg font-black text-slate-800">${signedPct(signal.edge)}</div></div>
             </div>
           </div>
-          <div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between"><span>Model value ${signedMoney(signal.valueRoi)} per $1 staked. Buy flow ${money(signal.buyVolume)} vs sell flow ${money(signal.sellVolume)}.</span><a href="${marketUrl(signal)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">Open market ↗</a></div>
+          <div class="mt-4 flex flex-col gap-2 text-xs text-slate-500 md:flex-row md:items-center md:justify-between"><span>${t('modelValue')} ${signedMoney(signal.valueRoi)} ${t('perDollar')}. ${t('buyFlow')} ${money(signal.buyVolume)} vs ${t('sellFlow')} ${money(signal.sellVolume)}.</span><a href="${marketUrl(signal)}" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:text-blue-800">${t('openMarket')} ↗</a></div>
         `;
         container.appendChild(element);
       });
@@ -206,7 +251,14 @@
       }
     }
 
-    ['limit-filter', 'period-filter', 'edge-filter'].forEach(id => document.getElementById(id).addEventListener('change', renderSignals));
+    ['limit-filter', 'period-filter', 'edge-filter', 'sort-filter'].forEach(id => document.getElementById(id).addEventListener('change', renderSignals));
+    document.getElementById('language-filter').addEventListener('change', event => {
+      currentLanguage = event.target.value;
+      applyTranslations();
+      renderSignals();
+    });
+
+    applyTranslations();
     load();
   </script>
 </body>
