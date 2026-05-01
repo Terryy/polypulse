@@ -1,13 +1,14 @@
 {
   "meta": {
-    "status": "pending_first_scan",
-    "last_checked_at": null,
+    "status": "error",
+    "last_checked_at": "2026-05-01T03:30:07.417321Z",
     "lookback_hours": 24,
     "archive_days": 30,
     "min_trade_usd": 100,
     "fetched_count": 0,
     "stored_count": 0,
-    "source": "Goldsky Polymarket subgraph"
+    "source": "Goldsky Polymarket subgraph",
+    "error": "404 Client Error: Not Found for url: https://api.goldsky.com/api/public/project_cl6mb8i9h0003e201j6li0diw/subgraphs/polymarket/prod/gn"
   },
   "trades": []
 }
