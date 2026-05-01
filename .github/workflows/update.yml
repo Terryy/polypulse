@@ -1,29 +1,40 @@
 name: PolyPulse Updater
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'data/**'
+      - '.github/workflows/update.yml'
   schedule:
-    - cron: '*/5 * * * *' # Run every 5 minutes
-  workflow_dispatch:      # Allow manual run
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: polypulse-updater
+  cancel-in-progress: false
 
 jobs:
   refresh-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
       - name: Install Dependencies
         run: |
-          pip install requests
-          if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
 
       - name: Run Whale Scanner
         run: python backend/main.py
@@ -33,5 +44,9 @@ jobs:
           git config --global user.name 'PolyPulse Bot'
           git config --global user.email 'bot@polypulse.xyz'
           git add data/whales.json
-          # Only commit if data changed
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🐳 Update whale data" && git push)
+          if git diff --cached --quiet; then
+            echo "No whale data changes to commit."
+          else
+            git commit -m "🐳 Update whale data"
+            git push
+          fi
