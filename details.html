@@ -5,79 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PolyPulse | How It Works</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>summary::-webkit-details-marker { display: none; }</style>
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800">
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <a href="index.html" class="flex items-center space-x-2">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3">
                 <span class="text-2xl">🐋</span>
-                <span class="text-xl font-black tracking-tighter text-slate-800">POLYPULSE</span>
+                <span>
+                    <span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span>
+                    <span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Polymarket trade tracker</span>
+                </span>
             </a>
-            <nav class="flex items-center gap-2 overflow-x-auto">
-                <a href="index.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Feed</a>
-                <a href="signals.html" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Signals</a>
+            <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
+                <a href="index.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Feed</a>
+                <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Signals</a>
             </nav>
+            <details class="relative sm:hidden">
+                <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800">Menu</summary>
+                <nav class="absolute right-0 mt-2 w-40 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
+                    <a href="index.html" class="block pb-2 hover:text-slate-900">Feed</a>
+                    <a href="signals.html" class="block border-t border-slate-100 pt-3 hover:text-slate-900">Signals</a>
+                </nav>
+            </details>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-8">
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-5">
-            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Help page</div>
-            <h1 class="text-3xl font-black tracking-tight text-slate-900">How PolyPulse works</h1>
-            <p class="mt-3 text-sm leading-6 text-slate-600">PolyPulse watches public Polymarket trade data and turns it into two views: a live-style trade feed and a signal-ideas page. It is built for research and scanning, not for automatic trading or guaranteed profit.</p>
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <section class="mb-6">
+            <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Site help</div>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">How PolyPulse Works</h1>
+            <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">PolyPulse watches public Polymarket trade data and turns it into two research views: a live-style trade feed and a win chance tracker. It is built for scanning market flow, not for automatic trading or guaranteed profit.</p>
         </section>
 
         <section class="grid gap-5 md:grid-cols-2 mb-5">
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Feed Page</h2>
+                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Whale Trade Tracker</h2>
                 <p class="mt-2 text-sm leading-6 text-slate-600">The Feed page lists individual Polymarket trades from the stored data file. It shows trade size, market question, buy or sell side, time, wallet profile link, and a size tier.</p>
                 <p class="mt-2 text-sm leading-6 text-slate-600">Use the period filter and whale filters to focus on recent trades or larger trade sizes. The summary cards update based on the active filters.</p>
-                <a href="index.html" class="inline-block mt-4 rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Open Feed</a>
+                <a href="index.html" class="inline-block mt-4 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">Open Feed</a>
             </div>
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Signals Page</h2>
+                <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Win Chance Tracker</h2>
                 <p class="mt-2 text-sm leading-6 text-slate-600">The Signals page groups trades by market outcome and ranks possible ideas using recent buy/sell flow, trade size, market price, and estimated edge.</p>
                 <p class="mt-2 text-sm leading-6 text-slate-600">A high rank means the recent stored flow looks interesting by the simple model. It does not mean the bet will win.</p>
-                <a href="signals.html" class="inline-block mt-4 rounded-lg bg-green-600 px-3 py-2 text-xs font-bold text-white hover:bg-green-700">Open Signals</a>
+                <a href="signals.html" class="inline-block mt-4 border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">Open Signals</a>
             </div>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
             <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Data And Refresh</h2>
             <div class="grid gap-4 mt-3 md:grid-cols-2">
-                <div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Source</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">The scanner reads Polymarket's public Data API `/trades` endpoint, normalizes the latest trades, and saves them into `data/whales.json`.</p>
-                </div>
-                <div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Refresh</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">GitHub Actions updates the stored JSON on a schedule. The website then fetches that file in the browser, so new results appear after the scanner has run and GitHub Pages has served the new file.</p>
-                </div>
+                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Source</h3><p class="mt-1 text-sm leading-6 text-slate-600">The scanner reads Polymarket's public Data API `/trades` endpoint, normalizes the latest trades, and saves them into `data/whales.json`.</p></div>
+                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Refresh</h3><p class="mt-1 text-sm leading-6 text-slate-600">GitHub Actions updates the stored JSON on a schedule. The website then fetches that file in the browser, so new results appear after the scanner has run and GitHub Pages has served the new file.</p></div>
             </div>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
             <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Filters</h2>
             <div class="grid gap-4 mt-3 md:grid-cols-2">
-                <div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Period</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">Choose last day, last 7 days, last month, last year, or all stored trades. These filters only search trades currently stored in the JSON archive.</p>
-                </div>
-                <div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Trade Size</h3>
-                    <p class="mt-1 text-sm leading-6 text-slate-600">Turn tiers on or off to focus on large positions or include smaller activity. The default minimum stored signal is currently $100.</p>
-                </div>
+                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Period</h3><p class="mt-1 text-sm leading-6 text-slate-600">Choose last day, last 7 days, last month, last year, or all stored trades. These filters only search trades currently stored in the JSON archive.</p></div>
+                <div><h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Trade Size</h3><p class="mt-1 text-sm leading-6 text-slate-600">Turn tiers on or off to focus on large positions or include smaller activity. The default minimum stored signal is currently $100.</p></div>
             </div>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Signal Calculation Idea</h2>
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Win Chance Calculation</h2>
             <div class="grid gap-4 mt-3 md:grid-cols-2">
-                <div class="text-sm leading-6 text-slate-600">
-                    <p><span class="font-bold text-slate-800">Market price</span> is treated as the current implied chance for an outcome.</p>
-                    <p><span class="font-bold text-slate-800">Flow bias</span> compares recent buy volume with sell volume.</p>
-                    <p><span class="font-bold text-slate-800">Estimated chance</span> is a simple adjustment from price, flow, and volume. It is only a research shortcut.</p>
-                </div>
+                <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Market price</span> is treated as the current implied chance for an outcome.</p><p><span class="font-bold text-slate-800">Flow bias</span> compares recent buy volume with sell volume.</p><p><span class="font-bold text-slate-800">Estimated chance</span> is a simple adjustment from price, flow, and volume. It is only a research shortcut.</p></div>
                 <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
 estimated_chance = price + flow_bias * 12% + volume_bonus
 edge = estimated_chance - price
@@ -86,12 +81,10 @@ score = edge + volume_strength + max_trade_strength</code></pre>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Tier Definitions</h2>
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Trade Size Tiers</h2>
             <div class="mt-3 overflow-x-auto">
                 <table class="w-full text-sm text-left">
-                    <thead class="text-[10px] uppercase tracking-wider text-slate-400 border-b border-slate-200">
-                        <tr><th class="py-2 pr-3">Tier</th><th class="py-2 pr-3">Trade Size</th><th class="py-2">Meaning</th></tr>
-                    </thead>
+                    <thead class="text-[10px] uppercase tracking-wider text-slate-400 border-b border-slate-200"><tr><th class="py-2 pr-3">Tier</th><th class="py-2 pr-3">Trade Size</th><th class="py-2">Meaning</th></tr></thead>
                     <tbody class="divide-y divide-slate-100 text-slate-600">
                         <tr><td class="py-3 pr-3 font-bold text-blue-700">Blue Whale</td><td class="py-3 pr-3">Over $50,000</td><td class="py-3">Very large position.</td></tr>
                         <tr><td class="py-3 pr-3 font-bold text-sky-700">Whale</td><td class="py-3 pr-3">$10,000-$50,000</td><td class="py-3">Large trade.</td></tr>
@@ -114,11 +107,6 @@ score = edge + volume_strength + max_trade_strength</code></pre>
         </section>
     </main>
 
-    <footer class="max-w-4xl mx-auto w-full px-4 mt-8 pb-8">
-        <div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs">
-            <p>© 2026 PolyPulse Project. Open Source.</p>
-            <p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p>
-        </div>
-    </footer>
+    <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8"><div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs"><p>© 2026 PolyPulse Project. Open Source.</p><p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p></div></footer>
 </body>
 </html>
