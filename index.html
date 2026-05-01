@@ -26,6 +26,26 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-6">
+            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Live Polymarket trade monitor</div>
+                    <h2 class="text-2xl font-black tracking-tight text-slate-900">Follow notable market moves as they appear.</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-2xl">PolyPulse scans public Polymarket trade data, groups trades by size, and highlights larger signals in a simple feed. Use the filters below to narrow the feed by period and trade tier.</p>
+                    <div id="intro-more" class="hidden mt-3 text-sm text-slate-500 max-w-2xl space-y-2">
+                        <p>The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
+                        <p>This page is informational only and does not provide financial advice.</p>
+                    </div>
+                </div>
+                <div class="flex gap-2 md:flex-col md:items-end">
+                    <button id="intro-toggle" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50" aria-expanded="false">
+                        Show more
+                    </button>
+                    <a href="details.html" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700">Details</a>
+                </div>
+            </div>
+        </section>
+
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Filtered Volume</div>
@@ -142,6 +162,6 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260501-3"></script>
+    <script src="script.js?v=20260501-4"></script>
 </body>
 </html>
