@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">PolyPulse Polymarket Trade Tracker</title>
+  <desc id="desc">Share image for PolyPulse, a Polymarket whale trade and value signal tracker.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.52" stop-color="#155e75"/>
+      <stop offset="1" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#e0f2fe" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020617" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 450 C170 380 260 520 430 455 C620 382 690 235 875 300 C1015 350 1080 275 1200 238 L1200 630 L0 630 Z" fill="#67e8f9" opacity="0.16"/>
+  <path d="M0 118 C155 170 265 85 414 145 C575 210 680 110 820 160 C965 212 1050 130 1200 190" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="4"/>
+  <g filter="url(#shadow)">
+    <rect x="78" y="82" width="1044" height="466" rx="34" fill="url(#card)"/>
+  </g>
+  <text x="122" y="158" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0f172a" letter-spacing="2">POLYPULSE</text>
+  <text x="122" y="211" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#64748b">Polymarket trade tracker</text>
+  <text x="122" y="305" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="900" fill="#020617">Track whale flow.</text>
+  <text x="122" y="383" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="900" fill="#020617">Find value signals.</text>
+  <text x="126" y="462" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700" fill="#475569">Live-style Polymarket trade feed, filters, and ranked research ideas.</text>
+  <g transform="translate(830 135)">
+    <rect x="0" y="0" width="214" height="92" rx="20" fill="#f8fafc" stroke="#dbeafe" stroke-width="3"/>
+    <text x="28" y="39" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#64748b">MARKET PRICE</text>
+    <text x="111" y="75" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0f172a">57%</text>
+    <rect x="0" y="116" width="214" height="92" rx="20" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="3"/>
+    <text x="36" y="155" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#16a34a">EST. CHANCE</text>
+    <text x="111" y="191" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#15803d">71%</text>
+    <rect x="0" y="232" width="214" height="92" rx="20" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"/>
+    <text x="75" y="271" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#2563eb">VALUE</text>
+    <text x="111" y="307" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#1d4ed8">+$0.25</text>
+  </g>
+</svg>
