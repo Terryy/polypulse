@@ -22,14 +22,14 @@
                 </span>
             </a>
             <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
-                <a href="index.html" class="border-b-2 border-slate-900 pb-1 text-slate-900">Feed</a>
-                <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Signals</a>
+                <a href="index.html" class="border-b-2 border-slate-900 pb-1 text-slate-900">Whale Trade Tracker</a>
+                <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Win Chance Tracker</a>
             </nav>
             <details class="relative sm:hidden">
                 <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800">Menu</summary>
-                <nav class="absolute right-0 mt-2 w-40 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
-                    <a href="index.html" class="block border-b-2 border-slate-900 pb-2 text-slate-900">Feed</a>
-                    <a href="signals.html" class="block pt-3 hover:text-slate-900">Signals</a>
+                <nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
+                    <a href="index.html" class="block border-b-2 border-slate-900 pb-2 text-slate-900">Whale Trade Tracker</a>
+                    <a href="signals.html" class="block pt-3 hover:text-slate-900">Win Chance Tracker</a>
                 </nav>
             </details>
         </div>
@@ -37,20 +37,16 @@
 
     <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
         <section class="mb-6">
-            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div>
-                    <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Live trade feed</div>
-                    <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Whale Trade Tracker</h1>
-                    <p class="text-base text-slate-600 mt-3 max-w-2xl leading-7">Follow notable Polymarket trades by size, side, market, and time. Use the filters below to narrow the feed by period and trade tier.</p>
-                    <div id="intro-more" class="hidden mt-3 text-sm text-slate-500 max-w-2xl space-y-2">
-                        <p>The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
-                        <p>The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.</p>
-                    </div>
-                </div>
-                <div class="flex flex-wrap gap-2 md:justify-end">
-                    <button id="intro-toggle" type="button" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" aria-expanded="false">Show more</button>
-                    <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a>
-                </div>
+            <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Live trade feed</div>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Whale Trade Tracker</h1>
+            <p class="text-base text-slate-600 mt-3 max-w-2xl leading-7">Follow notable Polymarket trades by size, side, market, and time. Use the filters below to narrow the feed by period and trade tier.</p>
+            <div id="intro-more" class="hidden mt-3 text-sm text-slate-500 max-w-2xl space-y-2">
+                <p>The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
+                <p>The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.</p>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-4">
+                <button id="intro-toggle" type="button" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" aria-expanded="false">Show more</button>
+                <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a>
             </div>
             <div id="status-indicator" class="mt-5 inline-flex items-center text-xs font-bold text-slate-500 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm whitespace-nowrap">
                 <span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
