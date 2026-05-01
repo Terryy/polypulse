@@ -29,7 +29,7 @@
     <section class="mb-6">
       <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Ranked signal ideas</div>
       <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Win Chance Tracker</h1>
-      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">Rank candidate Polymarket outcomes by recent buy flow, trade size, market price, and estimated edge. These are research prompts, not financial advice or guaranteed profitable bets.</p>
+      <p class="mt-3 text-base leading-7 text-slate-600 max-w-3xl">Rank candidate Polymarket outcomes by recent buy flow, trade size, market price, and estimated edge. Each market appears at most once: only the highest estimated chance is suggested, and close two-sided markets are skipped.</p>
       <div class="mt-4 flex flex-wrap gap-4">
         <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a>
       </div>
@@ -48,7 +48,7 @@
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Show</span><select id="limit-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="10">Top 10</option><option value="25" selected>Top 25</option><option value="50">Top 50</option></select></label>
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span><select id="period-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option></select></label>
         <label><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Minimum edge</span><select id="edge-filter" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700"><option value="0">Any positive edge</option><option value="0.03" selected>3%+</option><option value="0.05">5%+</option><option value="0.10">10%+</option></select></label>
-        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Sorted by:</span> score from edge, flow, and trade size</div>
+        <div class="rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-500"><span class="font-bold text-slate-700">Sorted by:</span> highest estimated chance, then edge</div>
       </div>
     </section>
 
@@ -58,11 +58,11 @@
     <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mt-6">
       <h2 class="text-sm font-black uppercase tracking-wide text-slate-900">Calculation Idea</h2>
       <div class="grid gap-4 mt-3 md:grid-cols-2">
-        <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Implied chance</span> is the latest traded price for the outcome.</p><p><span class="font-bold text-slate-800">Flow bias</span> compares buy volume and sell volume for that outcome.</p><p><span class="font-bold text-slate-800">Estimated chance</span> adjusts price by recent flow and volume confirmation.</p></div>
+        <div class="text-sm leading-6 text-slate-600"><p><span class="font-bold text-slate-800">Implied chance</span> is the latest traded price for the outcome.</p><p><span class="font-bold text-slate-800">Flow bias</span> compares buy volume and sell volume for that outcome.</p><p><span class="font-bold text-slate-800">Market selection</span> keeps only the highest estimated chance per market, and skips close calls under a 5-point gap.</p></div>
         <pre class="bg-slate-950 text-slate-100 rounded-lg p-4 text-xs overflow-x-auto"><code>flow_bias = (buy_volume - sell_volume) / total_volume
 estimated_chance = price + flow_bias * 12% + volume_bonus
 edge = estimated_chance - price
-score = edge + volume_strength + max_trade_strength</code></pre>
+suggestion = top estimated_chance if gap >= 5%</code></pre>
       </div>
       <p class="text-xs text-slate-400 mt-4">This is a lightweight heuristic. It does not include outside news, settlement rules, liquidity depth, market-maker hedging, or whether a large trade was informed.</p>
     </section>
@@ -72,6 +72,7 @@ score = edge + volume_strength + max_trade_strength</code></pre>
 
   <script>
     const WHALE_DATA_URL = 'data/whales.json';
+    const MIN_CHANCE_GAP = 0.05;
     let allTrades = [];
     let feedMeta = null;
     const esc = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
@@ -99,14 +100,19 @@ score = edge + volume_strength + max_trade_strength</code></pre>
       return slug ? `https://polymarket.com/event/${encodeURIComponent(slug)}` : 'https://polymarket.com/';
     }
 
+    function marketKeyForTrade(trade) {
+      return trade.slug || trade.eventSlug || trade.market?.question || 'market';
+    }
+
     function buildSignals() {
-      const groups = new Map();
+      const outcomeGroups = new Map();
       periodTrades().forEach(trade => {
         const amount = Math.abs(Number.parseFloat(trade.amountUSD) || 0);
         const price = clamp(Number.parseFloat(trade.price) || 0, 0.01, 0.99);
         const outcome = trade.outcome || (Number(trade.outcomeIndex) === 0 ? 'Outcome 1' : 'Outcome 2');
-        const key = `${trade.slug || trade.market?.question || 'market'}::${outcome}`;
-        const signal = groups.get(key) || { key, question: trade.market?.question || 'Unknown Market', outcome, slug: trade.slug, eventSlug: trade.eventSlug, latestPrice: price, latestTimestamp: 0, buyVolume: 0, sellVolume: 0, totalVolume: 0, maxTrade: 0, tradeCount: 0 };
+        const marketKey = marketKeyForTrade(trade);
+        const key = `${marketKey}::${outcome}`;
+        const signal = outcomeGroups.get(key) || { key, marketKey, question: trade.market?.question || 'Unknown Market', outcome, slug: trade.slug, eventSlug: trade.eventSlug, latestPrice: price, latestTimestamp: 0, buyVolume: 0, sellVolume: 0, totalVolume: 0, maxTrade: 0, tradeCount: 0 };
         if (String(trade.type || '').toUpperCase() === 'SELL') signal.sellVolume += amount;
         else signal.buyVolume += amount;
         signal.totalVolume += amount;
@@ -118,10 +124,10 @@ score = edge + volume_strength + max_trade_strength</code></pre>
           signal.slug = trade.slug || signal.slug;
           signal.eventSlug = trade.eventSlug || signal.eventSlug;
         }
-        groups.set(key, signal);
+        outcomeGroups.set(key, signal);
       });
 
-      return Array.from(groups.values()).map(signal => {
+      const scoredOutcomes = Array.from(outcomeGroups.values()).map(signal => {
         const flowBias = signal.totalVolume ? (signal.buyVolume - signal.sellVolume) / signal.totalVolume : 0;
         const volumeBonus = Math.min(signal.totalVolume / 100000, 1) * 0.03;
         const estimatedChance = clamp(signal.latestPrice + flowBias * 0.12 + volumeBonus, 0.02, 0.98);
@@ -130,12 +136,32 @@ score = edge + volume_strength + max_trade_strength</code></pre>
         const maxTradeStrength = Math.min(Math.log10(signal.maxTrade + 1) / 5, 1);
         const score = edge * 100 + volumeStrength * 12 + maxTradeStrength * 8 + Math.min(signal.tradeCount, 20) * 0.25;
         return { ...signal, flowBias, estimatedChance, edge, score };
-      }).filter(signal => signal.edge > 0 && signal.buyVolume > signal.sellVolume);
+      });
+
+      const markets = new Map();
+      scoredOutcomes.forEach(signal => {
+        if (!markets.has(signal.marketKey)) markets.set(signal.marketKey, []);
+        markets.get(signal.marketKey).push(signal);
+      });
+
+      const suggestions = [];
+      markets.forEach(outcomes => {
+        const ranked = outcomes.sort((a, b) => b.estimatedChance - a.estimatedChance || b.edge - a.edge || b.score - a.score);
+        const top = ranked[0];
+        const second = ranked[1];
+        if (!top) return;
+        if (second && top.estimatedChance - second.estimatedChance <= MIN_CHANCE_GAP) return;
+        if (top.edge <= 0 || top.buyVolume <= top.sellVolume) return;
+        suggestions.push(top);
+      });
+
+      return suggestions;
     }
 
     function renderStats(signals) {
       document.getElementById('stat-candidates').innerText = signals.length;
-      document.getElementById('stat-edge').innerText = signals.length ? `+${Math.round(signals[0].edge * 100)}%` : '--';
+      const bestEdge = signals.length ? Math.max(...signals.map(signal => signal.edge)) : null;
+      document.getElementById('stat-edge').innerText = bestEdge !== null ? `+${Math.round(bestEdge * 100)}%` : '--';
       document.getElementById('stat-volume').innerText = signals.length ? money(Math.max(...signals.map(signal => signal.totalVolume))) : '$0';
       document.getElementById('stat-scan').innerText = date(feedMeta?.last_checked_at);
     }
@@ -143,14 +169,14 @@ score = edge + volume_strength + max_trade_strength</code></pre>
     function renderSignals() {
       const limit = Number(document.getElementById('limit-filter').value);
       const minEdge = Number(document.getElementById('edge-filter').value);
-      const signals = buildSignals().filter(signal => signal.edge >= minEdge).sort((a, b) => b.score - a.score);
+      const signals = buildSignals().filter(signal => signal.edge >= minEdge).sort((a, b) => b.estimatedChance - a.estimatedChance || b.edge - a.edge || b.score - a.score);
       const shown = signals.slice(0, limit);
       const container = document.getElementById('signals-container');
       renderStats(signals);
       container.innerHTML = '';
 
       if (!shown.length) {
-        container.innerHTML = '<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No signal ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period.</p></div>';
+        container.innerHTML = '<div class="bg-white border border-slate-200 rounded-xl p-6 text-center shadow-sm"><div class="text-sm font-black text-slate-800 uppercase tracking-wide">No clear signal ideas matched</div><p class="text-sm text-slate-500 mt-2">Try lowering the minimum edge or widening the period. Close two-sided markets are skipped.</p></div>';
         return;
       }
 
