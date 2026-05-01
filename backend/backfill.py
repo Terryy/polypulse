@@ -84,6 +84,14 @@ def fetch_history():
     return filtered_trades
 
 
+def atomic_write_json(path, payload):
+    tmp_path = f"{path}.tmp"
+    with open(tmp_path, "w") as f:
+        json.dump(payload, f, indent=2)
+        f.write("\n")
+    os.replace(tmp_path, path)
+
+
 def save_trades(trades, status="ok", error=None):
     trades.sort(key=lambda trade: int(trade.get("timestamp", 0)), reverse=True)
     trades = trades[:MAX_TRADES]
@@ -107,9 +115,7 @@ def save_trades(trades, status="ok", error=None):
         payload["meta"]["error"] = str(error)[:500]
 
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
-    with open(DATA_PATH, "w") as f:
-        json.dump(payload, f, indent=2)
-        f.write("\n")
+    atomic_write_json(DATA_PATH, payload)
     print(f"Saved {len(trades)} trades to {DATA_PATH}")
 
 
