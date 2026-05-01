@@ -35,79 +35,70 @@
                 <span class="text-2xl">🐋</span>
                 <span>
                     <span class="block text-xl font-black tracking-tighter text-slate-900 leading-none">POLYPULSE</span>
-                    <span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Polymarket trade tracker</span>
+                    <span class="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1" data-i18n="tagline">Polymarket trade tracker</span>
                 </span>
             </a>
-            <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
-                <a href="index.html" class="border-b-2 border-slate-900 pb-1 text-slate-900">Whale Trade Tracker</a>
-                <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900">Win Chance Tracker</a>
-            </nav>
-            <details class="relative sm:hidden">
-                <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800">Menu</summary>
-                <nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
-                    <a href="index.html" class="block border-b-2 border-slate-900 pb-2 text-slate-900">Whale Trade Tracker</a>
-                    <a href="signals.html" class="block pt-3 hover:text-slate-900">Win Chance Tracker</a>
+            <div class="flex items-center gap-3 sm:gap-8">
+                <nav class="hidden sm:flex items-center gap-8 text-sm font-black uppercase tracking-wide text-slate-500">
+                    <a href="index.html" class="border-b-2 border-slate-900 pb-1 text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a>
+                    <a href="signals.html" class="border-b-2 border-transparent pb-1 hover:border-slate-300 hover:text-slate-900" data-i18n="navSignals">Win Chance Tracker</a>
                 </nav>
-            </details>
+                <label class="flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2 py-2 text-xs font-black text-slate-700">
+                    <span aria-hidden="true">🌐</span>
+                    <select class="language-select bg-transparent text-xs font-black outline-none" aria-label="Language">
+                        <option value="en">EN</option><option value="zh-Hans">简</option><option value="zh-Hant">繁</option>
+                    </select>
+                </label>
+                <details class="relative sm:hidden">
+                    <summary class="cursor-pointer rounded-md border border-slate-300 px-3 py-2 text-sm font-black text-slate-800" data-i18n="menu">Menu</summary>
+                    <nav class="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm font-black uppercase tracking-wide text-slate-600">
+                        <a href="index.html" class="block border-b-2 border-slate-900 pb-2 text-slate-900" data-i18n="navFeed">Whale Trade Tracker</a>
+                        <a href="signals.html" class="block pt-3 hover:text-slate-900" data-i18n="navSignals">Win Chance Tracker</a>
+                    </nav>
+                </details>
+            </div>
         </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
         <section class="mb-6">
-            <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2">Live trade feed</div>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950">Whale Trade Tracker</h1>
-            <p class="text-base text-slate-600 mt-3 max-w-2xl leading-7">Follow notable Polymarket trades by size, side, market, and time. Use the filters below to narrow the feed by period and trade tier.</p>
+            <div class="text-[11px] font-black text-slate-400 uppercase tracking-wider mb-2" data-i18n="eyebrow">Live trade feed</div>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950" data-i18n="title">Whale Trade Tracker</h1>
+            <p class="text-base text-slate-600 mt-3 max-w-2xl leading-7" data-i18n="description">Follow notable Polymarket trades by size, side, market, and time. Use the filters below to narrow the feed by period and trade tier.</p>
             <div id="intro-more" class="hidden mt-3 text-sm text-slate-500 max-w-2xl space-y-2">
-                <p>The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
-                <p>The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.</p>
+                <p data-i18n="moreOne">The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.</p>
+                <p data-i18n="moreTwo">The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.</p>
             </div>
             <div class="mt-4 flex flex-wrap gap-4">
-                <button id="intro-toggle" type="button" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" aria-expanded="false">Show more</button>
-                <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900">How it works</a>
+                <button id="intro-toggle" type="button" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" aria-expanded="false" data-i18n="showMore">Show more</button>
+                <a href="details.html" class="border-b-2 border-slate-300 pb-1 text-xs font-black uppercase tracking-wide text-slate-700 hover:border-slate-900" data-i18n="howItWorks">How it works</a>
             </div>
-            <div id="status-indicator" class="mt-5 inline-flex items-center text-xs font-bold text-slate-500 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm whitespace-nowrap">
-                <span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
-                Initializing...
-            </div>
+            <div id="status-indicator" class="mt-5 inline-flex items-center text-xs font-bold text-slate-500 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm whitespace-nowrap"><span class="h-2 w-2 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>Initializing...</div>
         </section>
 
         <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Filtered Volume</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Trade Count</div><div id="stat-count" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Largest Trade</div><div id="stat-max" class="text-xl sm:text-2xl font-black text-blue-600 mt-1">$0</div></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Buy Pressure</div><div id="stat-ratio" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">--%</div></div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="filteredVolume">Filtered Volume</div><div id="stat-volume" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">$0</div></div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="tradeCount">Trade Count</div><div id="stat-count" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">0</div></div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="largestTrade">Largest Trade</div><div id="stat-max" class="text-xl sm:text-2xl font-black text-blue-600 mt-1">$0</div></div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="buyPressure">Buy Pressure</div><div id="stat-ratio" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">--%</div></div>
         </section>
 
         <section class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3">Trade Size Tiers</h2>
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3" data-i18n="tradeTiers">Trade Size Tiers</h2>
             <div class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-5 text-center">
                 <div class="p-2 bg-blue-50 rounded-lg border border-blue-100"><div class="text-lg">🐋</div><div class="font-bold text-blue-800 mt-1">Blue Whale</div><div class="text-blue-400 text-[10px] font-mono">>$50k</div></div>
                 <div class="p-2 bg-sky-50 rounded-lg border border-sky-100"><div class="text-lg">🐳</div><div class="font-bold text-sky-800 mt-1">Whale</div><div class="text-sky-400 text-[10px] font-mono">$10k-$50k</div></div>
                 <div class="p-2 bg-teal-50 rounded-lg border border-teal-100"><div class="text-lg">🦈</div><div class="font-bold text-teal-800 mt-1">Shark</div><div class="text-teal-400 text-[10px] font-mono">$5k-$10k</div></div>
                 <div class="p-2 bg-cyan-50 rounded-lg border border-cyan-100"><div class="text-lg">🐬</div><div class="font-bold text-cyan-800 mt-1">Dolphin</div><div class="text-cyan-400 text-[10px] font-mono">$1k-$5k</div></div>
-                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 col-span-2 sm:col-span-1"><div class="text-lg text-slate-500">•</div><div class="font-bold text-slate-700 mt-1">Pulse</div><div class="text-slate-400 text-[10px] font-mono">$100-$1k</div></div>
+                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 col-span-2 sm:col-span-1"><div class="text-lg text-slate-500">🐟</div><div class="font-bold text-slate-700 mt-1">Pulse</div><div class="text-slate-400 text-[10px] font-mono">$100-$1k</div></div>
             </div>
         </section>
 
         <section class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 mb-5">
-            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3">Feed Filters</h2>
+            <h2 class="text-sm font-black uppercase tracking-wide text-slate-900 mb-3" data-i18n="feedFilters">Feed Filters</h2>
             <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                <label class="block">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</span>
-                    <select id="period-filter" class="w-full md:w-48 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none">
-                        <option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option>
-                    </select>
-                </label>
-                <div class="flex-1">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Whale Filters</div>
-                    <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
-                        <label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-800"><input type="checkbox" class="tier-filter" data-tier="BLUE_WHALE" checked>Blue</label>
-                        <label class="flex items-center gap-2 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800"><input type="checkbox" class="tier-filter" data-tier="WHALE" checked>Whale</label>
-                        <label class="flex items-center gap-2 rounded-lg border border-teal-100 bg-teal-50 px-3 py-2 text-xs font-bold text-teal-800"><input type="checkbox" class="tier-filter" data-tier="SHARK" checked>Shark</label>
-                        <label class="flex items-center gap-2 rounded-lg border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-bold text-cyan-800"><input type="checkbox" class="tier-filter" data-tier="DOLPHIN" checked>Dolphin</label>
-                        <label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700"><input type="checkbox" class="tier-filter" data-tier="PULSE" checked>Pulse</label>
-                    </div>
-                </div>
+                <label class="block"><span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1" data-i18n="period">Period</span><select id="period-filter" class="w-full md:w-48 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:border-blue-500 focus:outline-none"><option value="1">Last day</option><option value="7">Last 7 days</option><option value="30">Last month</option><option value="365">Last year</option><option value="all">All stored</option></select></label>
+                <div class="flex-1"><div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2" data-i18n="whaleFilters">Whale Filters</div><div class="grid grid-cols-2 gap-2 sm:grid-cols-5"><label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-800"><input type="checkbox" class="tier-filter" data-tier="BLUE_WHALE" checked>Blue</label><label class="flex items-center gap-2 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800"><input type="checkbox" class="tier-filter" data-tier="WHALE" checked>Whale</label><label class="flex items-center gap-2 rounded-lg border border-teal-100 bg-teal-50 px-3 py-2 text-xs font-bold text-teal-800"><input type="checkbox" class="tier-filter" data-tier="SHARK" checked>Shark</label><label class="flex items-center gap-2 rounded-lg border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-bold text-cyan-800"><input type="checkbox" class="tier-filter" data-tier="DOLPHIN" checked>Dolphin</label><label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700"><input type="checkbox" class="tier-filter" data-tier="PULSE" checked>Pulse</label></div></div>
             </div>
         </section>
 
@@ -118,5 +109,17 @@
 
     <footer class="max-w-5xl mx-auto w-full px-4 mt-8 pb-8"><div class="border-t border-gray-300 pt-8 text-center text-gray-400 text-xs"><p>© 2026 PolyPulse Project. Open Source.</p><p class="mt-2 text-[10px] opacity-60">Not Financial Advice.</p></div></footer>
     <script src="script.js?v=20260501-5"></script>
+    <script>
+        const pageText = {
+            en: { tagline:'Polymarket trade tracker', navFeed:'Whale Trade Tracker', navSignals:'Win Chance Tracker', menu:'Menu', eyebrow:'Live trade feed', title:'Whale Trade Tracker', description:'Follow notable Polymarket trades by size, side, market, and time. Use the filters below to narrow the feed by period and trade tier.', moreOne:'The dashboard refreshes from a static JSON feed written by GitHub Actions. Stats and cards reflect the filters you choose, so the numbers change when you switch periods or tiers.', moreTwo:'The Signals page uses the same feed to rank possible research ideas from recent flow and price. It is informational only and not financial advice.', showMore:'Show more', howItWorks:'How it works', filteredVolume:'Filtered Volume', tradeCount:'Trade Count', largestTrade:'Largest Trade', buyPressure:'Buy Pressure', tradeTiers:'Trade Size Tiers', feedFilters:'Feed Filters', period:'Period', whaleFilters:'Whale Filters' },
+            'zh-Hans': { tagline:'Polymarket 交易追踪器', navFeed:'鲸鱼交易追踪器', navSignals:'胜率价值追踪器', menu:'菜单', eyebrow:'实时交易动态', title:'鲸鱼交易追踪器', description:'按金额、方向、市场和时间查看重要的 Polymarket 交易。你可以用下面的筛选器按时间范围和交易等级缩小结果。', moreOne:'此页面由 GitHub Actions 写入的静态 JSON 数据更新。统计数字和卡片会跟随你选择的筛选器改变。', moreTwo:'信号页面使用同一份数据，根据近期资金流和价格排列值得研究的想法。内容仅供参考，并非财务建议。', showMore:'显示更多', howItWorks:'运作方式', filteredVolume:'筛选后金额', tradeCount:'交易数量', largestTrade:'最大交易', buyPressure:'买入压力', tradeTiers:'交易金额等级', feedFilters:'动态筛选', period:'时间范围', whaleFilters:'鲸鱼筛选' },
+            'zh-Hant': { tagline:'Polymarket 交易追蹤器', navFeed:'鯨魚交易追蹤器', navSignals:'勝率價值追蹤器', menu:'選單', eyebrow:'即時交易動態', title:'鯨魚交易追蹤器', description:'按金額、方向、市場和時間查看重要的 Polymarket 交易。你可以用下面的篩選器按時間範圍和交易等級縮小結果。', moreOne:'此頁面由 GitHub Actions 寫入的靜態 JSON 資料更新。統計數字和卡片會跟隨你選擇的篩選器改變。', moreTwo:'信號頁面使用同一份資料，根據近期資金流和價格排列值得研究的想法。內容僅供參考，並非財務建議。', showMore:'顯示更多', howItWorks:'運作方式', filteredVolume:'篩選後金額', tradeCount:'交易數量', largestTrade:'最大交易', buyPressure:'買入壓力', tradeTiers:'交易金額等級', feedFilters:'動態篩選', period:'時間範圍', whaleFilters:'鯨魚篩選' }
+        };
+        function getLang(){ return document.cookie.split('; ').find(row => row.startsWith('polypulse_lang='))?.split('=')[1] || 'en'; }
+        function saveLang(lang){ const expires = new Date(Date.now() + 10 * 864e5).toUTCString(); document.cookie = `polypulse_lang=${lang}; expires=${expires}; path=/; SameSite=Lax`; }
+        function applyLang(lang){ document.documentElement.lang = lang; document.querySelectorAll('.language-select').forEach(select => select.value = lang); document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = pageText[lang]?.[el.dataset.i18n] || pageText.en[el.dataset.i18n] || el.textContent; }); }
+        document.querySelectorAll('.language-select').forEach(select => select.addEventListener('change', event => { saveLang(event.target.value); applyLang(event.target.value); }));
+        applyLang(getLang());
+    </script>
 </body>
 </html>
