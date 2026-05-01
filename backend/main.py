@@ -107,6 +107,14 @@ def prune_archive(trades):
     return recent_trades[:MAX_TRADES]
 
 
+def atomic_write_json(path, payload):
+    tmp_path = f"{path}.tmp"
+    with open(tmp_path, "w") as f:
+        json.dump(payload, f, indent=2)
+        f.write("\n")
+    os.replace(tmp_path, path)
+
+
 def write_database(trades, status, error=None, fetched_count=0):
     checked_at = utc_now().isoformat().replace("+00:00", "Z")
     payload = {
@@ -127,9 +135,7 @@ def write_database(trades, status, error=None, fetched_count=0):
         payload["meta"]["error"] = str(error)[:500]
 
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
-    with open(DATA_PATH, "w") as f:
-        json.dump(payload, f, indent=2)
-        f.write("\n")
+    atomic_write_json(DATA_PATH, payload)
 
     print(f"Database wrote {len(trades)} trades. Status: {status}. Checked: {checked_at}")
 
