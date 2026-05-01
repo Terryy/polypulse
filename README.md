@@ -12,7 +12,9 @@ PolyPulse is an automated market surveillance dashboard that scans Polymarket tr
 - Scheduled scanner runs on GitHub Actions every 5 minutes.
 - Feed metadata shows the last scan time, scan status, lookback window, and listing threshold.
 - Signal listing starts at $100 so the dashboard can show smaller activity when no larger trades are present.
-- Larger trades are still classified from Pulse through Blue Whale.
+- Larger trades are classified from Pulse through Blue Whale.
+- Dashboard filters for tier and period: last day, last 7 days, last month, last year, or all stored trades.
+- Lazy-loaded trade cards render 50 at a time.
 - Static hosting on GitHub Pages with no server to maintain.
 
 ## Listing Rules
@@ -48,7 +50,7 @@ Then open `index.html` in your browser.
 
 ## Backfill
 
-To rebuild the archive from the last 30 days:
+To rebuild the archive from the last year:
 
 ```bash
 python backend/backfill.py
@@ -62,8 +64,8 @@ The scanner supports these environment variables:
 | --- | ---: | --- |
 | `POLYPULSE_MIN_TRADE_USD` | `100` | Minimum trade value to list. |
 | `POLYPULSE_LOOKBACK_HOURS` | `24` | How far each scheduled scan looks back. |
-| `POLYPULSE_ARCHIVE_DAYS` | `30` | How long to keep stored trades. |
-| `POLYPULSE_MAX_TRADES` | `2000` | Maximum records stored in the JSON feed. |
+| `POLYPULSE_ARCHIVE_DAYS` | `365` | How long to keep stored trades. |
+| `POLYPULSE_MAX_TRADES` | `10000` | Maximum records stored in the JSON feed. |
 
 ## Release & Publish
 
