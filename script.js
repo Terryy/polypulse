@@ -253,7 +253,21 @@ async function fetchWhales() {
     }
 }
 
+function bindIntroToggle() {
+    const button = document.getElementById('intro-toggle');
+    const panel = document.getElementById('intro-more');
+    if (!button || !panel) return;
+
+    button.addEventListener('click', () => {
+        const isOpen = !panel.classList.contains('hidden');
+        panel.classList.toggle('hidden', isOpen);
+        button.innerText = isOpen ? 'Show more' : 'Show less';
+        button.setAttribute('aria-expanded', String(!isOpen));
+    });
+}
+
 function bindControls() {
+    bindIntroToggle();
     document.getElementById('period-filter')?.addEventListener('change', () => applyFilters(true));
     document.querySelectorAll('.tier-filter').forEach(input => {
         input.addEventListener('change', () => applyFilters(true));
