@@ -1,112 +1,83 @@
-Here is the raw text for your README file, split into two parts. You can copy each part and paste them into your file one after another.
-
-**Part 1: Features and Tech Stack**
-
 # 🐋 PolyPulse | Whale Watcher
 
-**Real-time detection of high-conviction trades on Polymarket.**
+Real-time detection of notable Polymarket trades.
 
-PolyPulse is an automated market surveillance tool that detects and visualizes large trades ("Whales") on Polymarket in real-time. It runs 24/7 to help traders spot smart money movements before the wider market reacts.
+PolyPulse is an automated market surveillance dashboard that scans Polymarket trade activity, classifies larger trades by size, and publishes a static GitHub Pages feed. It is designed to show whether the scanner is alive even when no trades match the current listing rules.
 
-**[🔴 Live Dashboard Link](https://terryy.github.io/polypulse/)**
+[Live Dashboard](https://terryy.github.io/polypulse/)
 
----
+## Features
 
-## ⚡ Features
+- Real-time-ish surveillance via the Polymarket Goldsky subgraph.
+- Scheduled scanner runs on GitHub Actions every 5 minutes.
+- Feed metadata shows the last scan time, scan status, lookback window, and listing threshold.
+- Signal listing starts at $100 so the dashboard can show smaller activity when no larger trades are present.
+- Larger trades are still classified from Pulse through Blue Whale.
+- Static hosting on GitHub Pages with no server to maintain.
 
-* **Real-Time Surveillance:** Scans the **Polymarket Main Subgraph** (`fpmmTrades`) every 5 minutes.
-* **Whale Classification:** Tags trades based on size (Dolphin to Blue Whale).
-* **Smart Sentiment:** Tags trades as **BET YES** (Green) or **BET NO** (Red).
-* **30-Day Archive:** Maintains a history log of significant movements.
-* **Zero-Maintenance:** Runs on **GitHub Actions** and **GitHub Pages**. No servers required.
-
----
-
-## 📊 Whale Tier Definitions
-
-PolyPulse categorizes trades into four tiers:
+## Listing Rules
 
 | Badge | Tier Name | Trade Size (USD) | Description |
 | --- | --- | --- | --- |
-| 🐋 | **BLUE WHALE** | **> $50,000** | Market Makers or High-Conviction Insiders. |
-| 🐳 | **WHALE** | **$10,000 - $50k** | Serious capital. Notable conviction. |
-| 🦈 | **SHARK** | **$5,000 - $10k** | Aggressive traders. Significant size. |
-| 🐬 | **DOLPHIN** | **$1,000 - $5,000** | Active traders. Larger than retail size. |
+| 🐋 | **BLUE WHALE** | **> $50,000** | Very large position. |
+| 🐳 | **WHALE** | **$10,000 - $50,000** | Large high-conviction trade. |
+| 🦈 | **SHARK** | **$5,000 - $10,000** | Significant active trader size. |
+| 🐬 | **DOLPHIN** | **$1,000 - $5,000** | Larger than typical retail size. |
+| • | **PULSE** | **$100 - $1,000** | Smaller signal shown so the feed does not look broken during quiet periods. |
 
-*(Trades under $1,000 are filtered out as noise.)*
+The backend default listing threshold is controlled by `POLYPULSE_MIN_TRADE_USD` and currently defaults to `$100`.
 
----
+## Tech Stack
 
-## 🛠️ Tech Stack
+- Frontend: HTML5 + Tailwind CSS via CDN.
+- Backend: Python 3.9 with `requests`.
+- Data Source: Goldsky Polymarket subgraph.
+- Automation: GitHub Actions cron.
+- Data Store: Static JSON file at `data/whales.json`.
 
-* **Frontend:** HTML5 + Tailwind CSS (via CDN).
-* **Backend:** Python 3.9 (Requests, JSON).
-* **Data Source:** [Goldsky Subgraph](https://goldsky.com/) (Polymarket Mainnet).
-* **Automation:** GitHub Actions (Cron every 5 mins).
-* **Database:** Flat JSON file (`data/whales.json`).
-
----
-
-**Part 2: Setup and Disclaimer (Paste this right after Part 1)**
-
----
-
-## 🚀 Local Setup (For Developers)
-
-If you want to run this on your own machine:
-
-### 1. Clone the repo
+## Local Setup
 
 ```bash
 git clone https://github.com/Terryy/polypulse.git
 cd polypulse
-
-```
-
-### 2. Install Python Dependencies
-
-```bash
 pip install -r backend/requirements.txt
-
+python backend/main.py
 ```
 
-### 3. Run the Scanner Manually
+Then open `index.html` in your browser.
 
-This connects to the API and generates `data/whales.json`.
+## Backfill
+
+To rebuild the archive from the last 30 days:
 
 ```bash
-python backend/main.py
-
+python backend/backfill.py
 ```
 
-### 4. Open the Dashboard
+## Configuration
 
-Double-click `index.html` to open it in your browser.
+The scanner supports these environment variables:
 
----
+| Variable | Default | Purpose |
+| --- | ---: | --- |
+| `POLYPULSE_MIN_TRADE_USD` | `100` | Minimum trade value to list. |
+| `POLYPULSE_LOOKBACK_HOURS` | `24` | How far each scheduled scan looks back. |
+| `POLYPULSE_ARCHIVE_DAYS` | `30` | How long to keep stored trades. |
+| `POLYPULSE_MAX_TRADES` | `2000` | Maximum records stored in the JSON feed. |
 
-## 📦 Release & Publish
+## Release & Publish
 
 PolyPulse releases are tagged and published automatically via GitHub Actions.
-
-### 1. Tag a Release
 
 ```bash
 git tag vYYYY.MM.DD
 git push origin vYYYY.MM.DD
 ```
 
-### 2. Automated Publish
+Pushing a `v*` tag creates a GitHub Release and deploys the current site to GitHub Pages. Pushes to `main` also deploy the site.
 
-Pushing a `v*` tag creates a GitHub Release and deploys the latest site to GitHub Pages.
+## Disclaimer
 
----
-
-## ⚠️ Disclaimer
-
-**This tool is for informational purposes only.**
-The data provided by PolyPulse does not constitute financial advice. Cryptocurrency and prediction markets involve high risk. Always do your own research (DYOR).
-
----
+This tool is for informational purposes only. The data provided by PolyPulse does not constitute financial advice. Cryptocurrency and prediction markets involve high risk. Always do your own research.
 
 © 2026 PolyPulse Project. Open Source.
