@@ -118,24 +118,35 @@ function updateStats(trades) {
     }
 }
 
+function setStatusHTML(html, title = '') {
+    ['status-indicator', 'status-indicator-desktop'].forEach(id => {
+        const status = document.getElementById(id);
+        if (!status) return;
+        status.innerHTML = html;
+        if (title) {
+            status.title = title;
+        } else {
+            status.removeAttribute('title');
+        }
+    });
+}
+
 function updateStatus(meta, tradeCount) {
-    const status = document.getElementById('status-indicator');
     const checkedAt = formatCheckedTime(meta?.last_checked_at);
     const minTrade = meta?.min_trade_usd ? formatCurrency(meta.min_trade_usd) : '$100';
+    const title = `Last checked ${checkedAt}. Minimum listing size: ${minTrade}.`;
 
     if (meta?.status === 'error') {
-        status.innerHTML = '<span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span> Scanner Error';
+        setStatusHTML('<span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span> Scanner Error');
         return;
     }
 
     if (tradeCount === 0) {
-        status.innerHTML = '<span class="h-3 w-3 rounded-full bg-sky-500 mr-2"></span> Online, no matches';
-        status.title = `Last checked ${checkedAt}. Minimum listing size: ${minTrade}.`;
+        setStatusHTML('<span class="h-3 w-3 rounded-full bg-sky-500 mr-2"></span> Online, no matches', title);
         return;
     }
 
-    status.innerHTML = '<span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span> System Online';
-    status.title = `Last checked ${checkedAt}. Minimum listing size: ${minTrade}.`;
+    setStatusHTML('<span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span> System Online', title);
 }
 
 function renderEmptyState(container, meta) {
@@ -233,8 +244,6 @@ function renderFeed() {
 }
 
 async function fetchWhales() {
-    const status = document.getElementById('status-indicator');
-
     try {
         const response = await fetch(`${WHALE_DATA_URL}?t=${Date.now()}`);
         if (!response.ok) throw new Error('Data file not found');
@@ -247,7 +256,7 @@ async function fetchWhales() {
     } catch (error) {
         console.error(error);
         updateStats([]);
-        status.innerHTML = '<span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span> Offline';
+        setStatusHTML('<span class="h-3 w-3 rounded-full bg-red-500 mr-2"></span> Offline');
         filteredTrades = [];
         renderEmptyState(document.getElementById('whale-container'), { status: 'error', error: error.message });
     }
