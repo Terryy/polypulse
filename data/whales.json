@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "ok",
-    "last_checked_at": "2026-08-19T09:06:16.601327Z",
+    "last_checked_at": "2026-08-19T09:47:54.358702Z",
     "lookback_hours": 24,
     "archive_days": 365,
     "min_trade_usd": 100,
@@ -10,6 +10,63 @@
     "source": "Polymarket Data API /trades"
   },
   "trades": [
+    {
+      "id": "0x6a9e11c774609a05a18a53d4ec2d3b9b5e451d75abff5183e3115cfbf6f45ad0:1542129832555054411011985178263204951520260508412992087940659929363435749376:1787130822:BUY",
+      "timestamp": 1787130822,
+      "user": {
+        "id": "0x214039968998abdcdbd998d15d699296f3570e12"
+      },
+      "market": {
+        "question": "LoL: LNG Esports vs Weibo Gaming (BO3) - LPL Group Nirvana AND LoL: Gen.G vs KT Rolster - Game 2 Winner"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "191.62",
+      "size": 1527.548564,
+      "price": 0.1254433702,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0x6a9e11c774609a05a18a53d4ec2d3b9b5e451d75abff5183e3115cfbf6f45ad0"
+    },
+    {
+      "id": "0x2857c1208aef0ca622a3af652d5c2342019b36f28c3b3a3e827c373d96b13028:1532943113201780277896235054723916312141339401100347676838117447126604578816:1787130466:BUY",
+      "timestamp": 1787130466,
+      "user": {
+        "id": "0x4b4d613eb7dfbbe7e089bd045d65bd4e47195f4a"
+      },
+      "market": {
+        "question": "Counter-Strike: FURIA vs Aurora Gaming (BO3) - Esports World Cup Playoffs AND LoL: Team WE vs EDward Gaming (BO3) - LPL Group Ascend AND Valorant: Bilibili Gaming vs XLG Gaming (BO3) - VCT China Stage 2 Playoffs AND Valorant: Cloud9 vs BESTIA (BO3) - VCT Americas Stage 2 Play-In AND Counter-Strike: G2 vs Astralis (BO3) - Esports World Cup Playoffs AND Counter-Strike: FUT Esports vs magic (BO3) - Esports World Cup Playoffs AND Counter-Strike: GamerLegion vs MOUZ (BO3) - Esports World Cup Playoffs AND Valorant: Rex Regum Qeon vs FULL SENSE (BO3) - VCT Pacific Play-In"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "176.61",
+      "size": 3572.572632,
+      "price": 0.0494339033,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0x2857c1208aef0ca622a3af652d5c2342019b36f28c3b3a3e827c373d96b13028"
+    },
+    {
+      "id": "0xfd465592513bbd1eaaf57c97819e7758ff0a3868cc68c881e61738a54c8a0a75:1528567678981716264914730917901434393860551859699209811520303954642516049920:1787130265:BUY",
+      "timestamp": 1787130265,
+      "user": {
+        "id": "0xfeb99d66220e6b94799f4ef0a3cfb12b3f9495c9"
+      },
+      "market": {
+        "question": "Cincinnati Open: Alexander Zverev vs Tommy Paul AND Cincinnati Open: Arthur Fils vs Alex de Minaur AND Cincinnati Open: Rafael Jodar vs Flavio Cobolli"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "338.64",
+      "size": 1028.134861,
+      "price": 0.3293778694,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xfd465592513bbd1eaaf57c97819e7758ff0a3868cc68c881e61738a54c8a0a75"
+    },
     {
       "id": "0x8a0f76e62fac1a6076f3c0043bbc486cc5be09b8006f853a06b9274c0a73e61d:90980031787716925748456912900438169468112442967082021421212060360449489599311:1787130223:BUY",
       "timestamp": 1787130223,
@@ -189952,63 +190009,6 @@
       "slug": "lib-cir-flu-2026-08-18-cir",
       "eventSlug": "lib-cir-flu-2026-08-18",
       "transactionHash": "0xbbf594582ff080df7ceae0d0a59124bc74010285120508d32b25011a2109f0ff"
-    },
-    {
-      "id": "0xb3a0a587a1f3b79c08613d91541681e6b2b26949fcf21747de7f8c2d0ff1b734:37035256877408399580736195139426691769375007411009516519857957496398965276087:1787096224:SELL",
-      "timestamp": 1787096224,
-      "user": {
-        "id": "0xfb156cde86af7237cbcd0be3e2630e31364e9483"
-      },
-      "market": {
-        "question": "Will Ed Markey be the Democratic nominee for Senate in Massachusetts?"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Yes",
-      "amountUSD": "165.25",
-      "size": 181.02,
-      "price": 0.9128836593,
-      "type": "SELL",
-      "slug": "will-ed-markey-be-the-democratic-nominee-for-senate-in-massachusetts",
-      "eventSlug": "massachusetts-democratic-senate-primary-winner",
-      "transactionHash": "0xb3a0a587a1f3b79c08613d91541681e6b2b26949fcf21747de7f8c2d0ff1b734"
-    },
-    {
-      "id": "0x022aedd5fd06d7d515a1fd7e579499acbf2969015dafcd0cd5172debe1733586:71188056982305319246898769374103380989400979565414171376050605488981412521734:1787096224:BUY",
-      "timestamp": 1787096224,
-      "user": {
-        "id": "0x2b5fbe8d937789e4aa73c358d1e68e1b6c9784cd"
-      },
-      "market": {
-        "question": "Ethereum Up or Down - August 18, 7:30PM-7:45PM ET"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Up",
-      "amountUSD": "200.00",
-      "size": 247.087829,
-      "price": 0.809428772,
-      "type": "BUY",
-      "slug": "eth-updown-15m-1787095800",
-      "eventSlug": "eth-updown-15m-1787095800",
-      "transactionHash": "0x022aedd5fd06d7d515a1fd7e579499acbf2969015dafcd0cd5172debe1733586"
-    },
-    {
-      "id": "0x7a6494d6d63d52eb86f406e71090246c291240d5ac99aa942f2f9a3ddee3004b:99102568283751049461860422512653597005757052121499963160484535362872604415355:1787096223:BUY",
-      "timestamp": 1787096223,
-      "user": {
-        "id": "0x746295855be6f49fe2da2accd69ea34b3cf23ac3"
-      },
-      "market": {
-        "question": "Set Handicap: Auger-Aliassime (-1.5) vs Cerundolo (+1.5)"
-      },
-      "outcomeIndex": 1,
-      "outcome": "Cerundolo",
-      "amountUSD": "299.70",
-      "size": 666.01,
-      "price": 0.45,
-      "type": "BUY",
-      "slug": "atp-cerund-augeral-2026-08-18-set-handicap-away-1pt5",
-      "eventSlug": "atp-cerund-augeral-2026-08-18",
-      "transactionHash": "0x7a6494d6d63d52eb86f406e71090246c291240d5ac99aa942f2f9a3ddee3004b"
     }
   ]
 }
