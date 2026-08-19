@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "ok",
-    "last_checked_at": "2026-08-19T04:57:30.843890Z",
+    "last_checked_at": "2026-08-19T05:38:11.406394Z",
     "lookback_hours": 24,
     "archive_days": 365,
     "min_trade_usd": 100,
@@ -10,6 +10,215 @@
     "source": "Polymarket Data API /trades"
   },
   "trades": [
+    {
+      "id": "0x963001bdceb571f3187d4b86eda88e4de897842fd48dd9425defff789744cefa:1411104307420582602469823117763739024096593940288799512302465214192107388928:1787117022:BUY",
+      "timestamp": 1787117022,
+      "user": {
+        "id": "0x750c8c8e8cdb54208e520895775765235e66d430"
+      },
+      "market": {
+        "question": "LoL: LNG Esports vs Weibo Gaming (BO3) - LPL Group Nirvana AND LoL: Gen.G vs KT Rolster (BO3) - LCK Round 3-4 Legend Group"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "296.82",
+      "size": 451.200396,
+      "price": 0.6578498637,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0x963001bdceb571f3187d4b86eda88e4de897842fd48dd9425defff789744cefa"
+    },
+    {
+      "id": "0xe5973dae4e2d26f815dfd7b9be91d0c677fd54a63a861c42793692a1d7b35b4d:1544479931434620835366698898732510133335734327044327268944629612301493731328:1787116890:BUY",
+      "timestamp": 1787116890,
+      "user": {
+        "id": "0x47384d7aef2ac6daa9a459a9261668d7e4f79cfb"
+      },
+      "market": {
+        "question": "Prague 2: Jan Kumstat vs Sumit Nagal AND Quebec City: Duncan Chan vs Taro Daniel AND Cincinnati Open: Rafael Jodar vs Flavio Cobolli"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "193.40",
+      "size": 610.080601,
+      "price": 0.3169999992,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xe5973dae4e2d26f815dfd7b9be91d0c677fd54a63a861c42793692a1d7b35b4d"
+    },
+    {
+      "id": "0xc34df84f26962c5733dbb502e121edd63a5b0e8a624110b7e751e6ddd62f7039:1418659258456860292780823723499320176764048299326797888435994304616769519616:1787116804:BUY",
+      "timestamp": 1787116804,
+      "user": {
+        "id": "0x89cfd0142921c330205bab181aa2ecbe22315f47"
+      },
+      "market": {
+        "question": "Games Total: O/U 2.5 AND Counter-Strike: FUT Esports vs magic (BO3) - Esports World Cup Playoffs AND Counter-Strike: GamerLegion vs MOUZ (BO3) - Esports World Cup Playoffs AND Games Total: O/U 2.5"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "191.70",
+      "size": 1431.10245,
+      "price": 0.1339519613,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xc34df84f26962c5733dbb502e121edd63a5b0e8a624110b7e751e6ddd62f7039"
+    },
+    {
+      "id": "0xb955eb1fec918cfa92e369ee882b5f0405bb1ab41436aeab6ad170b243569202:1740939663857077831626441332174328436973158308458252849611939929943024074752:1787116692:BUY",
+      "timestamp": 1787116692,
+      "user": {
+        "id": "0xd4ace370a22f2283727032ff60b0a27b5d0f5e19"
+      },
+      "market": {
+        "question": "Counter-Strike: FURIA vs Aurora Gaming (BO3) - Esports World Cup Playoffs AND Counter-Strike: FUT Esports vs magic (BO3) - Esports World Cup Playoffs"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "485.96",
+      "size": 1151.554219,
+      "price": 0.4219999996,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xb955eb1fec918cfa92e369ee882b5f0405bb1ab41436aeab6ad170b243569202"
+    },
+    {
+      "id": "0x7169160ef321d5439122a06e3b93525faf6b8242846b7731fe4256080712c9f7:1530246829555662898668317833573812081247696980166243737387680443597492060160:1787116666:BUY",
+      "timestamp": 1787116666,
+      "user": {
+        "id": "0xd4ace370a22f2283727032ff60b0a27b5d0f5e19"
+      },
+      "market": {
+        "question": "Cincinnati Open: Thiago Agustin Tirante vs Jakub Mensik AND Cincinnati Open: Rafael Jodar vs Flavio Cobolli"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "488.06",
+      "size": 955.369272,
+      "price": 0.5108637511,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0x7169160ef321d5439122a06e3b93525faf6b8242846b7731fe4256080712c9f7"
+    },
+    {
+      "id": "0xdac765db8d41dfa2b416c792494421508bb06555e4d16d1704886e333a8fd1a0:1775481372577488519037366010198783195693638044253724163818509443022251360256:1787116627:BUY",
+      "timestamp": 1787116627,
+      "user": {
+        "id": "0x97725a1c50033c0aed7367142109403519268e49"
+      },
+      "market": {
+        "question": "UFC Fight Night: Carli Judice vs. Jeisla Chaves (Women's Strawweight, Main Card) AND UFC Fight Night: Roman Dolidze vs. Reinier de Ridder (Light Heavyweight, Main Card) AND UFC Fight Night: Jamall Emmers vs. Lerryan Douglas (Featherweight, Prelims)"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "488.33",
+      "size": 935.321454,
+      "price": 0.5220999988,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xdac765db8d41dfa2b416c792494421508bb06555e4d16d1704886e333a8fd1a0"
+    },
+    {
+      "id": "0xba45af01f97095c2effb3175e5c6bd8098d1df4219cbf223b42201d9b7a164d1:1710246706264146820763937674207464078793761502853338043980573555514929053696:1787116320:BUY",
+      "timestamp": 1787116320,
+      "user": {
+        "id": "0xf515321dab60992f8792076c42b1e6d00e5af21a"
+      },
+      "market": {
+        "question": "Prague 2: Jan Kumstat vs Sumit Nagal AND Will Melbourne Victory FC win on 2026-08-19?"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "154.99",
+      "size": 427.821004,
+      "price": 0.3622730033,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xba45af01f97095c2effb3175e5c6bd8098d1df4219cbf223b42201d9b7a164d1"
+    },
+    {
+      "id": "0xe580ecda5b1d82004acef6a293de3f947787f536d966423262b9216b27b0b404:1609842176348722386689573100230239465349087631402987078124392137279970213888:1787115882:BUY",
+      "timestamp": 1787115882,
+      "user": {
+        "id": "0x48eea23704165e005efbc36f0afc6cac31b50db4"
+      },
+      "market": {
+        "question": "Cincinnati Open: Thiago Agustin Tirante vs Jakub Mensik AND Cincinnati Open: Arthur Fils vs Alex de Minaur AND Cincinnati Open: Nuno Borges vs Brandon Nakashima AND Cincinnati Open: Rafael Jodar vs Flavio Cobolli"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "192.26",
+      "size": 986.027304,
+      "price": 0.1949858277,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xe580ecda5b1d82004acef6a293de3f947787f536d966423262b9216b27b0b404"
+    },
+    {
+      "id": "0x434fb0723e288cc511bdf08dba17b3563f549461fe3f163ee200132fa7babdc9:1557361095190236719431136916354522885251309945131406965902294794596775886848:1787115642:BUY",
+      "timestamp": 1787115642,
+      "user": {
+        "id": "0xf0b3fee1bb052e25a73cd91cb23ce41c72a2145d"
+      },
+      "market": {
+        "question": "Roehampton: Viktor Durasovic vs Lucas Poullain AND Prague 2: Radu Mihai Papoe vs Javier Barranco Cosano"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "121.54",
+      "size": 282.000302,
+      "price": 0.4309999994,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0x434fb0723e288cc511bdf08dba17b3563f549461fe3f163ee200132fa7babdc9"
+    },
+    {
+      "id": "0xdd294820f3c1abed9056b1b44269f056f81e575a0121527176e262f8fe5d55b2:1407228842879847938515118117408809857517206506612527055870216876790583918592:1787115609:BUY",
+      "timestamp": 1787115609,
+      "user": {
+        "id": "0xf0b3fee1bb052e25a73cd91cb23ce41c72a2145d"
+      },
+      "market": {
+        "question": "Sion: Alex Marti Pujolras vs Dimitar Kuzmanov AND Sion: Dominic Stephan Stricker vs Lucio Ratti"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "146.80",
+      "size": 260.04074,
+      "price": 0.5645409985,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xdd294820f3c1abed9056b1b44269f056f81e575a0121527176e262f8fe5d55b2"
+    },
+    {
+      "id": "0xc276b1e74e0dc7c55b800c0b7c17713e1c68bfd7350d99b77821f6a0a223dce2:1493643723701496453705132035161165515528329627617550389546559731416155815936:1787115555:BUY",
+      "timestamp": 1787115555,
+      "user": {
+        "id": "0xf0b3fee1bb052e25a73cd91cb23ce41c72a2145d"
+      },
+      "market": {
+        "question": "Prague 2: Cezar Cretu vs Maxim Mrva AND Prague 2: Jan Kumstat vs Sumit Nagal"
+      },
+      "outcomeIndex": 0,
+      "outcome": "",
+      "amountUSD": "121.46",
+      "size": 291.269689,
+      "price": 0.4169999989,
+      "type": "BUY",
+      "slug": "",
+      "eventSlug": "",
+      "transactionHash": "0xc276b1e74e0dc7c55b800c0b7c17713e1c68bfd7350d99b77821f6a0a223dce2"
+    },
     {
       "id": "0x4bd214047a349517313e31e24a6b39edc18e0353c4c10d3adee54ddd8401704e:1790905136133873981716735773546898623074340952248964886804497562670290960384:1787115057:BUY",
       "timestamp": 1787115057,
@@ -189800,215 +190009,6 @@
       "slug": "atp-faria-walton-2026-08-18",
       "eventSlug": "atp-faria-walton-2026-08-18",
       "transactionHash": "0xff2095aac8794c8e598a7f7b05c7d827a0d0e12f14d3865c0d69b925fe441350"
-    },
-    {
-      "id": "0xc97485aba6619041f749b8639f254deeb5b17e7f0bcf298d1e52cc42d52fdd33:90869494087977018607792751230236923002303032923064138180950209430688758061828:1787087542:SELL",
-      "timestamp": 1787087542,
-      "user": {
-        "id": "0xbfe23d7adb6f6108dba269d7e8f275675f531913"
-      },
-      "market": {
-        "question": "Strait of Hormuz traffic returns to normal by August 31?"
-      },
-      "outcomeIndex": 1,
-      "outcome": "No",
-      "amountUSD": "2559.36",
-      "size": 2580,
-      "price": 0.992,
-      "type": "SELL",
-      "slug": "strait-of-hormuz-traffic-returns-to-normal-by-august-31-20260702154212320",
-      "eventSlug": "strait-of-hormuz-traffic-returns-to-normal-by-august-31-20260702154212320",
-      "transactionHash": "0xc97485aba6619041f749b8639f254deeb5b17e7f0bcf298d1e52cc42d52fdd33"
-    },
-    {
-      "id": "0x64423c6df07bb0c0736a853b3b5f6b1a84795709067c64737a2e4d046e202c95:1411413065887022317034981492708837623293453099953245154924170265184132136960:1787087542:BUY",
-      "timestamp": 1787087542,
-      "user": {
-        "id": "0x5e20acba386d39b3468d985663e205287b48093a"
-      },
-      "market": {
-        "question": "Quebec City: Jurij Rodionov vs Rei Sakamoto AND Kingston: Benjamin Willwerth vs Gonzalo Bueno"
-      },
-      "outcomeIndex": 999,
-      "outcome": "",
-      "amountUSD": "413.00",
-      "size": 809.818212,
-      "price": 0.5099909991,
-      "type": "BUY",
-      "slug": "",
-      "eventSlug": "",
-      "transactionHash": "0x64423c6df07bb0c0736a853b3b5f6b1a84795709067c64737a2e4d046e202c95"
-    },
-    {
-      "id": "0x051c1b9afefad4e70e03742b1a83e1a1c4702391116fe0220e5b02addac729c6:99280685397444285219440073669002972728877166425793850596515616299182644313358:1787087539:BUY",
-      "timestamp": 1787087539,
-      "user": {
-        "id": "0xe922473e81dbd20e3fffd7b64b51f057a9b839b3"
-      },
-      "market": {
-        "question": "Will there be a run scored in the first inning?: Toronto Blue Jays vs. Tampa Bay Rays"
-      },
-      "outcomeIndex": 1,
-      "outcome": "No",
-      "amountUSD": "406.00",
-      "size": 700,
-      "price": 0.58,
-      "type": "BUY",
-      "slug": "mlb-tor-tb-2026-08-18-nrfi",
-      "eventSlug": "mlb-tor-tb-2026-08-18",
-      "transactionHash": "0x051c1b9afefad4e70e03742b1a83e1a1c4702391116fe0220e5b02addac729c6"
-    },
-    {
-      "id": "0x4331d27dd11f757d06d4e05ac3a59628a4af8b86cb2e0a1fba4ef03e1010ec86:32299536528503442580502510203524656106694679424023768976576063373939361307331:1787087538:BUY",
-      "timestamp": 1787087538,
-      "user": {
-        "id": "0x4a3f86ed9ce6b3dac5b66e2d5478a6bf38cc4333"
-      },
-      "market": {
-        "question": "Athletics vs. Kansas City Royals: O/U 9.5"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Over",
-      "amountUSD": "204.48",
-      "size": 454.4,
-      "price": 0.45,
-      "type": "BUY",
-      "slug": "mlb-oak-kc-2026-08-18-total-9pt5",
-      "eventSlug": "mlb-oak-kc-2026-08-18",
-      "transactionHash": "0x4331d27dd11f757d06d4e05ac3a59628a4af8b86cb2e0a1fba4ef03e1010ec86"
-    },
-    {
-      "id": "0x94d67bc4db1ca02612b15d843153d6032102585d37c9975862f41ee21cfed59f:20433635659988396376474173539745477254706908193043732673627450478656640669636:1787087538:BUY",
-      "timestamp": 1787087538,
-      "user": {
-        "id": "0x90a1a4ad9c3c92ad218961964642ed2260e9fb15"
-      },
-      "market": {
-        "question": "Exact Score: CS Independiente Rivadavia 0 - 0 Fluminense FC?"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Yes",
-      "amountUSD": "300.00",
-      "size": 2307.692306,
-      "price": 0.1299999997,
-      "type": "BUY",
-      "slug": "lib-cir-flu-2026-08-18-exact-score-0-0",
-      "eventSlug": "lib-cir-flu-2026-08-18-exact-score",
-      "transactionHash": "0x94d67bc4db1ca02612b15d843153d6032102585d37c9975862f41ee21cfed59f"
-    },
-    {
-      "id": "0x093d8357e7d5c44b009dd3a54ab26cfa22bb78a786ba3f2a13e96dfdf7d9d51f:29736033640562309165997408274034671165972517612685947975964918370106540348166:1787087538:BUY",
-      "timestamp": 1787087538,
-      "user": {
-        "id": "0x5d7e054225d1c58de66249233bf34d8b96ba2ef7"
-      },
-      "market": {
-        "question": "LoL: INTZ e-Sports vs 7REX - Game 2 Winner"
-      },
-      "outcomeIndex": 0,
-      "outcome": "INTZ e-Sports",
-      "amountUSD": "288.26",
-      "size": 400,
-      "price": 0.72064575,
-      "type": "BUY",
-      "slug": "lol-itz-7rex-2026-08-18-game2",
-      "eventSlug": "lol-itz-7rex-2026-08-18",
-      "transactionHash": "0x093d8357e7d5c44b009dd3a54ab26cfa22bb78a786ba3f2a13e96dfdf7d9d51f"
-    },
-    {
-      "id": "0x24793a219c085d44daf3f7f6dbca0eeae2ef7b38ee1779108fc769361afd0b7f:1750892213043293697722967276652700100119266178300367749210011079943021717371:1787087538:BUY",
-      "timestamp": 1787087538,
-      "user": {
-        "id": "0x397062018dfb77e855608fe23223592bc82c44ce"
-      },
-      "market": {
-        "question": "Cincinnati Open: Brandon Nakashima vs Daniil Medvedev"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Brandon Nakashima",
-      "amountUSD": "5087.71",
-      "size": 11750,
-      "price": 0.4329962128,
-      "type": "BUY",
-      "slug": "atp-nakashi-medvede-2026-08-18",
-      "eventSlug": "atp-nakashi-medvede-2026-08-18",
-      "transactionHash": "0x24793a219c085d44daf3f7f6dbca0eeae2ef7b38ee1779108fc769361afd0b7f"
-    },
-    {
-      "id": "0xf692ce9ba0cf7e263252baa2cf07231d87ddb99b9e95cdd363f7900e840b787c:4783414922546557266497810245388497192879513187674623050790302672766164431545:1787087538:BUY",
-      "timestamp": 1787087538,
-      "user": {
-        "id": "0xeebde7a0e019a63e6b476eb425505b7b3e6eba30"
-      },
-      "market": {
-        "question": "Bitcoin Up or Down - August 18, 5PM ET"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Up",
-      "amountUSD": "166.00",
-      "size": 200,
-      "price": 0.83,
-      "type": "BUY",
-      "slug": "bitcoin-up-or-down-august-18-2026-5pm-et",
-      "eventSlug": "bitcoin-up-or-down-august-18-2026-5pm-et",
-      "transactionHash": "0xf692ce9ba0cf7e263252baa2cf07231d87ddb99b9e95cdd363f7900e840b787c"
-    },
-    {
-      "id": "0xde795ccdc4c7f7c616a94c630d30ddc0a744f8b9ed00145a5d75b5c15bd11d17:37659009872231930129254017050172556069297390532928394977459403380675764923750:1787087536:BUY",
-      "timestamp": 1787087536,
-      "user": {
-        "id": "0x251c1a283703beed41590b0875a8dcb8ddd1541f"
-      },
-      "market": {
-        "question": "Bitcoin Up or Down - August 18, 5:10PM-5:15PM ET"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Up",
-      "amountUSD": "140.00",
-      "size": 150,
-      "price": 0.93336,
-      "type": "BUY",
-      "slug": "btc-updown-5m-1787087400",
-      "eventSlug": "btc-updown-5m-1787087400",
-      "transactionHash": "0xde795ccdc4c7f7c616a94c630d30ddc0a744f8b9ed00145a5d75b5c15bd11d17"
-    },
-    {
-      "id": "0xffb927a7df21fd2016d86dbc841f6041e4d4197e66fb17e9e6ad555346ad845b:44980676878446925230555911165192869650171540071830656641391196945364824711899:1787087530:BUY",
-      "timestamp": 1787087530,
-      "user": {
-        "id": "0x9b6d864a40941a0d0e7d6c979421004e7e895b1d"
-      },
-      "market": {
-        "question": "Bitcoin Up or Down - August 18, 5:10PM-5:15PM ET"
-      },
-      "outcomeIndex": 1,
-      "outcome": "Down",
-      "amountUSD": "100.00",
-      "size": 751.008,
-      "price": 0.1331543739,
-      "type": "BUY",
-      "slug": "btc-updown-5m-1787087400",
-      "eventSlug": "btc-updown-5m-1787087400",
-      "transactionHash": "0xffb927a7df21fd2016d86dbc841f6041e4d4197e66fb17e9e6ad555346ad845b"
-    },
-    {
-      "id": "0xe5f780140d5fad72accec829aa8b144f01d90bc7a56134fb4f37658e0624c3e7:37659009872231930129254017050172556069297390532928394977459403380675764923750:1787087529:BUY",
-      "timestamp": 1787087529,
-      "user": {
-        "id": "0x251c1a283703beed41590b0875a8dcb8ddd1541f"
-      },
-      "market": {
-        "question": "Bitcoin Up or Down - August 18, 5:10PM-5:15PM ET"
-      },
-      "outcomeIndex": 0,
-      "outcome": "Up",
-      "amountUSD": "133.74",
-      "size": 150,
-      "price": 0.891624,
-      "type": "BUY",
-      "slug": "btc-updown-5m-1787087400",
-      "eventSlug": "btc-updown-5m-1787087400",
-      "transactionHash": "0xe5f780140d5fad72accec829aa8b144f01d90bc7a56134fb4f37658e0624c3e7"
     }
   ]
 }
