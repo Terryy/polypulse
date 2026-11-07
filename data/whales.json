@@ -1,14 +1,14 @@
 {
   "meta": {
     "status": "error",
-    "last_checked_at": "2026-11-07T20:25:33.655904Z",
+    "last_checked_at": "2026-11-07T23:51:46.658729Z",
     "lookback_hours": 24,
     "archive_days": 365,
     "min_trade_usd": 100,
     "fetched_count": 0,
     "stored_count": 10000,
     "source": "Polymarket Data API /trades",
-    "error": "410 Client Error: Gone for url: https://data-api.polymarket.com/trades?limit=1000&offset=0&takerOnly=true&filterType=CASH&filterAmount=100&after=1793996733"
+    "error": "410 Client Error: Gone for url: https://data-api.polymarket.com/trades?limit=1000&offset=0&takerOnly=true&filterType=CASH&filterAmount=100&after=1794009106"
   },
   "trades": [
     {
